@@ -39,13 +39,15 @@ export const authStore = defineStore('authStore', () => {
 
 	const requestLogin = async (): Promise<void> => {
 		isLoaderLogin.value = true;
-		const passwordEncrypt = encryptPassword(userLogin.value.password);
-		const body = {
-			...userLogin.value,
-			password: passwordEncrypt,
-		};
-		const response = await axios.post(BURL + ENDPOINT.auth.login, body, getHeadersRequest([HEADER_PARAMETERS.content]));
-		if (response.data.success) await storeUser.saveToken(response.data.token);
+		try {
+			const passwordEncrypt = encryptPassword(userLogin.value.password);
+			const body = {
+				...userLogin.value,
+				password: passwordEncrypt,
+			};
+			const response = await axios.post(BURL + ENDPOINT.auth.login, body, getHeadersRequest([HEADER_PARAMETERS.content]));
+			if (response.data.success) await storeUser.saveToken(response.data.token);
+		} catch (e) {}
 		isLoaderLogin.value = false;
 	};
 

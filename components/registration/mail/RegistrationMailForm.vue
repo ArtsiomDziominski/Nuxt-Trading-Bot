@@ -13,7 +13,7 @@ const router = useRouter();
 
 const submit = async (): Promise<void> => {
 	await storeAuth.requestSignupMail();
-	if (isAuthenticated.value) await router.push('/main');
+	if (isAuthenticated.value) await router.push('/');
 };
 </script>
 

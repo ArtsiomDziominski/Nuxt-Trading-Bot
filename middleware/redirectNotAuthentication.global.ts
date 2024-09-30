@@ -13,6 +13,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
 
 		const isPageAuth = ['/login'].includes(to.path);
 		if (!isPageAuth && !isAuthenticated.value) return navigateTo('/login');
-		else if (isPageAuth && isAuthenticated.value) return navigateTo('/main');
+		else if (isPageAuth && isAuthenticated.value) return navigateTo('/');
 	}
 });
