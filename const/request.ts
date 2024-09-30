@@ -19,8 +19,10 @@ export const ENDPOINT = {
 		signupMail: '/auth/registration',
 		user: '/auth/user',
 	},
-	clients: {
-		get: '/user/users',
+	bots: {
+		gritBot: {
+			get: '/gridBot/activeBots',
+		},
 	},
 };
 
