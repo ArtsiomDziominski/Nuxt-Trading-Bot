@@ -1,0 +1,32 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxt/eslint": "^0.3.13",
+    "@pinia/nuxt": "^0.4.11",
+    "@types/crypto-js": "^4.2.2",
+    "eslint": "^8.57.0",
+    "nuxt": "3.4.3",
+    "pinia": "^2.1.6",
+    "sass": "^1.51.0"
+  },
+  "overrides": {
+    "vue": "latest"
+  },
+  "dependencies": {
+    "@mdi/font": "^7.2.96",
+    "axios": "^1.4.0",
+    "sass": "^1.56.1",
+    "v8n": "^1.5.1",
+    "vuetify": "^3.3.0",
+    "crypto-js": "^4.2.0"
+  }
+}
