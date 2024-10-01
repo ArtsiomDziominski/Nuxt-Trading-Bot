@@ -16,6 +16,7 @@ onMounted(() => {
 
 <template>
   <div>
+    <bots-actions-bar />
     <template v-if="activeBots && activeBots.length"></template>
     <bots-api-wrapper v-for="bot in activeBots" :key="bot.api.id" :bots="bot" />
   </div>
