@@ -1,5 +1,13 @@
 <script setup lang="ts">
+import {apiKeysStore} from "~/store/apiKeys";
+import {storeToRefs} from "pinia";
 
+const storeApiKeysStore = apiKeysStore();
+const { isModalCreateApiKey } = storeToRefs(storeApiKeysStore);
+
+const openCreateApiModal = (): void => {
+  isModalCreateApiKey.value = true;
+}
 </script>
 
 <template>
@@ -22,13 +30,15 @@
         </div>
       </v-btn>
 
-      <v-btn color="secondary" @click="addApiKey">
+      <v-btn color="secondary" @click="openCreateApiModal">
         <div class="bots-actions-bar__button">
           <v-icon left>mdi-key</v-icon>
           Добавить API ключ
         </div>
       </v-btn>
     </div>
+
+    <api-keys-create-modal />
 
   </div>
 </template>

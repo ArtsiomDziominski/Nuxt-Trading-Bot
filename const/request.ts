@@ -24,6 +24,11 @@ export const ENDPOINT = {
 			get: '/gridBot/activeBots',
 		},
 	},
+	user: {
+		apiKey: {
+			add: '/user/api',
+		}
+	}
 };
 
 export enum ErrorCodes {
