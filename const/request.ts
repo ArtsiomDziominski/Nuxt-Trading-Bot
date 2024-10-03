@@ -27,8 +27,9 @@ export const ENDPOINT = {
 	user: {
 		apiKey: {
 			add: '/user/api',
-		}
-	}
+			delete: '/user/api',
+		},
+	},
 };
 
 export enum ErrorCodes {

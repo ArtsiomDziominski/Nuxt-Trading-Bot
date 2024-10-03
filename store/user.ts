@@ -8,10 +8,7 @@ import { apiStore } from '~/store/api';
 export const userStore = defineStore('userStore', () => {
 	const api = apiStore();
 
-	const user: Ref<USER.User> = ref({
-		mail: '',
-		login: '',
-	});
+	const user: Ref<USER.User | null> = ref(null);
 
 	const userToken: Ref<string> = ref('');
 
@@ -25,7 +22,7 @@ export const userStore = defineStore('userStore', () => {
 	const requestSetUser = async (): Promise<void> => {
 		try {
 			const response = await api.get(ENDPOINT.auth.user);
-			if (response?.success) user.value = response;
+			if (response?.success) user.value = response?.data || null;
 		}
 		catch (e) {
 			if ((e as any)?.response?.data) deleteUserToken();
@@ -37,10 +34,18 @@ export const userStore = defineStore('userStore', () => {
 		userToken.value = '';
 	};
 
+	const userApiKeys = computed(() => {
+		console.log(user.value?.apiKeys || []);
+		return user.value?.apiKeys.map((item) => {
+			if (item?._id) return { ...item, id: item._id.toString() };
+		}) || [];
+	});
+
 	return {
 		user,
 		userToken,
 		isAuthenticated,
+		userApiKeys,
 		saveToken,
 		requestSetUser,
 		deleteUserToken,
