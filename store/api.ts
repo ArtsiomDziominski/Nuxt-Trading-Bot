@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
-import { getHeadersRequest } from '~/utils/request';
+import { getHeadersRequest, getHeadersRequestDelete } from '~/utils/request';
 import { ErrorCodes, HEADER_PARAMETERS } from '~/const/request';
 import { userStore } from '~/store/user';
+import {a} from "vite-node/types-c39b64bb";
 
 export const apiStore = defineStore('apiStore', () => {
 	const storeUser = userStore();
@@ -42,9 +43,23 @@ export const apiStore = defineStore('apiStore', () => {
 		}
 	};
 
+	const deleteJson = async (endpoint: string, body: any): Promise<any> => {
+		try {
+			const response = await axios.delete(BURL.value + endpoint, {
+				data: body,
+				headers: getHeadersRequestDelete(),
+			});
+			return response.data;
+		}
+		catch (e) {
+			console.log(e);
+		}
+	};
+
 	return {
 		BURL,
 		get,
 		post,
+		deleteJson,
 	};
 });
