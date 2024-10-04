@@ -17,7 +17,7 @@ export const validationStore = defineStore('validationStore', () => {
 			error: { [formField]: { message: '' } },
 		};
 		return {
-			isValid: !!validation.length,
+			isValid: !validation.length,
 			error: { [formField]: { message: errors[validation[0].rule.name] } },
 		};
 	};

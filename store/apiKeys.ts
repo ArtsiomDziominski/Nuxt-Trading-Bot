@@ -12,6 +12,11 @@ export const apiKeysStore = defineStore('apiKeysStore', () => {
 	const isModalListApiKey = ref(false);
 	const isAddApiLoading = ref(false);
 	const isRemoveApiLoading = ref<{ [key: string]: boolean }>({});
+	const errors = ref({
+		name: { message: '' },
+		publicKey: { message: '' },
+		secretKey: { message: '' },
+	});
 
 	const requestAddApi = async (apiKey: APIKEY.IApiAdd): Promise<boolean> => {
 		isAddApiLoading.value = true;
@@ -58,11 +63,17 @@ export const apiKeysStore = defineStore('apiKeysStore', () => {
 		return false;
 	};
 
+	const appendErrors = (error: COMMON.Errors): void => {
+		errors.value = { ...errors.value, ...error };
+	};
+
 	return {
 		isModalCreateApiKey,
 		isModalListApiKey,
 		isAddApiLoading,
 		isRemoveApiLoading,
+		errors,
+		appendErrors,
 		requestAddApi,
 		requestRemoveApi,
 	};

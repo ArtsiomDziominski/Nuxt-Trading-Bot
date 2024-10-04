@@ -9,9 +9,7 @@ export const userStore = defineStore('userStore', () => {
 	const api = apiStore();
 
 	const user: Ref<USER.User | null> = ref(null);
-
 	const userToken: Ref<string> = ref('');
-
 	const isAuthenticated = computed(() => !!userToken.value);
 
 	const saveToken = async (token: string): Promise<void> => {
@@ -35,7 +33,6 @@ export const userStore = defineStore('userStore', () => {
 	};
 
 	const userApiKeys = computed(() => {
-		console.log(user.value?.apiKeys || []);
 		return user.value?.apiKeys.map((item) => {
 			if (item?._id) return { ...item, id: item._id.toString() };
 		}) || [];

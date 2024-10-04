@@ -10,8 +10,7 @@ const storeUser = userStore();
 const { userApiKeys } = storeToRefs(storeUser);
 
 const removeApiKey = async (apiId: string): Promise<void> => {
-	const isAddedApi = await storeApiKeys.requestRemoveApi(apiId);
-	if (isAddedApi) isModalListApiKey.value = false;
+	await storeApiKeys.requestRemoveApi(apiId);
 };
 
 const back = () => {
@@ -30,7 +29,10 @@ const close = () => {
 			<p class="title">
 				Список Api ключей
 			</p>
-			<div class="api-keys">
+			<div
+				v-if="userApiKeys.length"
+				class="api-keys"
+			>
 				<div
 					v-for="(key, index) in userApiKeys"
 					:key="key?.id || index"
@@ -50,6 +52,15 @@ const close = () => {
 						</v-icon>
 					</v-btn>
 				</div>
+			</div>
+			<div
+				v-else
+				class="not-found"
+			>
+				<v-icon size="160">
+					mdi-api-off
+				</v-icon>
+				<p>Api-ключи не найдены</p>
 			</div>
 		</template>
 		<template #actions>
@@ -73,12 +84,13 @@ const close = () => {
   display: flex;
   flex-direction: column;
   margin-bottom: 30px;
-  gap: 20px;
 
   &__item {
     display: grid;
     grid-template-columns: 1.2fr 1fr 0.8fr min-content;
     align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid gray;
 
     p {
       max-width: 130px;
@@ -87,5 +99,13 @@ const close = () => {
       overflow: hidden;
     }
   }
+}
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 50px 0;
 }
 </style>

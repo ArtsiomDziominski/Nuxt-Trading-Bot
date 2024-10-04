@@ -13,3 +13,10 @@ export const rulePasswordForm = (val: string): VALIDATION.ValidationRule => ({
 		empty: 'fieldIsEmpty',
 	},
 });
+
+export const ruleEmpty = (val: string) => ({
+	validation: v8n().not.empty().testAll(val),
+	errors: {
+		empty: 'fieldIsEmpty',
+	},
+});

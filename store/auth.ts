@@ -47,7 +47,8 @@ export const authStore = defineStore('authStore', () => {
 			};
 			const response = await axios.post(BURL + ENDPOINT.auth.login, body, getHeadersRequest([HEADER_PARAMETERS.content]));
 			if (response.data.success) await storeUser.saveToken(response.data.token);
-		} catch (e) {}
+		}
+		catch (e) {}
 		isLoaderLogin.value = false;
 	};
 
