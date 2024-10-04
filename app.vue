@@ -2,6 +2,7 @@
 	<GlobalLoading v-if="isLoading" />
 	<NuxtLayout v-else>
 		<NuxtPage />
+		<global-notification />
 	</NuxtLayout>
 </template>
 

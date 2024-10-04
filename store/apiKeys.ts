@@ -3,10 +3,12 @@ import { ENDPOINT } from '~/const/request';
 import { apiStore } from '~/store/api';
 import { encryptAPI } from '~/utils/encrypt';
 import { userStore } from '~/store/user';
+import { notificationStore } from '~/store/notification';
 
 export const apiKeysStore = defineStore('apiKeysStore', () => {
 	const api = apiStore();
 	const storeUser = userStore();
+	const storeNotification = notificationStore();
 
 	const isModalCreateApiKey = ref(false);
 	const isModalListApiKey = ref(false);
@@ -30,8 +32,11 @@ export const apiKeysStore = defineStore('apiKeysStore', () => {
 
 			if (response.success) {
 				storeUser.requestSetUser();
+				storeNotification.addNotification('success', response.message);
 			}
-			// else add notification (response.message);
+			else {
+				storeNotification.addNotification('error', response.message);
+			}
 
 			isAddApiLoading.value = false;
 			return !!response?.success;
@@ -50,8 +55,11 @@ export const apiKeysStore = defineStore('apiKeysStore', () => {
 
 			if (response.success) {
 				storeUser.requestSetUser();
+				storeNotification.addNotification('success', response.message);
 			}
-			// else add notification (response.message);
+			else {
+				storeNotification.addNotification('error', response.message);
+			}
 
 			isRemoveApiLoading.value = { [apiKeyId]: false };
 			return !!response?.success;
