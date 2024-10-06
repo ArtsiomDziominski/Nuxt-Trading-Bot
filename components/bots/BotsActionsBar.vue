@@ -2,12 +2,16 @@
 import { storeToRefs } from 'pinia';
 import { apiKeysStore } from '~/store/apiKeys';
 import { createBotsStore } from '~/store/createBots';
+import { botsStore } from '~/store/bots';
 
 const storeApiKeysStore = apiKeysStore();
 const { isModalCreateApiKey } = storeToRefs(storeApiKeysStore);
 
 const storeCreateBots = createBotsStore();
 const { isModalSelectBots } = storeToRefs(storeCreateBots);
+
+const storeBots = botsStore();
+const { countBotsActive, countBotsDeactivate } = storeToRefs(storeBots);
 
 const openCreateApiModal = (): void => {
 	isModalCreateApiKey.value = true;
@@ -16,6 +20,14 @@ const openCreateApiModal = (): void => {
 const openSelectModal = (): void => {
 	isModalSelectBots.value = true;
 };
+
+const countBotsActiveString = computed((): string => {
+	return countBotsActive.value ? `(${countBotsActive.value})` : '';
+});
+
+const countBotsDeactivateString = computed((): string => {
+	return countBotsDeactivate.value ? `(${countBotsDeactivate.value})` : '';
+});
 </script>
 
 <template>
@@ -27,7 +39,7 @@ const openSelectModal = (): void => {
 			<v-icon color="green">
 				mdi-robot
 			</v-icon>
-			<div>Активные</div>
+			<div>Активные {{ countBotsActiveString }}</div>
 		</v-card>
 
 		<v-card
@@ -37,7 +49,7 @@ const openSelectModal = (): void => {
 			<v-icon color="red">
 				mdi-robot-off
 			</v-icon>
-			<div>Приостановленные</div>
+			<div>Приостановленные {{ countBotsDeactivateString }}</div>
 		</v-card>
 
 		<div class="bots-actions-bar__buttons">
