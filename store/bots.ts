@@ -6,8 +6,10 @@ export const botsStore = defineStore('botsStore', () => {
 	const api = apiStore();
 
 	const activeBots = ref<BOTS.ActiveBots[]>([]);
+	const isLoadingActiveBots = ref<boolean>(false);
 
 	const requestActiveBots = async (): Promise<void> => {
+		isLoadingActiveBots.value = true;
 		try {
 			const response = await api.get(ENDPOINT.bots.gritBot.get);
 			if (response?.success) activeBots.value = response?.data || [];
@@ -15,6 +17,7 @@ export const botsStore = defineStore('botsStore', () => {
 		catch (e) {
 			activeBots.value = [];
 		}
+		isLoadingActiveBots.value = false;
 	};
 
 	const countBotsActive = computed((): number => {
@@ -29,6 +32,7 @@ export const botsStore = defineStore('botsStore', () => {
 		activeBots,
 		countBotsActive,
 		countBotsDeactivate,
+		isLoadingActiveBots,
 		requestActiveBots,
 	};
 });

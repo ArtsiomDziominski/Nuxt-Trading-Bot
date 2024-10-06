@@ -1,56 +1,67 @@
 <script setup lang="ts">
 defineProps({
-  position: {
-    type: Object as PropType<BOTS.ActiveBotsPositionRisk>,
-    required: true
-  }
-})
+	position: {
+		type: Object as PropType<BOTS.ActiveBotsPositionRisk>,
+		required: true,
+	},
+});
 </script>
 
 <template>
-  <v-card class="action-card">
-    <v-card-title class="pair-title">
-      {{ position.positionRisk.symbol }}
-    </v-card-title>
+	<v-card class="action-card">
+		<v-card-title class="pair-title">
+			{{ position.positionRisk.symbol }}
+		</v-card-title>
 
-    <v-card-subtitle class="market-price">
-      <span>Рыночная цена:</span>
-      <span class="price-value">${{ position.positionRisk.markPrice }}</span>
-    </v-card-subtitle>
+		<v-card-subtitle class="market-price">
+			<span>Рыночная цена:</span>
+			<span class="price-value">${{ Number(position.positionRisk.markPrice).toFixed(2) }}</span>
+		</v-card-subtitle>
 
-    <v-card-text>
-      <div class="info-row">
-        <div class="amount">
-          <span>Кол-во монет:</span>
-          <span class="amount-value">{{ position.positionRisk.positionAmt }}</span>
-        </div>
-        <div class="liquidation">
-          <span>Цена ликвидации:</span>
-          <span class="liquidation-value">{{ position.positionRisk.liquidationPrice }}</span>
-        </div>
-      </div>
+		<v-card-text>
+			<div class="info-row">
+				<div class="amount">
+					<span>Кол-во монет:</span>
+					<span class="amount-value">{{ position.positionRisk.positionAmt }}</span>
+				</div>
+				<div class="liquidation">
+					<span>Цена ликвидации:</span>
+					<span class="liquidation-value">{{ position.positionRisk.liquidationPrice }}</span>
+				</div>
+			</div>
 
-      <div class="profit-loss">
-        <span class="loss-value" :class="{'negative': Number(position.positionRisk.unRealizedProfit) < 0, 'positive': Number(position.positionRisk.unRealizedProfit) >= 0}">
-          {{ position.positionRisk.unRealizedProfit }}$
-        </span>
-      </div>
+			<div class="profit-loss">
+				<span
+					class="loss-value"
+					:class="{ negative: Number(position.positionRisk.unRealizedProfit) < 0, positive: Number(position.positionRisk.unRealizedProfit) >= 0 }"
+				>
+					{{ Number(position.positionRisk.unRealizedProfit).toFixed(2) }}$
+				</span>
+			</div>
 
-      <div class="entry-price">
-        <span>Цена входа:</span>
-        <span>{{ position.positionRisk.entryPrice }}</span>
-      </div>
-    </v-card-text>
+			<div class="entry-price">
+				<span>Цена входа:</span>
+				<span>{{ Number(position.positionRisk.entryPrice).toFixed(2) }}</span>
+			</div>
+		</v-card-text>
 
-    <v-card-actions>
-      <v-btn @click="stopBot" color="red darken-2" outlined>
-        Остановить
-      </v-btn>
-      <v-btn @click="takeProfit" color="green darken-2" outlined>
-        Собрать профит
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+		<v-card-actions>
+			<v-btn
+				color="red darken-2"
+				outlined
+				@click="stopBot"
+			>
+				Остановить
+			</v-btn>
+			<v-btn
+				color="green darken-2"
+				outlined
+				@click="takeProfit"
+			>
+				Собрать профит
+			</v-btn>
+		</v-card-actions>
+	</v-card>
 </template>
 
 <style scoped lang="scss">
