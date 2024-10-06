@@ -22,6 +22,7 @@ export const ENDPOINT = {
 	bots: {
 		gritBot: {
 			get: '/gridBot/activeBots',
+			create: '/gridBot/create',
 		},
 	},
 	user: {

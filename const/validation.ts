@@ -14,7 +14,7 @@ export const rulePasswordForm = (val: string): VALIDATION.ValidationRule => ({
 	},
 });
 
-export const ruleEmpty = (val: string) => ({
+export const ruleEmpty = (val: string | undefined | null | number) => ({
 	validation: v8n().not.empty().testAll(val),
 	errors: {
 		empty: 'fieldIsEmpty',

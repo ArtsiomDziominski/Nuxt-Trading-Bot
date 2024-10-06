@@ -1,24 +1,26 @@
 <script setup lang="ts">
-
+defineProps({
+	title: String,
+});
 </script>
 
 <template>
-  <v-dialog max-width="500">
+	<v-dialog max-width="500">
+		<v-card
+			class="pa-6"
+			:title="title"
+		>
+			<v-form @click.prevent>
+				<slot name="body" />
 
-    <v-card class="pa-6">
-      <v-form @click.prevent>
+				<v-spacer />
 
-        <slot name="body"/>
-
-        <v-spacer/>
-
-        <div class="actions">
-          <slot name="actions"/>
-        </div>
-
-      </v-form>
-    </v-card>
-  </v-dialog>
+				<div class="actions">
+					<slot name="actions" />
+				</div>
+			</v-form>
+		</v-card>
+	</v-dialog>
 </template>
 
 <style scoped lang="scss">
