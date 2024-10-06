@@ -29,7 +29,7 @@ const { notifications } = storeToRefs(storeNotification);
   display: flex;
   flex-direction: column;
   gap: 20px;
-  position: absolute;
+  position: fixed;
   bottom: 20px;
   right: 20px;
   z-index: 1000000;

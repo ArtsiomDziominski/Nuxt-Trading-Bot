@@ -58,6 +58,8 @@ const checkValidationApiKey = (): boolean => {
 					v-model="api.name"
 					label="Имя"
 					variant="outlined"
+					maxlength="150"
+					clearable
 					:error-messages="errors.name.message"
 					@input="handleInput('name')"
 				/>
@@ -65,6 +67,7 @@ const checkValidationApiKey = (): boolean => {
 					v-model="api.publicKey"
 					label="Public key"
 					variant="outlined"
+					maxlength="150"
 					:error-messages="errors.publicKey.message"
 					@input="handleInput('publicKey')"
 				/>
@@ -72,6 +75,7 @@ const checkValidationApiKey = (): boolean => {
 					v-model="api.secretKey"
 					label="Secret key"
 					variant="outlined"
+					maxlength="150"
 					:error-messages="errors.secretKey.message"
 					@input="handleInput('secretKey')"
 				/>

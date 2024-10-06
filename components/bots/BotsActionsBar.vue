@@ -1,12 +1,20 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { apiKeysStore } from '~/store/apiKeys';
+import { createBotsStore } from '~/store/createBots';
 
 const storeApiKeysStore = apiKeysStore();
 const { isModalCreateApiKey } = storeToRefs(storeApiKeysStore);
 
+const storeCreateBots = createBotsStore();
+const { isModalSelectBots } = storeToRefs(storeCreateBots);
+
 const openCreateApiModal = (): void => {
 	isModalCreateApiKey.value = true;
+};
+
+const openSelectModal = (): void => {
+	isModalSelectBots.value = true;
 };
 </script>
 
@@ -35,7 +43,7 @@ const openCreateApiModal = (): void => {
 		<div class="bots-actions-bar__buttons">
 			<v-btn
 				color="primary"
-				@click="createNewBot"
+				@click="openSelectModal"
 			>
 				<div class="bots-actions-bar__button">
 					<v-icon left>
@@ -60,6 +68,8 @@ const openCreateApiModal = (): void => {
 
 		<api-keys-create-modal />
 		<api-keys-list-modal />
+		<bot-create-bots-create-modal />
+		<bot-create-bots-select-modal />
 	</div>
 </template>
 
