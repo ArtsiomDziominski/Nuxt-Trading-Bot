@@ -17,9 +17,8 @@ onMounted(() => {
 <template>
 	<div>
 		<bots-actions-bar />
-		<!--		<template " /> -->
 		<loader-box v-if="isLoadingActiveBots" />
-		<template v-else-if="!activeBots && activeBots.length">
+		<template v-else-if="activeBots && activeBots.length">
 			<bots-api-wrapper
 				v-for="bot in activeBots"
 				:key="bot.api.id"
