@@ -3,15 +3,18 @@ import { storeToRefs } from 'pinia';
 import { createBotsStore } from '~/store/createBots';
 import { userStore } from '~/store/user';
 import { BotCreateTitle, BotTypes } from '~/const/bots';
+import { botsStore } from '~/store/bots';
 
 const storeCreateBots = createBotsStore();
 const { createBotParams, errors, isModalCreateBots, isLoadingCreateBot } = storeToRefs(storeCreateBots);
-const storeUSer = userStore();
-const { userApiKeys } = storeToRefs(storeUSer);
+const storeUser = userStore();
+const { userApiKeys } = storeToRefs(storeUser);
+const storeBot = botsStore();
 
 const createBot = async (): Promise<void> => {
 	if (storeCreateBots.checkValidationCreateBot()) {
 		if (await storeCreateBots.requestCreateBot()) {
+			storeBot.requestActiveBots();
 			storeCreateBots.clearBotParams();
 			isModalCreateBots.value = false;
 		}
