@@ -7,17 +7,21 @@ definePageMeta({
 });
 
 const storeBots = botsStore();
-const { activeBots, isLoadingActiveBots } = storeToRefs(storeBots);
+const { activeBots } = storeToRefs(storeBots);
 
-onMounted(() => {
-	storeBots.requestActiveBots();
+const loadingBots = ref(false);
+
+onMounted(async () => {
+	loadingBots.value = true;
+	await storeBots.requestActiveBots();
+	loadingBots.value = false;
 });
 </script>
 
 <template>
 	<div>
 		<bots-actions-bar />
-		<loader-box v-if="isLoadingActiveBots" />
+		<loader-box v-if="loadingBots" />
 		<template v-else-if="activeBots && activeBots.length">
 			<bots-api-wrapper
 				v-for="bot in activeBots"
