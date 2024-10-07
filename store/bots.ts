@@ -21,12 +21,22 @@ export const botsStore = defineStore('botsStore', () => {
 	};
 
 	const countBotsActive = computed((): number => {
-		return activeBots.value.reduce((acc, bot) => (bot.positionsRisk.filter(risk => risk.positionRisk.isActive)?.length || 0) + acc, 0);
+		return activeBots.value?.reduce((acc, bot) => (bot.positionsRisk?.filter(risk => risk.positionRisk.isActive)?.length || 0) + acc, 0) || 0;
 	});
 
 	const countBotsDeactivate = computed((): number => {
-		return activeBots.value.reduce((acc, bot) => (bot.positionsRisk.filter(risk => !risk.positionRisk.isActive)?.length || 0) + acc, 0);
+		return activeBots.value?.reduce((acc, bot) => (bot.positionsRisk?.filter(risk => !risk.positionRisk.isActive)?.length || 0) + acc, 0) || 0;
 	});
+
+	const updateActiveBotsFromWS = (apiId: string, positionsRisk: BOTS.PositionRisk[]): void => {
+		const apiIndex = activeBots.value.findIndex(item => item.api.id === apiId);
+		if (apiIndex === -1) return;
+		positionsRisk.forEach((newRisk) => {
+			const positionRiskIndex = activeBots.value?.[apiIndex]?.positionsRisk.findIndex(risk => risk.positionParam?.symbol === newRisk?.symbol);
+			if (positionRiskIndex === -1) return;
+			if (activeBots.value?.[apiIndex]?.positionsRisk?.[positionRiskIndex]?.positionRisk) activeBots.value[apiIndex].positionsRisk[positionRiskIndex].positionRisk = newRisk;
+		});
+	};
 
 	return {
 		activeBots,
@@ -34,5 +44,6 @@ export const botsStore = defineStore('botsStore', () => {
 		countBotsDeactivate,
 		isLoadingActiveBots,
 		requestActiveBots,
+		updateActiveBotsFromWS,
 	};
 });

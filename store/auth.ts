@@ -8,11 +8,13 @@ import { apiStore } from '~/store/api';
 import { ruleLoginForm, rulePasswordForm } from '~/const/validation';
 import { validationStore } from '~/store/validation';
 import { encryptPassword } from '~/utils/encrypt';
+import { wsStore } from '~/store/ws';
 
 export const authStore = defineStore('authStore', () => {
 	const storeUser = userStore();
 	const storeValidation = validationStore();
 	const api = apiStore();
+	const storeWS = wsStore();
 	const BURL = api.BURL;
 
 	const userLogin: Ref<AUTH.ILogin> = ref({
@@ -46,9 +48,12 @@ export const authStore = defineStore('authStore', () => {
 				password: passwordEncrypt,
 			};
 			const response = await axios.post(BURL + ENDPOINT.auth.login, body, getHeadersRequest([HEADER_PARAMETERS.content]));
-			if (response.data.success) await storeUser.saveToken(response.data.token);
+			if (response.data.success) {
+				await storeUser.saveToken(response.data.token);
+				storeWS.webSocketServer();
+			}
 		}
-		catch (e) {}
+		catch (e) { /* empty */ }
 		isLoaderLogin.value = false;
 	};
 
