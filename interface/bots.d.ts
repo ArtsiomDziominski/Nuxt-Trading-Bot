@@ -6,20 +6,22 @@ export interface ActiveBots {
 	positionsRisk: ActiveBotsPositionRisk[];
 }
 
+export interface PositionRisk {
+	symbol: string;
+	positionAmt: string;
+	entryPrice: string;
+	markPrice: string;
+	unRealizedProfit: string;
+	liquidationPrice: string;
+	isolatedMargin: string;
+	isolatedWallet: string;
+	updateTime: number;
+	isActive: true;
+	isProcessingOrders: false;
+}
+
 export interface ActiveBotsPositionRisk {
-	positionRisk: {
-		symbol: string;
-		positionAmt: string;
-		entryPrice: string;
-		markPrice: string;
-		unRealizedProfit: string;
-		liquidationPrice: string;
-		isolatedMargin: string;
-		isolatedWallet: string;
-		updateTime: number;
-		isActive: true;
-		isProcessingOrders: false;
-	};
+	positionRisk: PositionRisk;
 	positionParam: {
 		symbol: string;
 		qty: number;
@@ -31,7 +33,7 @@ export interface ActiveBotsPositionRisk {
 		strategy: 'DEFAULT';
 		marginType: 'CROSSED';
 		stepRevers: number;
-	}[];
+	};
 }
 
 export as namespace BOTS;

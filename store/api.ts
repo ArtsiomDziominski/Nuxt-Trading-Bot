@@ -3,7 +3,6 @@ import { defineStore } from 'pinia';
 import { getHeadersRequest, getHeadersRequestDelete } from '~/utils/request';
 import { ErrorCodes, HEADER_PARAMETERS } from '~/const/request';
 import { userStore } from '~/store/user';
-import {a} from "vite-node/types-c39b64bb";
 
 export const apiStore = defineStore('apiStore', () => {
 	const storeUser = userStore();
