@@ -4,11 +4,23 @@ defineProps({
 		type: Object as PropType<BOTS.ActiveBotsPositionRisk>,
 		required: true,
 	},
+	loading: {
+		type: Boolean,
+		default: false,
+	},
 });
+
+defineEmits(['takeProfit', 'stopBot']);
 </script>
 
 <template>
-	<v-card class="compact-card">
+	<v-card
+		class="compact-card"
+	>
+		<LoaderBox
+			v-if="loading"
+			class="loading"
+		/>
 		<div class="card-header">
 			<h2>{{ position.positionRisk.symbol }}</h2>
 			<v-chip
@@ -47,14 +59,14 @@ defineProps({
 			<v-btn
 				color="red darken-1"
 				outlined
-				@click="stopBot"
+				@click="$emit('stopBot')"
 			>
 				Остановить
 			</v-btn>
 			<v-btn
 				color="green darken-1"
 				outlined
-				@click="takeProfit"
+				@click="$emit('takeProfit')"
 			>
 				Собрать
 			</v-btn>
@@ -63,6 +75,13 @@ defineProps({
 </template>
 
 <style scoped lang="scss">
+.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
 .compact-card {
   background-color: #1e1e2f;
   border-radius: 10px;

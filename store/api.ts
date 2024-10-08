@@ -26,7 +26,7 @@ export const apiStore = defineStore('apiStore', () => {
 		}
 	};
 
-	const post = async (endpoint: string, body: any, query: string = ''): Promise<any> => {
+	const post = async (endpoint: string, body: any = {}, query: string = ''): Promise<any> => {
 		try {
 			const response = await axios.post(BURL.value + endpoint + '?' + query, body, getHeadersRequest([HEADER_PARAMETERS.content, HEADER_PARAMETERS.authorization, HEADER_PARAMETERS.accept]));
 			if (response?.data?.success) return response.data;

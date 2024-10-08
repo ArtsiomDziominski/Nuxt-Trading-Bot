@@ -1,10 +1,22 @@
 <script setup lang="ts">
+import { botsStore } from '~/store/bots';
+
 defineProps({
 	bots: {
 		type: Object as PropType<BOTS.ActiveBots>,
 		required: true,
 	},
 });
+
+const storeBots = botsStore();
+
+const loadingBot = ref<Record<string, boolean>>({});
+
+const requestTakeProfitGridBot = async (symbol: string, apiId: string) => {
+	loadingBot.value[apiId + symbol] = true;
+	await storeBots.requestTakeProfitGridBot(symbol, apiId);
+	loadingBot.value[apiId + symbol] = false;
+};
 </script>
 
 <template>
@@ -18,6 +30,9 @@ defineProps({
 				v-for="positionRisk in bots.positionsRisk"
 				:key="positionRisk.positionRisk.symbol"
 				:position="positionRisk"
+				:loading="loadingBot[bots.api.id + positionRisk.positionRisk.symbol]"
+				@stop-bot="storeBots.requestTakeProfitGridBot"
+				@take-profit="requestTakeProfitGridBot(positionRisk.positionRisk.symbol, bots.api.id)"
 			/>
 		</div>
 	</div>

@@ -1,12 +1,15 @@
 import { defineStore } from 'pinia';
 import { ENDPOINT } from '~/const/request';
 import { apiStore } from '~/store/api';
+import { notificationStore } from '~/store/notification';
 
 export const botsStore = defineStore('botsStore', () => {
 	const api = apiStore();
+	const notification = notificationStore();
 
 	const activeBots = ref<BOTS.ActiveBots[]>([]);
 	const isLoadingActiveBots = ref<boolean>(false);
+	const isLoadingTakeProfitGridBot = ref<boolean>(false);
 
 	const requestActiveBots = async (): Promise<void> => {
 		isLoadingActiveBots.value = true;
@@ -18,6 +21,19 @@ export const botsStore = defineStore('botsStore', () => {
 			activeBots.value = [];
 		}
 		isLoadingActiveBots.value = false;
+	};
+
+	const requestTakeProfitGridBot = async (symbol: string, apiId: string | undefined): Promise<void> => {
+		isLoadingTakeProfitGridBot.value = true;
+		try {
+			const response = await api.post(ENDPOINT.bots.gritBot.takeProfit, { symbol, apiId });
+			if (response?.success) notification.addNotification('success', `${response?.message} ${response?.data?.symbol}`);
+			else notification.addNotification('error', `${response?.message} ${response?.data?.symbol}`);
+		}
+		catch (e) {
+			activeBots.value = [];
+		}
+		isLoadingTakeProfitGridBot.value = false;
 	};
 
 	const countBotsActive = computed((): number => {
@@ -43,7 +59,9 @@ export const botsStore = defineStore('botsStore', () => {
 		countBotsActive,
 		countBotsDeactivate,
 		isLoadingActiveBots,
+		isLoadingTakeProfitGridBot,
 		requestActiveBots,
 		updateActiveBotsFromWS,
+		requestTakeProfitGridBot,
 	};
 });
