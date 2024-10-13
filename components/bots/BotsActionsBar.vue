@@ -4,11 +4,15 @@ import { apiKeysStore } from '~/store/apiKeys';
 import { createBotsStore } from '~/store/createBots';
 import { botsStore } from '~/store/bots';
 
+const HistoryGridBotCreatedModal = defineAsyncComponent(() =>
+	import('~/components/history/HistoryGridBotCreatedModal.vue'),
+);
+
 const storeApiKeysStore = apiKeysStore();
 const { isModalCreateApiKey } = storeToRefs(storeApiKeysStore);
 
 const storeCreateBots = createBotsStore();
-const { isModalSelectBots } = storeToRefs(storeCreateBots);
+const { isModalSelectBots, isModalCreateBots } = storeToRefs(storeCreateBots);
 
 const storeBots = botsStore();
 const { countBotsActive, countBotsDeactivate } = storeToRefs(storeBots);
@@ -82,6 +86,7 @@ const countBotsDeactivateString = computed((): string => {
 		<api-keys-list-modal />
 		<bot-create-bots-create-modal />
 		<bot-create-bots-select-modal />
+		<HistoryGridBotCreatedModal v-if="isModalCreateBots" />
 	</div>
 </template>
 

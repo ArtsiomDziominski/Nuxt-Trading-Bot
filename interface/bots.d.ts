@@ -20,20 +20,22 @@ export interface PositionRisk {
 	isProcessingOrders: false;
 }
 
+export interface PositionParam {
+	symbol: string;
+	qty: number;
+	price: number;
+	side: string;
+	qtyOpenOrders: number;
+	step: number;
+	decimals: number;
+	strategy: 'DEFAULT';
+	marginType: 'CROSSED';
+	stepRevers: number;
+}
+
 export interface ActiveBotsPositionRisk {
 	positionRisk: PositionRisk;
-	positionParam: {
-		symbol: string;
-		qty: number;
-		price: number;
-		side: string;
-		qtyOpenOrders: number;
-		step: number;
-		decimals: number;
-		strategy: 'DEFAULT';
-		marginType: 'CROSSED';
-		stepRevers: number;
-	};
+	positionParam: PositionParam;
 }
 
 export as namespace BOTS;

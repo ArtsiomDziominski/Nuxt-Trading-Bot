@@ -27,6 +27,11 @@ export const ENDPOINT = {
 			watching: '/gridBot/watching',
 		},
 	},
+	history: {
+		gridBot: {
+			created: '/history/gridBot/createBot',
+		},
+	},
 	user: {
 		apiKey: {
 			add: '/user/api',

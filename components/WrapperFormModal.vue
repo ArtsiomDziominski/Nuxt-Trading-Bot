@@ -1,11 +1,15 @@
 <script setup lang="ts">
 defineProps({
 	title: String,
+	maxWidth: {
+		type: String,
+		default: '500',
+	},
 });
 </script>
 
 <template>
-	<v-dialog max-width="500">
+	<v-dialog :max-width="maxWidth">
 		<v-card
 			class="pa-6"
 			:title="title"

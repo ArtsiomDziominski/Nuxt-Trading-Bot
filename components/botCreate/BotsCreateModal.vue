@@ -4,12 +4,15 @@ import { createBotsStore } from '~/store/createBots';
 import { userStore } from '~/store/user';
 import { BotCreateTitle, BotTypes } from '~/const/bots';
 import { botsStore } from '~/store/bots';
+import { historyStore } from '~/store/historyBots';
 
 const storeCreateBots = createBotsStore();
 const { createBotParams, errors, isModalCreateBots, isLoadingCreateBot } = storeToRefs(storeCreateBots);
 const storeUser = userStore();
 const { userApiKeys } = storeToRefs(storeUser);
 const storeBot = botsStore();
+const storeHistory = historyStore();
+const { isModalHistoryGridBotCreated } = storeToRefs(storeHistory);
 
 const createBot = async (): Promise<void> => {
 	if (storeCreateBots.checkValidationCreateBot()) {
@@ -28,6 +31,11 @@ const setPrice = () => {
 const titleModal = computed((): string => {
 	return BotCreateTitle?.[createBotParams.value?.strategy] || '';
 });
+
+const openHistoryGridBot = () => {
+	storeHistory.requestHistoryGridBotCreated();
+	isModalHistoryGridBotCreated.value = true;
+};
 </script>
 
 <template>
@@ -36,7 +44,7 @@ const titleModal = computed((): string => {
 		:title="titleModal"
 	>
 		<template #body>
-			<div>
+			<div class="modal-body">
 				<v-autocomplete
 					v-model="createBotParams.apiId"
 					label="Api key"
@@ -130,6 +138,14 @@ const titleModal = computed((): string => {
 						</v-text-field>
 					</v-expand-transition>
 				</div>
+				<v-btn
+					variant="text"
+					@click="openHistoryGridBot"
+				>
+					<v-icon>
+						mdi-history
+					</v-icon>
+				</v-btn>
 			</div>
 		</template>
 		<template #actions>
@@ -149,17 +165,19 @@ const titleModal = computed((): string => {
 </template>
 
 <style scoped lang="scss">
-.create-bot-tabs {
-  margin-bottom: 16px;
-}
+.modal-body{
+  .create-bot-tabs {
+    margin-bottom: 16px;
+  }
 
-.create-bot-fields {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px 20px;
+  .create-bot-fields {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 20px;
 
-  &__price {
-    grid-column: 1/3;
+    &__price {
+      grid-column: 1/3;
+    }
   }
 }
 </style>
