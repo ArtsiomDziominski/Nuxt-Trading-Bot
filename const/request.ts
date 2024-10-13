@@ -24,6 +24,7 @@ export const ENDPOINT = {
 			get: '/gridBot/activeBots',
 			create: '/gridBot/create',
 			takeProfit: '/gridBot/takeProfit',
+			watching: '/gridBot/watching',
 		},
 	},
 	user: {

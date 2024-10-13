@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps({
+const props = defineProps({
 	position: {
 		type: Object as PropType<BOTS.ActiveBotsPositionRisk>,
 		required: true,
@@ -10,22 +10,37 @@ defineProps({
 	},
 });
 
-defineEmits(['takeProfit', 'stopBot']);
+const emit = defineEmits(['takeProfit', 'pauseBot', 'startBot', 'stopBot', 'resetLoading']);
+
+const isActiveChangeAnimation = ref<boolean>(false);
+
+watch(
+	() => props.position.positionRisk.unRealizedProfit,
+	() => {
+		if (props.loading) emit('resetLoading');
+		isActiveChangeAnimation.value = true;
+		setTimeout(() => (isActiveChangeAnimation.value = false), 300);
+	},
+);
 </script>
 
 <template>
 	<v-card
 		class="compact-card"
+		:class="{ change: isActiveChangeAnimation }"
+		elevation="10"
 	>
 		<LoaderBox
 			v-if="loading"
 			class="loading"
 		/>
-		<div class="card-header">
+		<div
+			class="card-header"
+		>
 			<h2>{{ position.positionRisk.symbol }}</h2>
 			<v-chip
 				class="profit-chip"
-				:color="position.positionRisk.unRealizedProfit < 0 ? 'red' : 'green'"
+				:color="Number(position.positionRisk.unRealizedProfit) < 0 ? 'red' : 'green'"
 				outlined
 			>
 				{{ Number(position.positionRisk.unRealizedProfit).toFixed(2) }}$
@@ -57,18 +72,35 @@ defineEmits(['takeProfit', 'stopBot']);
 
 		<v-card-actions class="card-actions">
 			<v-btn
-				color="red darken-1"
+				v-if="position.positionRisk.isActive"
+				color="red"
 				outlined
-				@click="$emit('stopBot')"
+				@click="$emit('pauseBot')"
 			>
 				Остановить
 			</v-btn>
 			<v-btn
-				color="green darken-1"
+				v-else
+				color="primary"
+				outlined
+				@click="$emit('startBot')"
+			>
+				Запустить
+			</v-btn>
+			<v-btn
+				color="green"
 				outlined
 				@click="$emit('takeProfit')"
 			>
 				Собрать
+			</v-btn>
+
+			<v-btn
+				color="warning card-actions__close"
+				outlined
+				@click="$emit('stopBot')"
+			>
+				Закрыть бота
 			</v-btn>
 		</v-card-actions>
 	</v-card>
@@ -83,9 +115,9 @@ defineEmits(['takeProfit', 'stopBot']);
 }
 
 .compact-card {
-  background-color: #1e1e2f;
+  background-color: var(--card-second-background);
   border-radius: 10px;
-  color: white;
+  color: rgba(var(--v-theme-on-surface), var(--v-high-emphasis-opacity));
   padding: 16px;
   max-width: 320px;
 }
@@ -108,21 +140,31 @@ defineEmits(['takeProfit', 'stopBot']);
 }
 
 .label {
-  color: #b0b0b0;
+  color: rgba(var(--v-theme-on-surface), var(--v-high-emphasis-opacity));
+  opacity: 0.6;
 }
 
 .value {
-  color: #e0e0e0;
+  color: rgba(var(--v-theme-on-surface), var(--v-high-emphasis-opacity));
 }
 
 .card-actions {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, min-content);
   margin-top: 10px;
+
+  &__close {
+    grid-area: 2/1/3/3;
+  }
 }
 
 .v-btn {
   font-size: 14px;
   padding: 8px 16px;
+}
+
+.change {
+  opacity: 0.6;
 }
 </style>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps({
+const props = defineProps({
 	position: {
 		type: Object as PropType<BOTS.ActiveBotsPositionRisk>,
 		required: true,
@@ -11,10 +11,23 @@ defineProps({
 });
 
 defineEmits(['takeProfit', 'stopBot']);
+
+const isActiveChangeAnimation = ref<boolean>(false);
+
+watch(
+	() => props.position.positionRisk.unRealizedProfit,
+	() => {
+		isActiveChangeAnimation.value = true;
+		setTimeout(() => (isActiveChangeAnimation.value = false), 300);
+	},
+);
 </script>
 
 <template>
-	<v-card class="action-card">
+	<v-card
+		class="action-card"
+		:class="{ change: isActiveChangeAnimation }"
+	>
 		<LoaderBox
 			v-if="loading"
 			class="loading"

@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { ENDPOINT } from '~/const/request';
 import { apiStore } from '~/store/api';
 import { notificationStore } from '~/store/notification';
+import { BotStatus } from '~/const/bots';
 
 export const botsStore = defineStore('botsStore', () => {
 	const api = apiStore();
@@ -10,6 +11,7 @@ export const botsStore = defineStore('botsStore', () => {
 	const activeBots = ref<BOTS.ActiveBots[]>([]);
 	const isLoadingActiveBots = ref<boolean>(false);
 	const isLoadingTakeProfitGridBot = ref<boolean>(false);
+	const isLoadingStopGridBot = ref<boolean>(false);
 
 	const requestActiveBots = async (): Promise<void> => {
 		isLoadingActiveBots.value = true;
@@ -36,6 +38,31 @@ export const botsStore = defineStore('botsStore', () => {
 		isLoadingTakeProfitGridBot.value = false;
 	};
 
+	const requestChangeWatchingGridBot = async (symbol: string, apiId: string | undefined, status: BotStatus): Promise<void> => {
+		if (!apiId) return;
+		isLoadingStopGridBot.value = true;
+		try {
+			const response = await api.put(ENDPOINT.bots.gritBot.watching, { symbol, apiId, status });
+			if (response?.success) {
+				notification.addNotification('success', `${response?.message} ${response?.data?.symbol}`);
+				if (status === BotStatus.Stop) {
+					const apiIdIndex = activeBots.value.findIndex(bot => bot.api.id = apiId);
+					if (apiIdIndex === -1) return;
+					activeBots.value[apiIdIndex].positionsRisk = activeBots.value[apiIdIndex].positionsRisk.filter(risk => risk.positionParam.symbol !== symbol);
+				}
+				else {
+					const isActive = status === BotStatus.Start || status !== BotStatus.Pause;
+					changeActiveBot(symbol, apiId, isActive);
+				}
+			}
+			else notification.addNotification('error', `${response?.message} ${response?.data?.symbol}`);
+		}
+		catch (e) {
+			activeBots.value = [];
+		}
+		isLoadingStopGridBot.value = false;
+	};
+
 	const countBotsActive = computed((): number => {
 		return activeBots.value?.reduce((acc, bot) => (bot.positionsRisk?.filter(risk => risk.positionRisk.isActive)?.length || 0) + acc, 0) || 0;
 	});
@@ -54,6 +81,15 @@ export const botsStore = defineStore('botsStore', () => {
 		});
 	};
 
+	const changeActiveBot = (symbol: string, apiId: string, isActive: boolean) => {
+		const apiIdIndex = activeBots.value.findIndex(item => item.api.id === apiId);
+		if (apiIdIndex === -1) return;
+		const positionIndex = activeBots.value?.[apiIdIndex].positionsRisk.findIndex(item => item.positionRisk.symbol === symbol);
+		if (positionIndex === -1) return;
+		if (activeBots.value?.[apiIdIndex].positionsRisk?.[positionIndex].positionRisk?.isActive !== undefined)
+			activeBots.value[apiIdIndex].positionsRisk[positionIndex].positionRisk.isActive = isActive;
+	};
+
 	return {
 		activeBots,
 		countBotsActive,
@@ -63,5 +99,6 @@ export const botsStore = defineStore('botsStore', () => {
 		requestActiveBots,
 		updateActiveBotsFromWS,
 		requestTakeProfitGridBot,
+		requestChangeWatchingGridBot,
 	};
 });

@@ -12,3 +12,9 @@ export const BotCreateTitle = {
 	[Strategy.DEFAULT]: 'Сеточный бот',
 	[Strategy.MARTINGALE]: 'Сеточный бот "Мартингейл"',
 };
+
+export enum BotStatus {
+	Start = 'START',
+	Stop = 'STOP',
+	Pause = 'PAUSE',
+}

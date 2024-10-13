@@ -42,6 +42,22 @@ export const apiStore = defineStore('apiStore', () => {
 		}
 	};
 
+	const put = async (endpoint: string, body: any = {}, query: string = ''): Promise<any> => {
+		try {
+			const response = await axios.put(BURL.value + endpoint + '?' + query, body, getHeadersRequest([HEADER_PARAMETERS.content, HEADER_PARAMETERS.authorization, HEADER_PARAMETERS.accept]));
+			if (response?.data?.success) return response.data;
+			return response.data;
+		}
+		catch (e) {
+			const error = e?.response?.data?.error;
+			if (error?.errorCode === ErrorCodes.notAuth || error?.errorCode === ErrorCodes.notAdmin) {
+				storeUser.deleteUserToken();
+				await router.push('/login');
+			}
+			return e?.response?.data;
+		}
+	};
+
 	const deleteJson = async (endpoint: string, body: any): Promise<any> => {
 		try {
 			const response = await axios.delete(BURL.value + endpoint, {
@@ -59,6 +75,7 @@ export const apiStore = defineStore('apiStore', () => {
 		BURL,
 		get,
 		post,
+		put,
 		deleteJson,
 	};
 });
