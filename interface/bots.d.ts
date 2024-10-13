@@ -16,7 +16,7 @@ export interface PositionRisk {
 	isolatedMargin: string;
 	isolatedWallet: string;
 	updateTime: number;
-	isActive: true;
+	isActive: boolean;
 	isProcessingOrders: false;
 }
 
