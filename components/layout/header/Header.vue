@@ -22,12 +22,12 @@ function toggleTheme() {
 		class="app-bar"
 	>
 		<template #prepend>
-			<v-icon icon="$vuetify" />
+			<v-icon icon="mdi-finance" />
 		</template>
 
 		<v-app-bar-title>
 			<div class="title">
-				Application Bar
+				Crypto Trading
 				<div class="buttons">
 					<header-buttons v-if="isAuthenticated" />
 				</div>
