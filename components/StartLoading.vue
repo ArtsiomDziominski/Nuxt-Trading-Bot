@@ -4,19 +4,18 @@
 
 <template>
 	<div class="wrapper-loading">
-		<v-progress-circular
-			:size="70"
-			:width="7"
-			color="purple"
-			indeterminate
-		/>
+		<v-icon
+			size="100"
+		>
+			mdi-finance
+		</v-icon>
 	</div>
 </template>
 
 <style scoped lang="scss">
 .wrapper-loading {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;

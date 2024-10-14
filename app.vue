@@ -1,5 +1,5 @@
 <template>
-	<GlobalLoading v-if="isLoading" />
+	<start-loading v-if="isLoading" />
 	<NuxtLayout v-else>
 		<NuxtHead>
 			<title>Лучшие торговые боты для торговли криптовалютой</title>
@@ -35,5 +35,11 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-.app {}
+.loading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>
