@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { useTheme } from 'vuetify';
+import { storeToRefs } from 'pinia';
 import { localStorageKeyTheme, themeDark, themeLight } from '~/const/theme';
 import HeaderButtons from '~/components/layout/header/HeaderButtons.vue';
 import HeaderAccount from '~/components/layout/header/HeaderAccount.vue';
+import { userStore } from '~/store/user';
+
+const storeUser = userStore();
+const { isAuthenticated } = storeToRefs(storeUser);
 
 const theme = useTheme();
 function toggleTheme() {
@@ -24,7 +29,7 @@ function toggleTheme() {
 			<div class="title">
 				Application Bar
 				<div class="buttons">
-					<header-buttons />
+					<header-buttons v-if="isAuthenticated" />
 				</div>
 			</div>
 		</v-app-bar-title>
@@ -33,7 +38,10 @@ function toggleTheme() {
 				<v-btn @click="toggleTheme">
 					{{ theme.global.current.value.dark ? 'light' : 'dark' }}
 				</v-btn>
-				<header-account class="account" />
+				<header-account
+					v-if="isAuthenticated"
+					class="account"
+				/>
 			</div>
 		</template>
 	</v-app-bar>
