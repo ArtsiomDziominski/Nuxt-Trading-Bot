@@ -11,16 +11,26 @@ const { isAuthenticated } = storeToRefs(storeUser);
 
 const router = useRouter();
 
+const showPassword = ref(false);
+
 const submit = async (): Promise<void> => {
 	if (!storeAuth.checkValidationLoginForm() && !storeAuth.checkValidationPasswordForm()) return;
 	await storeAuth.requestLogin();
 	await storeUser.requestSetUser();
-	if (isAuthenticated.value) await router.push('/');
+	if (isAuthenticated.value) await router.push('/bots');
+};
+
+const inputMail = async (): Promise<void> => {
+	errors.value.mail.message = '';
 };
 
 const blurMail = async (): Promise<void> => {
 	errors.value.mail.message = '';
 	if (userLogin.value.mail) storeAuth.checkValidationLoginForm();
+};
+
+const inputPassword = async (): Promise<void> => {
+	errors.value.password.message = '';
 };
 
 const blurPassword = async (): Promise<void> => {
@@ -56,7 +66,9 @@ const isDisabledBtn = computed((): boolean => {
 					placeholder="johndoe@gmail.com"
 					type="email"
 					variant="outlined"
+					name="email"
 					:error-messages="errors.mail.message"
+					@input="inputMail"
 					@blur="blurMail"
 				/>
 
@@ -65,10 +77,14 @@ const isDisabledBtn = computed((): boolean => {
 					class="card__input"
 					hint="Enter your password to access this website"
 					label="Password"
-					type="password"
+					:type="showPassword ? 'text' : 'password'"
 					variant="outlined"
 					:error-messages="errors.password.message"
+					:append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+					name="current-password"
+					@input="inputPassword"
 					@blur="blurPassword"
+					@click:append-inner="showPassword = !showPassword"
 				/>
 			</v-card-item>
 

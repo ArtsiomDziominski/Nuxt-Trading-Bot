@@ -24,6 +24,7 @@
 
   .page {
     margin: 50px 0 50px 0;
+    min-height: calc(100vh - 280px);
   }
 }
 </style>

@@ -9,7 +9,7 @@ definePageMeta({
 const storeBots = botsStore();
 const { activeBots } = storeToRefs(storeBots);
 
-const loadingBots = ref(false);
+const loadingBots = ref(true);
 
 onMounted(async () => {
 	loadingBots.value = true;
@@ -19,9 +19,12 @@ onMounted(async () => {
 </script>
 
 <template>
-	<div>
+	<div class="page-bots">
 		<bots-actions-bar />
-		<loader-box v-if="loadingBots" />
+		<global-loading
+			v-if="loadingBots"
+			class="page-bots__loading"
+		/>
 		<template v-else-if="activeBots && activeBots.length">
 			<bots-api-wrapper
 				v-for="bot in activeBots"
@@ -31,7 +34,7 @@ onMounted(async () => {
 		</template>
 		<div
 			v-else
-			class="empty"
+			class="page-bots__empty"
 		>
 			<v-icon size="100">
 				mdi-robot-off-outline
@@ -44,13 +47,21 @@ onMounted(async () => {
 </template>
 
 <style scoped lang="scss">
-.empty {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 70vh;
-  gap: 30px;
-  font-size: 40px;
+.page-bots {
+  height: 100%;
+
+  &__loading {
+    display: flex;
+  }
+
+  &__empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 70vh;
+    gap: 30px;
+    font-size: 40px;
+  }
 }
 </style>

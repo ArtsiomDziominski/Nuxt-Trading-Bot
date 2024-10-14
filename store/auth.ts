@@ -51,6 +51,7 @@ export const authStore = defineStore('authStore', () => {
 			if (response.data.success) {
 				await storeUser.saveToken(response.data.token);
 				storeWS.webSocketServer();
+				clearUserLogin();
 			}
 		}
 		catch (e) { /* empty */ }
@@ -69,6 +70,10 @@ export const authStore = defineStore('authStore', () => {
 		const { isValid, error } = storeValidation.makeCheckRules('password', validationRules);
 		appendErrors(error);
 		return isValid;
+	};
+
+	const clearUserLogin = (): void => {
+		userLogin.value = { mail: '', password: '' };
 	};
 
 	return {

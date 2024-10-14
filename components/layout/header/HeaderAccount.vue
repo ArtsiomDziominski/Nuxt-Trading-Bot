@@ -4,8 +4,14 @@ import { userStore } from '~/store/user';
 
 const storeUser = userStore();
 const { user } = storeToRefs(storeUser);
+const router = useRouter();
 
 const menu = ref(false);
+
+const logout = () => {
+	storeUser.deleteUserToken();
+	router.push('/login');
+};
 </script>
 
 <template>
@@ -40,6 +46,14 @@ const menu = ref(false);
 					<v-list-item>
 						<v-btn>
 							Api ключи
+						</v-btn>
+					</v-list-item>
+					<v-list-item>
+						<v-btn
+							color="red"
+							@click="logout"
+						>
+							Выход
 						</v-btn>
 					</v-list-item>
 				</v-list>
