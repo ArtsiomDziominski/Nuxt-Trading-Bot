@@ -1,19 +1,10 @@
 <script setup lang="ts">
-const buttons = [
-	{
-		title: 'Home',
-		to: '/',
-	},
-	{
-		title: 'Bots',
-		to: '/bots',
-	},
-];
+import { headerButtons } from '~/const/headers';
 </script>
 
 <template>
 	<v-btn
-		v-for="button in buttons"
+		v-for="button in headerButtons"
 		variant="outlined"
 		:to="button.to"
 	>

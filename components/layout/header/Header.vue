@@ -28,7 +28,9 @@ function toggleTheme() {
 		<v-app-bar-title>
 			<div class="title">
 				Crypto Trading
-				<div class="buttons">
+				<div
+					class="buttons d-none d-md-flex"
+				>
 					<header-buttons v-if="isAuthenticated" />
 				</div>
 			</div>

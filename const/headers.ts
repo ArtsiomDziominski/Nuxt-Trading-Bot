@@ -9,3 +9,14 @@ export const headersClients = [
 	{ title: 'roles', key: 'roles', sortable: false, align: 'start' },
 	{ title: 'untilSubscription', key: 'untilSubscription', sortable: false, align: 'start', width: '100px' },
 ];
+
+export const headerButtons = [
+	{
+		title: 'Home',
+		to: '/',
+	},
+	{
+		title: 'Bots',
+		to: '/bots',
+	},
+];

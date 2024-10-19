@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { userStore } from '~/store/user';
+import { headerButtons } from '~/const/headers';
 
 const storeUser = userStore();
 const { user } = storeToRefs(storeUser);
@@ -43,6 +44,15 @@ const logout = () => {
 				<v-divider />
 
 				<v-list>
+					<v-list-item
+						v-for="button in headerButtons"
+						:key="button.title"
+						class=" d-flex d-md-none"
+					>
+						<v-btn :to="button.to">
+							{{ button.title }}
+						</v-btn>
+					</v-list-item>
 					<v-list-item>
 						<v-btn>
 							Api ключи
