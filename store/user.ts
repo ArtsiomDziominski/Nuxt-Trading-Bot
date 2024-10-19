@@ -7,6 +7,7 @@ import { apiStore } from '~/store/api';
 
 export const userStore = defineStore('userStore', () => {
 	const api = apiStore();
+	const router = useRouter();
 
 	const user: Ref<USER.User | null> = ref(null);
 	const userToken: Ref<string> = ref('');
@@ -21,9 +22,14 @@ export const userStore = defineStore('userStore', () => {
 		try {
 			const response = await api.get(ENDPOINT.auth.user);
 			if (response?.success) user.value = response?.data || null;
+			else {
+				deleteUserToken();
+				router.push('/login');
+			}
 		}
 		catch (e) {
-			if ((e as any)?.response?.data) deleteUserToken();
+			deleteUserToken();
+			router.push('/login');
 		}
 	};
 
