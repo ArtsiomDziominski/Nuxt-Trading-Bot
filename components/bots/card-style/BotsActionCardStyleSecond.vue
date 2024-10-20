@@ -13,15 +13,29 @@ const props = defineProps({
 const emit = defineEmits(['takeProfit', 'pauseBot', 'startBot', 'stopBot', 'resetLoading']);
 
 const isActiveChangeAnimation = ref<boolean>(false);
+const dateLastUpdate = ref<number>(Date.now());
+const lastUpdate = ref<number>(0);
+const intervaLastUpdate = ref<NodeJS.Timeout | null>(null);
+
+onMounted(() => (setLastUpdate()));
 
 watch(
 	() => props.position.positionRisk.unRealizedProfit,
 	() => {
+		setLastUpdate();
+
 		if (props.loading) emit('resetLoading');
 		isActiveChangeAnimation.value = true;
 		setTimeout(() => (isActiveChangeAnimation.value = false), 300);
 	},
 );
+
+const setLastUpdate = () => {
+	dateLastUpdate.value = Date.now();
+	lastUpdate.value = 0;
+	if (intervaLastUpdate.value) clearInterval(intervaLastUpdate.value);
+	intervaLastUpdate.value = setInterval(() => (lastUpdate.value = Math.round((Date.now() - dateLastUpdate.value) / 1000)), 1000);
+};
 </script>
 
 <template>
@@ -30,6 +44,9 @@ watch(
 		:class="{ change: isActiveChangeAnimation }"
 		elevation="10"
 	>
+		<p class="last-update">
+			{{ lastUpdate }} s
+		</p>
 		<LoaderBox
 			v-if="loading"
 			class="loading"
@@ -115,11 +132,20 @@ watch(
 }
 
 .compact-card {
+  position: relative;
   background-color: var(--card-second-background);
   border-radius: 10px;
   color: rgba(var(--v-theme-on-surface), var(--v-high-emphasis-opacity));
   padding: 16px;
   max-width: 320px;
+}
+
+.last-update {
+  position: absolute;
+  bottom: 4px;
+  right: 10px;
+  font-size: 14px;
+  color: grey;
 }
 
 .card-header {
