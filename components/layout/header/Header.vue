@@ -37,8 +37,13 @@ function toggleTheme() {
 		</v-app-bar-title>
 		<template #append>
 			<div class="append">
-				<v-btn @click="toggleTheme">
-					{{ theme.global.current.value.dark ? 'light' : 'dark' }}
+				<v-btn
+					icon=""
+					@click="toggleTheme"
+				>
+					<v-icon>
+						{{ theme.global.current.value.dark ? 'mdi-lightbulb-outline' : 'mdi-lightbulb-on-outline' }}
+					</v-icon>
 				</v-btn>
 				<header-account
 					v-if="isAuthenticated"

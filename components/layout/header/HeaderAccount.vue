@@ -35,7 +35,6 @@ const logout = () => {
 			<v-card min-width="300">
 				<v-list>
 					<v-list-item
-						prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg"
 						:subtitle="user?.mail"
 						:title="user?.login"
 					/>
