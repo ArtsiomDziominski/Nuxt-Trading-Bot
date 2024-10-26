@@ -39,12 +39,14 @@ function toggleTheme() {
 		</v-app-bar-title>
 		<template #append>
 			<div class="append">
-				<button @click="setLocale('en')">
-					en
-				</button>
-				<button @click="setLocale('ru')">
-					ru
-				</button>
+				<v-select
+					:model-value="locale"
+					:items="['en', 'ru']"
+					variant="outlined"
+					base-color="transparent"
+					hide-details
+					@update:model-value="setLocale($event)"
+				/>
 				<v-btn
 					icon=""
 					@click="toggleTheme"
