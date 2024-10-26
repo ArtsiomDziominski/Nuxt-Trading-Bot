@@ -5,14 +5,18 @@ export default defineNuxtConfig({
 		'@mdi/font/css/materialdesignicons.min.css',
 		'~/assets/css/global.css',
 	],
+
 	build: {
 		transpile: ['vuetify'],
 	},
+
 	modules: [
 		// ...
 		'@pinia/nuxt',
 		'@nuxt/eslint',
+		'@nuxtjs/i18n',
 	],
+
 	runtimeConfig: {
 		public: {
 			API_URL: process.env.API_URL,
@@ -20,6 +24,7 @@ export default defineNuxtConfig({
 			SECRET_KEY_API: process.env.SECRET_KEY_API,
 		},
 	},
+
 	eslint: {
 		config: {
 			stylistic: {
@@ -28,5 +33,9 @@ export default defineNuxtConfig({
 				// ...
 			},
 		},
+	},
+
+	i18n: {
+		vueI18n: './plugins/i18n.config.ts',
 	},
 });

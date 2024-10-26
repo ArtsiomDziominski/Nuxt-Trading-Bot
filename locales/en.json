@@ -1,0 +1,66 @@
+{
+	"bots": {
+		"activeBots": "Active {count}",
+		"stoppedBots": "Stopped {count}",
+		"createNewBots": "Create new bot",
+		"addApiKey": "Add API key"
+	},
+	"apiKey": {
+		"title": "Add API key",
+		"name": "Name",
+		"public": "Public key",
+		"secret": "Secret key",
+		"cryptocurrencyExchanges": "Cryptocurrency exchanges",
+		"vieKey": "View API keys",
+		"listModalTitle": "List of API keys",
+		"listModalNotFound": "API keys not found"
+	},
+	"createBot": {
+		"apiKey": "API key",
+		"symbol": "Pair",
+		"qtyTokens": "Number of tokens",
+		"offers": "Orders",
+		"step": "Step (%)",
+		"decimals": "decimals",
+		"price": "Price",
+		"selectBot": "Select bot"
+	},
+	"cardBot": {
+		"marketPrice": "Market price:",
+		"qtyTokens": "Number of coins:",
+		"priceEnter": "Entry price:",
+		"liquidationPrice": "Liquidation price:",
+		"stop": "Stop",
+		"start": "Start",
+		"take": "Collect",
+		"closeBot": "Close bot",
+		"historyNotFound": "History not found",
+		"historyTitle": "Previously created bots"
+	},
+	"singIn": {
+		"title": "Sign In",
+		"labelEmail": "Email address",
+		"labelPassword": "Password"
+	},
+	"singUp": {
+		"title": "Sign Up",
+		"labelLogin": "Login",
+		"labelEmail": "Email address",
+		"labelPassword": "Password",
+		"alreadyRegistered": "Already registered?",
+		"enter": "Sign In",
+		"reg": "Register"
+	},
+	"logoName": "Crypto Trading",
+	"Home": "Home",
+	"Bots": "Bots",
+	"apiKeys": "API keys",
+	"logout": "Logout",
+	"fieldIsEmpty": "Field is empty",
+	"cancel": "Cancel",
+	"confirm": "Confirm",
+	"back": "Back",
+	"close": "Close",
+	"MARKET": "Market",
+	"LIMIT": "Limit"
+}

@@ -68,19 +68,19 @@ const setLastUpdate = () => {
 
 		<v-card-text>
 			<div class="price-section">
-				<span class="label">Рыночная цена:</span>
+				<span class="label">{{ $t('marketPrice') }}</span>
 				<span class="value">${{ Number(position.positionRisk.markPrice).toFixed(2) }}</span>
 			</div>
 			<div class="price-section">
-				<span class="label">Кол-во монет:</span>
+				<span class="label">{{ $t('qtyTokens') }}</span>
 				<span class="value">{{ position.positionRisk.positionAmt }}</span>
 			</div>
 			<div class="price-section">
-				<span class="label">Цена входа:</span>
+				<span class="label">{{ $t('priceEnter') }}</span>
 				<span class="value">${{ Number(position.positionRisk.entryPrice).toFixed(2) }}</span>
 			</div>
 			<div class="price-section">
-				<span class="label">Цена ликвидации:</span>
+				<span class="label">{{ $t('liquidationPrice') }}</span>
 				<span class="value">{{ Number(position.positionRisk.liquidationPrice) || 'N/A' }}</span>
 			</div>
 		</v-card-text>
@@ -94,7 +94,7 @@ const setLastUpdate = () => {
 				outlined
 				@click="$emit('pauseBot')"
 			>
-				Остановить
+				{{ $t('cardBot.stop') }}
 			</v-btn>
 			<v-btn
 				v-else
@@ -102,14 +102,14 @@ const setLastUpdate = () => {
 				outlined
 				@click="$emit('startBot')"
 			>
-				Запустить
+				{{ $t('cardBot.start') }}
 			</v-btn>
 			<v-btn
 				color="green"
 				outlined
 				@click="$emit('takeProfit')"
 			>
-				Собрать
+				{{ $t('cardBot.take') }}
 			</v-btn>
 
 			<v-btn
@@ -117,7 +117,7 @@ const setLastUpdate = () => {
 				outlined
 				@click="$emit('stopBot')"
 			>
-				Закрыть бота
+				{{ $t('cardBot.closeBot') }}
 			</v-btn>
 		</v-card-actions>
 	</v-card>

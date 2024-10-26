@@ -26,7 +26,7 @@ const useBot = (params: BOTS.PositionParam) => {
 <template>
 	<WrapperFormModal
 		v-model="isModalHistoryGridBotCreated"
-		title="Ранее созданные боты"
+		:title="$t('historyTitle')"
 		max-width="1000"
 	>
 		<template #body>
@@ -89,7 +89,7 @@ const useBot = (params: BOTS.PositionParam) => {
 					<v-icon size="70">
 						mdi-card-search-outline
 					</v-icon>
-					<p>История не найдена</p>
+					<p>{{ $t('cardBot.historyNotFound') }}</p>
 				</div>
 			</div>
 		</template>

@@ -47,7 +47,7 @@ const openHistoryGridBot = () => {
 			<div class="modal-body">
 				<v-autocomplete
 					v-model="createBotParams.apiId"
-					label="Api key"
+					:label="$t('createBot.apiKey')"
 					item-title="name"
 					item-value="id"
 					:items="userApiKeys"
@@ -59,7 +59,7 @@ const openHistoryGridBot = () => {
 				/>
 				<v-text-field
 					v-model="createBotParams.symbol"
-					label="Пара"
+					:label="$t('createBot.symbol')"
 					placeholder="ETHUSDT"
 					variant="outlined"
 					maxlength="50"
@@ -71,16 +71,16 @@ const openHistoryGridBot = () => {
 					class="create-bot-tabs"
 				>
 					<v-tab :value="BotTypes.Market">
-						Market
+						{{ $t(BotTypes.Market) }}
 					</v-tab>
 					<v-tab :value="BotTypes.Limit">
-						Limit
+						{{ $t(BotTypes.Limit) }}
 					</v-tab>
 				</v-tabs>
 				<div class="create-bot-fields">
 					<v-text-field
 						v-model="createBotParams.amountStart"
-						label="Количество токенов"
+						:label="$t('createBot.qtyTokens')"
 						placeholder="1,2"
 						variant="outlined"
 						maxlength="50"
@@ -89,7 +89,7 @@ const openHistoryGridBot = () => {
 					/>
 					<v-text-field
 						v-model="createBotParams.orders"
-						label="Ордеров"
+						:label="$t('createBot.offers')"
 						placeholder="10"
 						variant="outlined"
 						maxlength="50"
@@ -98,7 +98,7 @@ const openHistoryGridBot = () => {
 					/>
 					<v-text-field
 						v-model="createBotParams.step"
-						label="Шаг (%)"
+						:label="$t('createBot.step')"
 						placeholder="5"
 						variant="outlined"
 						maxlength="50"
@@ -107,7 +107,7 @@ const openHistoryGridBot = () => {
 					/>
 					<v-text-field
 						v-model="createBotParams.decimals"
-						label="Decimals"
+						:label="$t('createBot.decimals')"
 						placeholder="2"
 						variant="outlined"
 						maxlength="50"
@@ -119,7 +119,7 @@ const openHistoryGridBot = () => {
 							v-show="createBotParams?.type === BotTypes.Limit"
 							v-model="createBotParams.price"
 							class="create-bot-fields__price"
-							label="Цена"
+							:label="$t('createBot.price')"
 							variant="outlined"
 							maxlength="50"
 							:suffix="createBotParams.symbol"
@@ -150,7 +150,7 @@ const openHistoryGridBot = () => {
 		</template>
 		<template #actions>
 			<v-btn @click="isModalCreateBots = false">
-				Отмена
+				{{ $t('cancel') }}
 			</v-btn>
 
 			<v-btn
@@ -158,7 +158,7 @@ const openHistoryGridBot = () => {
 				:loading="isLoadingCreateBot"
 				@click="createBot"
 			>
-				Подтвердить
+				{{ $t('confirm') }}
 			</v-btn>
 		</template>
 	</wrapper-form-modal>

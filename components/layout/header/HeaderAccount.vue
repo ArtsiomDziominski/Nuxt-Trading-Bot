@@ -49,12 +49,12 @@ const logout = () => {
 						class=" d-flex d-md-none"
 					>
 						<v-btn :to="button.to">
-							{{ button.title }}
+							{{ $t(button.title) }}
 						</v-btn>
 					</v-list-item>
 					<v-list-item>
 						<v-btn>
-							Api ключи
+							{{ $t('apiKeys') }}
 						</v-btn>
 					</v-list-item>
 					<v-list-item>
@@ -62,7 +62,7 @@ const logout = () => {
 							color="red"
 							@click="logout"
 						>
-							Выход
+							{{ $t('logout') }}
 						</v-btn>
 					</v-list-item>
 				</v-list>
