@@ -43,7 +43,7 @@ const countBotsDeactivateString = computed((): string => {
 			<v-icon color="green">
 				mdi-robot
 			</v-icon>
-			<div>Активные {{ countBotsActiveString }}</div>
+			<div>{{ $t('bots.activeBots', { count: countBotsActiveString }) }}</div>
 		</v-card>
 
 		<v-card
@@ -53,7 +53,7 @@ const countBotsDeactivateString = computed((): string => {
 			<v-icon color="red">
 				mdi-robot-off
 			</v-icon>
-			<div>Приостановленные {{ countBotsDeactivateString }}</div>
+			<div>{{ $t('bots.stoppedBots', { count: countBotsDeactivateString }) }}</div>
 		</v-card>
 
 		<div class="bots-actions-bar__buttons">
@@ -65,7 +65,7 @@ const countBotsDeactivateString = computed((): string => {
 					<v-icon left>
 						mdi-plus
 					</v-icon>
-					Создать нового бота
+					{{ $t('bots.createNewBots') }}
 				</div>
 			</v-btn>
 
@@ -77,7 +77,7 @@ const countBotsDeactivateString = computed((): string => {
 					<v-icon left>
 						mdi-key
 					</v-icon>
-					Добавить API ключ
+					{{ $t('bots.addApiKey') }}
 				</div>
 			</v-btn>
 		</div>

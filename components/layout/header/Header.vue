@@ -6,6 +6,8 @@ import HeaderButtons from '~/components/layout/header/HeaderButtons.vue';
 import HeaderAccount from '~/components/layout/header/HeaderAccount.vue';
 import { userStore } from '~/store/user';
 
+const { locale, setLocale } = useI18n();
+
 const storeUser = userStore();
 const { isAuthenticated } = storeToRefs(storeUser);
 
@@ -27,7 +29,7 @@ function toggleTheme() {
 
 		<v-app-bar-title>
 			<div class="title">
-				Crypto Trading
+				{{ $t('logoName') }}
 				<div
 					class="buttons d-none d-md-flex"
 				>
@@ -37,6 +39,12 @@ function toggleTheme() {
 		</v-app-bar-title>
 		<template #append>
 			<div class="append">
+				<button @click="setLocale('en')">
+					en
+				</button>
+				<button @click="setLocale('ru')">
+					ru
+				</button>
 				<v-btn
 					icon=""
 					@click="toggleTheme"

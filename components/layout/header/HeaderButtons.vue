@@ -8,7 +8,7 @@ import { headerButtons } from '~/const/headers';
 		variant="outlined"
 		:to="button.to"
 	>
-		{{ button.title }}
+		{{ $t(button.title) }}
 	</v-btn>
 </template>
 

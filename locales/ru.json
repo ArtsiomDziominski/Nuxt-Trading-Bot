@@ -1,0 +1,66 @@
+{
+	"bots": {
+		"activeBots": "Активные {count}",
+		"stoppedBots": "Приостановленные {count}",
+		"createNewBots": "Создать нового бота",
+		"addApiKey": "Добавить API ключ"
+	},
+	"apiKey": {
+		"title": "Добавить Api ключ",
+		"name": "Имя",
+		"public": "Public key",
+		"secret": "Secret key",
+		"cryptocurrencyExchanges": "Криптовалютные биржи",
+		"vieKey": "Посмотреть API-ключи",
+		"listModalTitle": "Список Api ключей",
+		"listModalNotFound": "Api-ключи не найдены"
+	},
+	"createBot": {
+		"apiKey": "Api key",
+		"symbol": "Пара",
+		"qtyTokens": "Количество токенов",
+		"offers": "Ордеров",
+		"step": "Шаг (%)",
+		"decimals": "decimals",
+		"price": "Цена",
+		"selectBot": "Выберите бота"
+	},
+	"cardBot": {
+		"marketPrice": "Рыночная цена:",
+		"qtyTokens": "Кол-во монет:",
+		"priceEnter": "Цена входа:",
+		"liquidationPrice": "Цена ликвидации:",
+		"stop": "Остановить",
+		"start": "Запустить",
+		"take": "Собрать",
+		"closeBot": "Закрыть бота",
+		"historyNotFound": "История не найдена",
+		"historyTitle": "Ранее созданные боты"
+	},
+	"singIn": {
+		"title": "Вход",
+		"labelEmail": "Email address",
+		"labelPassword": "Пароль"
+	},
+	"singUp": {
+		"title": "Регистрация",
+		"labelLogin": "Логин",
+		"labelEmail": "Email адрес",
+		"labelPassword": "Пароль",
+		"alreadyRegistered": "Уже зарегистрированы?",
+		"enter": "Вход",
+		"reg": "Зарегистрироваться"
+	},
+	"logoName": "Crypto Trading",
+	"Home": "Главная",
+	"Bots": "Боты",
+	"apiKeys": "Api ключи",
+	"logout": "Выход",
+	"fieldIsEmpty": "Поле не заполнено",
+	"cancel": "Отмена",
+	"confirm": "Подтвердить",
+	"back": "Назад",
+	"close": "Закрыть",
+	"MARKET": "Market",
+	"LIMIT": "Limit"
+}

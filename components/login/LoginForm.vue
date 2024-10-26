@@ -56,13 +56,14 @@ const isDisabledBtn = computed((): boolean => {
 			<v-card-title class="card__title">
 				<p class="text-h4">
 					Вход
+					{{ $t('singIn.title') }}
 				</p>
 			</v-card-title>
 			<v-card-item class="card__item">
 				<v-text-field
 					v-model="userLogin.mail"
 					class="card__input"
-					label="Email address"
+					:label="$t('singIn.labelEmail')"
 					placeholder="johndoe@gmail.com"
 					type="email"
 					variant="outlined"
@@ -76,7 +77,7 @@ const isDisabledBtn = computed((): boolean => {
 					v-model="userLogin.password"
 					class="card__input"
 					hint="Enter your password to access this website"
-					label="Password"
+					:label="$t('singIn.labelPassword')"
 					:type="showPassword ? 'text' : 'password'"
 					variant="outlined"
 					:error-messages="errors.password.message"
@@ -96,7 +97,7 @@ const isDisabledBtn = computed((): boolean => {
 					:disabled="isDisabledBtn"
 					:loading="isLoaderLogin"
 				>
-					Войти
+          {{ $t('singIn.title') }}
 				</v-btn>
 			</v-card-actions>
 		</v-card>

@@ -29,19 +29,19 @@ const submit = async (): Promise<void> => {
 		>
 			<v-card-title class="card__title">
 				<p class="text-h4">
-					Регистрация
+					{{ $t('singUp.title') }}
 				</p>
 			</v-card-title>
 			<v-card-item class="card__item">
 				<v-text-field
 					v-model="userSignup.login"
 					class="card__input"
-					label="Login"
+					:label="$t('singUp.labelLogin')"
 					variant="outlined"
 				/>
 				<v-text-field
 					v-model="userSignup.mail"
-					label="Email address"
+					:label="$t('singUp.labelEmail')"
 					placeholder="johndoe@gmail.com"
 					type="email"
 					variant="outlined"
@@ -49,16 +49,16 @@ const submit = async (): Promise<void> => {
 				<v-text-field
 					v-model="userSignup.password"
 					hint="Enter your password to access this website"
-					label="Password"
+					:label="$t('singUp.labelPassword')"
 					type="password"
 					variant="outlined"
 				/>
 				<p class="card__signup text-grey-lighten-2 text-caption">
-					Уже зарегистрированы? <NuxtLink
+					{{ $t('singUp.alreadyRegistered') }} <NuxtLink
 						class="text-white"
 						to="/login"
 					>
-						Вход
+						{{ $t('singUp.enter') }}
 					</NuxtLink>
 				</p>
 			</v-card-item>
@@ -68,7 +68,7 @@ const submit = async (): Promise<void> => {
 					class="mt-2"
 					type="submit"
 				>
-					Зарегистрироваться
+					{{ $t('singUp.reg') }}
 				</v-btn>
 			</v-card-actions>
 		</v-card>

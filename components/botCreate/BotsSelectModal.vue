@@ -24,7 +24,7 @@ const selectBot = (strategy: Strategy): void => {
 		<template #body>
 			<div class="bots-select-body">
 				<p class="title">
-					Выберите бота
+					{{ $t('createBot.selectBot') }}
 				</p>
 				<v-btn
 					v-for="bot in botsStrategy"
@@ -52,7 +52,7 @@ const selectBot = (strategy: Strategy): void => {
 		</template>
 		<template #actions>
 			<v-btn @click="isModalSelectBots = false">
-				Отмена
+				{{ $t('cancel') }}
 			</v-btn>
 		</template>
 	</wrapper-modal>

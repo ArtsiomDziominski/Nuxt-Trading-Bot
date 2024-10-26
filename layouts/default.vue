@@ -21,6 +21,8 @@
   display: flex;
   flex-direction: column;
   margin: 64px 30px 0 30px;
+  width: 100%;
+  padding: 0 20px;
 
   .page {
     margin: 50px 0 50px 0;

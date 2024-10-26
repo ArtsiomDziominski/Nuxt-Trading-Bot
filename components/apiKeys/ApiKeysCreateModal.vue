@@ -52,47 +52,47 @@ const checkValidationApiKey = (): boolean => {
 		<template #body>
 			<div class="api-add-body">
 				<p class="title">
-					Добавить Api ключ
+					{{ $t('apiKey.title') }}
 				</p>
 				<v-text-field
 					v-model="api.name"
-					label="Имя"
+					:label="$t('apiKey.title')"
 					variant="outlined"
 					maxlength="150"
 					clearable
-					:error-messages="errors.name.message"
+					:error-messages="$t(errors.name.message)"
 					@input="handleInput('name')"
 				/>
 				<v-text-field
 					v-model="api.publicKey"
-					label="Public key"
+					:label="$t('apiKey.public')"
 					variant="outlined"
 					maxlength="150"
-					:error-messages="errors.publicKey.message"
+					:error-messages="$t(errors.publicKey.message)"
 					@input="handleInput('publicKey')"
 				/>
 				<v-text-field
 					v-model="api.secretKey"
-					label="Secret key"
+					:label="$t('apiKey.secret')"
 					variant="outlined"
 					maxlength="150"
-					:error-messages="errors.secretKey.message"
+					:error-messages="$t(errors.secretKey.message)"
 					@input="handleInput('secretKey')"
 				/>
 				<v-select
 					model-value="Binance"
-					label="Криптовалютные биржи"
+					:label="$t('apiKey.cryptocurrencyExchanges')"
 					:items="['Binance']"
 					variant="outlined"
 				/>
 				<v-btn @click="openListApi">
-					Посмотреть API-ключи
+					{{ $t('apiKey.vieKey') }}
 				</v-btn>
 			</div>
 		</template>
 		<template #actions>
 			<v-btn @click="isModalCreateApiKey = false">
-				Отмена
+				{{ $t('cancel') }}
 			</v-btn>
 
 			<v-btn
@@ -100,7 +100,7 @@ const checkValidationApiKey = (): boolean => {
 				:loading="isAddApiLoading"
 				@click="addApi"
 			>
-				Подтвердить
+				{{ $t('confirm') }}
 			</v-btn>
 		</template>
 	</wrapper-form-modal>
