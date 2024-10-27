@@ -5,6 +5,7 @@ import { localStorageKeyTheme, themeDark, themeLight } from '~/const/theme';
 import HeaderButtons from '~/components/layout/header/HeaderButtons.vue';
 import HeaderAccount from '~/components/layout/header/HeaderAccount.vue';
 import { userStore } from '~/store/user';
+import HeaderMarketPrice from '~/components/layout/header/HeaderMarketPrice.vue';
 
 const { locale, setLocale } = useI18n();
 
@@ -35,6 +36,7 @@ function toggleTheme() {
 				>
 					<header-buttons v-if="isAuthenticated" />
 				</div>
+				<HeaderMarketPrice />
 			</div>
 		</v-app-bar-title>
 		<template #append>

@@ -2,6 +2,7 @@ import { defineStore, storeToRefs } from 'pinia';
 import { userStore } from '~/store/user';
 import { botsStore } from '~/store/bots';
 import { notificationStore } from '~/store/notification';
+import { sharedStore } from "~/store/shared";
 
 export const wsStore = defineStore('wsStore', () => {
 	const config = computed(() => useRuntimeConfig());
@@ -10,11 +11,14 @@ export const wsStore = defineStore('wsStore', () => {
 	const { userToken } = storeToRefs(storeUser);
 	const storeBots = botsStore();
 	const storeNotification = notificationStore();
+	const storeShared = sharedStore();
+	const { markPriceBinance } = storeToRefs(storeShared);
 
 	const reconnectAttempts = ref(0);
 	const maxReconnectAttempts = 10;
 
 	function webSocketServer() {
+		webSocketMarkPrice();
 		const socket = new WebSocket(WS_URL.value);
 
 		const reconnect = () => {
@@ -27,7 +31,7 @@ export const wsStore = defineStore('wsStore', () => {
 				}, reconnectTimeout);
 			}
 			else {
-				storeNotification.addNotification('error', 'Не удалось подключиться к WebSocket после нескольких попыток');
+				console.log('Не удалось подключиться к WebSocket после нескольких попыток');
 			}
 		};
 
@@ -69,6 +73,52 @@ export const wsStore = defineStore('wsStore', () => {
 			socket.close();
 		};
 	}
+
+	const webSocketMarkPrice = () => {
+		const WS_URL = 'wss://fstream.binance.com/ws/!markPrice@arr';
+		const socket = new WebSocket(WS_URL);
+		const reconnectAttempts = { value: 0 };
+		const maxReconnectAttempts = 20;
+
+		const reconnect = () => {
+			if (reconnectAttempts.value < maxReconnectAttempts) {
+				reconnectAttempts.value++;
+				const reconnectTimeout = Math.min(1000 * Math.pow(2, reconnectAttempts.value), 30000);
+				setTimeout(() => {
+					console.log(`Попытка переподключения (${reconnectAttempts.value})...`);
+					webSocketMarkPrice();
+				}, reconnectTimeout);
+			}
+			else {
+				console.log('Не удалось подключиться к WebSocket после нескольких попыток');
+			}
+		};
+
+		socket.onopen = () => {
+			reconnectAttempts.value = 0;
+			console.log('Подключено к WebSocket Binance Futures');
+		};
+
+		socket.onmessage = (event) => {
+			try {
+				markPriceBinance.value = JSON.parse(event.data);
+			}
+			catch (e) {
+				markPriceBinance.value = [];
+				console.error('Ошибка при обработке сообщения WebSocket:', e);
+			}
+		};
+
+		socket.onclose = () => {
+			console.log('WebSocket закрыт, попытка переподключения...');
+			reconnect();
+		};
+
+		socket.onerror = (error) => {
+			console.error('Произошла ошибка WebSocket:', error);
+			socket.close();
+		};
+	};
 
 	return {
 		webSocketServer,

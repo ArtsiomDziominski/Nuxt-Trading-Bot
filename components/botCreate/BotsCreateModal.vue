@@ -5,6 +5,7 @@ import { userStore } from '~/store/user';
 import { BotCreateTitle, BotTypes } from '~/const/bots';
 import { botsStore } from '~/store/bots';
 import { historyStore } from '~/store/historyBots';
+import { sharedStore } from '~/store/shared';
 
 const storeCreateBots = createBotsStore();
 const { createBotParams, errors, isModalCreateBots, isLoadingCreateBot } = storeToRefs(storeCreateBots);
@@ -13,6 +14,8 @@ const { userApiKeys } = storeToRefs(storeUser);
 const storeBot = botsStore();
 const storeHistory = historyStore();
 const { isModalHistoryGridBotCreated } = storeToRefs(storeHistory);
+const storeShared = sharedStore();
+const { markPriceBinance } = storeToRefs(storeShared);
 
 const createBot = async (): Promise<void> => {
 	if (storeCreateBots.checkValidationCreateBot()) {
@@ -25,11 +28,16 @@ const createBot = async (): Promise<void> => {
 };
 
 const setPrice = () => {
-	createBotParams.value.price = '50000';
+	createBotParams.value.price = priceNow.value;
 };
 
 const titleModal = computed((): string => {
 	return BotCreateTitle?.[createBotParams.value?.strategy] || '';
+});
+
+const priceNow = computed((): string => {
+	const price = markPriceBinance.value.find(item => item.s === createBotParams.value.symbol)?.p;
+	return price ? Number(price).toFixed(2) : '';
 });
 
 const openHistoryGridBot = () => {
@@ -122,18 +130,17 @@ const openHistoryGridBot = () => {
 							:label="$t('createBot.price')"
 							variant="outlined"
 							maxlength="50"
-							:suffix="createBotParams.symbol"
 							:error-messages="errors.price.message"
 							@click:append-inner="setPrice"
 							@input="errors.price.message = ''"
 						>
 							<template #append-inner>
-								<p
+								<v-btn
 									class="cursor-pointer"
 									@click="setPrice"
 								>
-									50000
-								</p>
+									{{ priceNow }} {{ createBotParams.symbol }}
+								</v-btn>
 							</template>
 						</v-text-field>
 					</v-expand-transition>
