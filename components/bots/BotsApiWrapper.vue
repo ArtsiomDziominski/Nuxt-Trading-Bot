@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { botsStore } from '~/store/bots';
 import { BotStatus } from '~/const/bots';
+import BotsActionCardStyleSecond from '~/components/bots/card-style/BotsActionCardStyleSecond.vue';
 
 defineProps({
 	bots: {
@@ -32,7 +33,7 @@ const requestChangeWatchingGridBot = async (symbol: string, apiId: string, statu
 			<v-divider />
 		</div>
 		<div class="position-risk">
-			<bots-action-card-style-second
+			<BotsActionCardStyleSecond
 				v-for="positionRisk in bots.positionsRisk"
 				:key="positionRisk.positionRisk.symbol"
 				:position="positionRisk"
