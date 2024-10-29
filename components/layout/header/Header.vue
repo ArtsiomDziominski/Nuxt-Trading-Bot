@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { useTheme } from 'vuetify';
 import { storeToRefs } from 'pinia';
-import { localStorageKeyTheme, themeDark, themeLight } from '~/const/theme';
+import { keyTheme, themeDark, themeLight } from '~/const/theme';
+import { userStore } from '~/store/user';
+import { setCookie } from '~/utils/cookie';
 import HeaderButtons from '~/components/layout/header/HeaderButtons.vue';
 import HeaderAccount from '~/components/layout/header/HeaderAccount.vue';
-import { userStore } from '~/store/user';
 import HeaderMarketPrice from '~/components/layout/header/HeaderMarketPrice.vue';
 
 const { locale, setLocale } = useI18n();
@@ -14,8 +15,8 @@ const { isAuthenticated } = storeToRefs(storeUser);
 
 const theme = useTheme();
 function toggleTheme() {
-	theme.global.name.value = theme.global.current.value.dark ? themeLight : themeDark;
-	localStorage.setItem(localStorageKeyTheme, theme.global.name.value);
+	theme.global.name.value = theme.global.name.value === themeDark ? themeLight : themeDark;
+	setCookie(keyTheme, theme.global.name.value);
 }
 </script>
 

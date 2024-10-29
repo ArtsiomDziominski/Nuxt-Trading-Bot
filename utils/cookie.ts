@@ -10,7 +10,7 @@ export function getCookie(name: string): string | null {
 	return null;
 }
 
-export function setCookie(name: string, value: string, days: number) {
+export function setCookie(name: string, value: string, days: number = 100000000000000) {
 	let expires = '';
 	if (days) {
 		const date = new Date();

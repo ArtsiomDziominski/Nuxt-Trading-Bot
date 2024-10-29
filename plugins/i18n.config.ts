@@ -8,7 +8,7 @@ for (const path in modules) {
 
 function getLocaleCode(): string {
 	if (!import.meta.client) return 'en';
-	const localStorageLocal = localStorage.getItem('local');
+	const localStorageLocal = getCookie('i18n_redirected');
 	return localStorageLocal || navigator.language.split('-')?.[0] || 'en';
 }
 

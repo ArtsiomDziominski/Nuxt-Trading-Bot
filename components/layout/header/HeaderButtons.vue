@@ -5,6 +5,7 @@ import { headerButtons } from '~/const/headers';
 <template>
 	<v-btn
 		v-for="button in headerButtons"
+		:key="button.to"
 		variant="outlined"
 		:to="button.to"
 	>

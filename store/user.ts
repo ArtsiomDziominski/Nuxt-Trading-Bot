@@ -23,7 +23,7 @@ export const userStore = defineStore('userStore', () => {
 			if (response?.success) user.value = response?.data || null;
 		}
 		catch (e) {
-			if ((e as any)?.response?.data) deleteUserToken();
+			if ((e as unknown)?.response?.data) deleteUserToken();
 		}
 	};
 
