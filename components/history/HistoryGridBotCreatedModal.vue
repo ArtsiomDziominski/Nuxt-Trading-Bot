@@ -32,55 +32,53 @@ const useBot = (params: BOTS.PositionParam) => {
 		<template #body>
 			<div class="bot-info-container">
 				<template v-if="historyCreatedGridBot.length">
-					<v-expand-transition>
-						<v-card
-							v-for="gridBot in historyCreatedGridBot"
-							:key="gridBot.dateCreated + gridBot.params.symbol"
-							class="bot-info-card"
-							outlined
-							elevation="2"
-						>
-							<v-card-title class="bot-info-card__title">
-								{{ gridBot.params.symbol }}
-							</v-card-title>
+					<v-card
+						v-for="gridBot in historyCreatedGridBot"
+						:key="gridBot.dateCreated + gridBot.params.symbol"
+						class="bot-info-card"
+						outlined
+						elevation="2"
+					>
+						<v-card-title class="bot-info-card__title">
+							{{ gridBot.params.symbol }}
+						</v-card-title>
 
-							<v-card-text>
-								<div class="bot-info-card__info">
-									<div>
-										<p>Количество монет: </p><span>{{ gridBot.params.qty }}</span>
-									</div>
-									<div>
-										<p>Прайс покупки: </p><span>{{ gridBot.params.price ? gridBot.params.price : 'Market' }}</span>
-									</div>
-									<div>
-										<p>Количество ордеров: </p><span>{{ gridBot.params.qtyOpenOrders }}</span>
-									</div>
-									<div>
-										<p>Шаг: </p><span>{{ gridBot.params.step }}%</span>
-									</div>
-									<div>
-										<p>Decimals: </p><span>{{ gridBot.params.decimals }}</span>
-									</div>
+						<v-card-text>
+							<div class="bot-info-card__info">
+								<div>
+									<p>Количество монет: </p><span>{{ gridBot.params.qty }}</span>
 								</div>
-							</v-card-text>
+								<div>
+									<p>Прайс покупки: </p><span>{{ gridBot.params.price ? gridBot.params.price : 'Market' }}</span>
+								</div>
+								<div>
+									<p>Количество ордеров: </p><span>{{ gridBot.params.qtyOpenOrders }}</span>
+								</div>
+								<div>
+									<p>Шаг: </p><span>{{ gridBot.params.step }}%</span>
+								</div>
+								<div>
+									<p>Decimals: </p><span>{{ gridBot.params.decimals }}</span>
+								</div>
+							</div>
+						</v-card-text>
 
-							<v-card-actions>
-								<v-btn
-									color="green"
-									@click="useBot(gridBot.params)"
-								>
-									Использовать
-								</v-btn>
-								<v-btn
-									color="error"
-									:loading="isLoadingDeleteHistoryCreatedGridBot[gridBot._id]"
-									@click="storeHistory.requestDeleteHistoryGridBotCreated(gridBot._id)"
-								>
-									Удалить
-								</v-btn>
-							</v-card-actions>
-						</v-card>
-					</v-expand-transition>
+						<v-card-actions>
+							<v-btn
+								color="green"
+								@click="useBot(gridBot.params)"
+							>
+								Использовать
+							</v-btn>
+							<v-btn
+								color="error"
+								:loading="isLoadingDeleteHistoryCreatedGridBot[gridBot._id]"
+								@click="storeHistory.requestDeleteHistoryGridBotCreated(gridBot._id)"
+							>
+								Удалить
+							</v-btn>
+						</v-card-actions>
+					</v-card>
 				</template>
 				<div
 					v-else
