@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { headerButtons } from '~/const/headers';
+import { headerNavigation } from '~/const/headers';
 </script>
 
 <template>
 	<v-btn
-		v-for="button in headerButtons"
+		v-for="button in headerNavigation"
 		:key="button.to"
 		variant="outlined"
 		:to="button.to"

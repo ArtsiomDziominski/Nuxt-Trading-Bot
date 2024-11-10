@@ -51,6 +51,19 @@
 		"enter": "Sign In",
 		"reg": "Register"
 	},
+	"account": {
+		"telegramBot": {
+			"title": "Telegram Bot",
+			"infoTitle": "Telegram Notification Bot",
+			"infoDescription": "The notification bot in Telegram sends alerts about various events.",
+			"connectTitle": "Connect Telegram Bot",
+			"connectDescription": "To link your account to the bot, scan the QR code with your smartphone camera or follow the link. You can also find our bot {name} on Telegram and start it.",
+			"connectToLinkBot": "Or follow the link:"
+		},
+		"profile": {
+			"title": "Profile"
+		}
+	},
 	"logoName": "Crypto Trading",
 	"Home": "Home",
 	"Bots": "Bots",
