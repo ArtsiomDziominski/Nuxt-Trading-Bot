@@ -51,6 +51,19 @@
 		"enter": "Вход",
 		"reg": "Зарегистрироваться"
 	},
+	"account": {
+		"telegramBot": {
+			"title": "Telegram бот",
+			"infoTitle": "Telegram бот для уведомлений",
+			"infoDescription": "Бот уведомлений в Telegram присылает уведомления о различных событиях.",
+			"connectTitle": "Подключение Telegram бота",
+			"connectDescription": "Чтобы привязать свой аккаунт к боту, отсканируйте QR-код камерой смартфона или перейдите по ссылке. Также вы можете найти нашего бота {name} в Telegram и запустить его.",
+			"connectToLinkBot": "Или перейдите по ссылке:"
+		},
+		"profile": {
+			"title": "Профиль"
+		}
+	},
 	"logoName": "Crypto Trading",
 	"Home": "Главная",
 	"Bots": "Боты",
