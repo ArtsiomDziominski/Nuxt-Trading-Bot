@@ -49,7 +49,7 @@ export const createBotsStore = defineStore('createBotsStore', () => {
 					step: Number(createBotParams.value.step),
 					decimals: Number(createBotParams.value.decimals),
 					strategy: createBotParams.value.strategy,
-					stepRevers: (Number(createBotParams.value.amountStart) * 3).toFixed(Number(createBotParams.value.decimals)),
+					stepRevers: null, // stepRevers: (Number(createBotParams.value.amountStart) * 3).toFixed(Number(createBotParams.value.decimals)),
 				},
 			};
 
