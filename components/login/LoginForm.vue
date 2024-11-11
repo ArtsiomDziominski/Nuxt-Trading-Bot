@@ -55,7 +55,6 @@ const isDisabledBtn = computed((): boolean => {
 		>
 			<v-card-title class="card__title">
 				<p class="text-h4">
-					Вход
 					{{ $t('singIn.title') }}
 				</p>
 			</v-card-title>
@@ -87,6 +86,12 @@ const isDisabledBtn = computed((): boolean => {
 					@blur="blurPassword"
 					@click:append-inner="showPassword = !showPassword"
 				/>
+				<nuxt-link
+					class="card__signup text-caption"
+					to="/signup"
+				>
+					{{ $t('singIn.toSingUpBtn') }}
+				</nuxt-link>
 			</v-card-item>
 
 			<v-card-actions class="card__actions">
@@ -97,7 +102,7 @@ const isDisabledBtn = computed((): boolean => {
 					:disabled="isDisabledBtn"
 					:loading="isLoaderLogin"
 				>
-          {{ $t('singIn.title') }}
+					{{ $t('singIn.title') }}
 				</v-btn>
 			</v-card-actions>
 		</v-card>
@@ -126,6 +131,11 @@ const isDisabledBtn = computed((): boolean => {
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    &__signup {
+      text-decoration: none;
+      color: white;
     }
   }
 }

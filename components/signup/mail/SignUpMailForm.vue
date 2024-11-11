@@ -4,7 +4,7 @@ import { authStore } from '~/store/auth';
 import { userStore } from '~/store/user';
 
 const storeAuth = authStore();
-const { userSignup } = storeToRefs(storeAuth);
+const { userSignup, isLoaderSignup } = storeToRefs(storeAuth);
 
 const storeUser = userStore();
 const { isAuthenticated } = storeToRefs(storeUser);
@@ -67,6 +67,7 @@ const submit = async (): Promise<void> => {
 				<v-btn
 					class="mt-2"
 					type="submit"
+					:loading="isLoaderSignup"
 				>
 					{{ $t('singUp.reg') }}
 				</v-btn>

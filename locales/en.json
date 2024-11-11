@@ -40,7 +40,8 @@
 	"singIn": {
 		"title": "Sign In",
 		"labelEmail": "Email address",
-		"labelPassword": "Password"
+		"labelPassword": "Password",
+		"toSingUpBtn": "Sing Up"
 	},
 	"singUp": {
 		"title": "Sign Up",

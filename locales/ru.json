@@ -40,7 +40,8 @@
 	"singIn": {
 		"title": "Вход",
 		"labelEmail": "Email address",
-		"labelPassword": "Пароль"
+		"labelPassword": "Пароль",
+		"toSingUpBtn": "Зарегистрироваться"
 	},
 	"singUp": {
 		"title": "Регистрация",

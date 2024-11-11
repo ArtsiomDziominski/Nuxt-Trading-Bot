@@ -34,6 +34,7 @@ export const authStore = defineStore('authStore', () => {
 	});
 
 	const isLoaderLogin: Ref<boolean> = ref(false);
+	const isLoaderSignup: Ref<boolean> = ref(false);
 
 	const appendErrors = (error: COMMON.Errors): void => {
 		errors.value = { ...errors.value, ...error };
@@ -50,6 +51,7 @@ export const authStore = defineStore('authStore', () => {
 			const response = await axios.post(BURL + ENDPOINT.auth.login, body, getHeadersRequest([HEADER_PARAMETERS.content]));
 			if (response.data.success) {
 				await storeUser.saveToken(response.data.token);
+				await storeUser.requestSetUser();
 				storeWS.webSocketServer();
 				clearUserLogin();
 			}
@@ -65,6 +67,25 @@ export const authStore = defineStore('authStore', () => {
 		return isValid;
 	};
 
+	const requestSignupMail = async (): Promise<void> => {
+		isLoaderSignup.value = true;
+		try {
+			const passwordEncrypt = encryptPassword(userSignup.value.password);
+			const body = {
+				...userSignup.value,
+				password: passwordEncrypt,
+			};
+			const response = await axios.post(BURL + ENDPOINT.auth.signupMail, body, getHeadersRequest([HEADER_PARAMETERS.content]));
+			if (response.data.success) {
+				await storeUser.saveToken(response.data.token);
+				storeWS.webSocketServer();
+				clearUserSignup();
+			}
+		}
+		catch (e) { /* empty */ }
+		isLoaderSignup.value = false;
+	};
+
 	const checkValidationPasswordForm = (): boolean => {
 		const validationRules = rulePasswordForm(userLogin.value.password);
 		const { isValid, error } = storeValidation.makeCheckRules('password', validationRules);
@@ -76,12 +97,22 @@ export const authStore = defineStore('authStore', () => {
 		userLogin.value = { mail: '', password: '' };
 	};
 
+	const clearUserSignup = (): void => {
+		userSignup.value = {
+			login: '',
+			mail: '',
+			password: '',
+		};
+	};
+
 	return {
 		userLogin,
 		userSignup,
 		errors,
 		isLoaderLogin,
+		isLoaderSignup,
 		requestLogin,
+		requestSignupMail,
 		checkValidationLoginForm,
 		checkValidationPasswordForm,
 	};
