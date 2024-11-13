@@ -14,17 +14,6 @@ export enum MenuNavigation {
 	telegramBot = '/account/telegram-bot',
 }
 
-export const headerMenuNavigation = [
-	// {
-	// 	title: 'apiKeys',
-	// 	to: MenuNavigation.apiKey,
-	// },
-	{
-		title: 'telegramBot',
-		to: MenuNavigation.telegramBot,
-	},
-];
-
 export const accountNavigation = [
 	// {
 	// 	title: 'account.profile.title',

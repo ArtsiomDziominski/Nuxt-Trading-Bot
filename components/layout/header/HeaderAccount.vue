@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { userStore } from '~/store/user';
-import { headerMenuNavigation } from '~/const/headers';
+import { accountNavigation, headerNavigation } from '~/const/headers';
 import { wsStore } from '~/store/ws';
 
 const storeWS = wsStore();
@@ -47,7 +47,7 @@ const logout = () => {
 
 				<v-list>
 					<v-list-item
-						v-for="button in headerButtons"
+						v-for="button in headerNavigation"
 						:key="button.title"
 						class=" d-flex d-md-none"
 					>
@@ -56,7 +56,7 @@ const logout = () => {
 						</v-btn>
 					</v-list-item>
 					<v-list-item
-						v-for="button in headerMenuNavigation"
+						v-for="button in accountNavigation"
 						:key="button.title"
 					>
 						<v-btn :to="button.to">
