@@ -22,7 +22,7 @@ const { setLocale } = useI18n();
 const isLoading = ref(false);
 
 onMounted(() => {
-	storeWS.webSocketServer();
+	storeWS.webSocketMarkPrice();
 	theme.global.name.value = getCookie(keyTheme) || 'dark';
 });
 

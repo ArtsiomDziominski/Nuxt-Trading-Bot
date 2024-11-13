@@ -2,7 +2,9 @@
 import { storeToRefs } from 'pinia';
 import { userStore } from '~/store/user';
 import { headerMenuNavigation } from '~/const/headers';
+import { wsStore } from '~/store/ws';
 
+const storeWS = wsStore();
 const storeUser = userStore();
 const { user } = storeToRefs(storeUser);
 const router = useRouter();
@@ -10,6 +12,7 @@ const router = useRouter();
 const menu = ref(false);
 
 const logout = () => {
+	storeWS.webSocketServerDisconnect();
 	storeUser.deleteUserToken();
 	router.push('/login');
 };

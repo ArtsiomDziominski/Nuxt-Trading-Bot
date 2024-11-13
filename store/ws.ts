@@ -2,7 +2,7 @@ import { defineStore, storeToRefs } from 'pinia';
 import { userStore } from '~/store/user';
 import { botsStore } from '~/store/bots';
 import { notificationStore } from '~/store/notification';
-import { sharedStore } from "~/store/shared";
+import { sharedStore } from '~/store/shared';
 
 export const wsStore = defineStore('wsStore', () => {
 	const config = computed(() => useRuntimeConfig());
@@ -17,9 +17,11 @@ export const wsStore = defineStore('wsStore', () => {
 	const reconnectAttempts = ref(0);
 	const maxReconnectAttempts = 10;
 
+	const socket = ref<WebSocket | null>(null);
+	const socketMarkPrice = ref<WebSocket | null>(null);
+
 	function webSocketServer() {
-		webSocketMarkPrice();
-		const socket = new WebSocket(WS_URL.value);
+		socket.value = new WebSocket(WS_URL.value);
 
 		const reconnect = () => {
 			if (reconnectAttempts.value < maxReconnectAttempts) {
@@ -35,14 +37,14 @@ export const wsStore = defineStore('wsStore', () => {
 			}
 		};
 
-		socket.onopen = () => {
+		socket.value.onopen = () => {
 			reconnectAttempts.value = 0;
-			socket.send(JSON.stringify({
+			if (socket.value) socket.value.send(JSON.stringify({
 				authorization: userToken.value,
 			}));
 		};
 
-		socket.onmessage = (event) => {
+		socket.value.onmessage = (event) => {
 			try {
 				const data = JSON.parse(event.data);
 				switch (data.type) {
@@ -61,22 +63,32 @@ export const wsStore = defineStore('wsStore', () => {
 			}
 		};
 
-		socket.onclose = () => {
-			storeNotification.addNotification('error', 'Соединение с WebSocket закрыто');
+		socket.value.onclose = () => {
+			storeNotification.addNotification('error', 'Соединение с WebSocket "Server" закрыто');
 			console.log('WebSocket закрыт, попытка переподключения...');
-			reconnect();
+			if (socket.value) reconnect();
 		};
 
-		socket.onerror = (error) => {
+		socket.value.onerror = (error) => {
 			storeNotification.addNotification('error', 'Произошла ошибка WebSocket');
 			console.error('Произошла ошибка WebSocket:', error);
-			socket.close();
+			if (socket.value) socket.value.close();
 		};
 	}
 
+	const webSocketServerDisconnect = () => {
+		if (socket.value) {
+			socket.value.close();
+			socket.value = null;
+		}
+		else {
+			console.log('Нет активного WebSocket соединения для отключения');
+		}
+	};
+
 	const webSocketMarkPrice = () => {
 		const WS_URL = 'wss://fstream.binance.com/ws/!markPrice@arr';
-		const socket = new WebSocket(WS_URL);
+		socketMarkPrice.value = new WebSocket(WS_URL);
 		const reconnectAttempts = { value: 0 };
 		const maxReconnectAttempts = 20;
 
@@ -94,12 +106,12 @@ export const wsStore = defineStore('wsStore', () => {
 			}
 		};
 
-		socket.onopen = () => {
+		socketMarkPrice.value.onopen = () => {
 			reconnectAttempts.value = 0;
 			console.log('Подключено к WebSocket Binance Futures');
 		};
 
-		socket.onmessage = (event) => {
+		socketMarkPrice.value.onmessage = (event) => {
 			try {
 				markPriceBinance.value = JSON.parse(event.data);
 			}
@@ -109,18 +121,30 @@ export const wsStore = defineStore('wsStore', () => {
 			}
 		};
 
-		socket.onclose = () => {
+		socketMarkPrice.value.onclose = () => {
 			console.log('WebSocket закрыт, попытка переподключения...');
-			reconnect();
+			if (socketMarkPrice.value) reconnect();
 		};
 
-		socket.onerror = (error) => {
+		socketMarkPrice.value.onerror = (error) => {
 			console.error('Произошла ошибка WebSocket:', error);
-			socket.close();
+			if (socketMarkPrice.value) socketMarkPrice.value.close();
 		};
+	};
+
+	const webSocketMarkPriceDisconnect = () => {
+		if (socketMarkPrice.value) {
+			socketMarkPrice.value.close();
+			socketMarkPrice.value = null;
+		}
+		else {
+			console.log('Нет активного WebSocket соединения для отключения');
+		}
 	};
 
 	return {
 		webSocketServer,
+		webSocketMarkPrice,
+		webSocketServerDisconnect,
 	};
 });
