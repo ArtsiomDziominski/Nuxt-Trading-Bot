@@ -19,36 +19,32 @@ const backgroundQrCode = computed((): string => {
 			{{ $t('account.telegramBot.connectDescription', { name: href.telegramBotName }) }}
 		</v-card-text>
 		<v-card-item>
-			<v-container
-				class="d-flex align-center justify-center"
+			<v-card
+				elevation="2"
+				class="mx-auto mb-6"
+				max-width="400"
 			>
-				<v-card
-					elevation="2"
-					class="mx-auto"
-					max-width="400"
+				<v-card-text
+					class="text-center"
 				>
-					<v-card-text
-						class="text-center"
+					<QrcodeVue
+						:value="href.telegramBot"
+						:size="260"
+						foreground="#0088cc"
+						:background="backgroundQrCode"
+					/>
+					<p class="ma-3">
+						{{ $t('account.telegramBot.connectToLinkBot') }}
+					</p>
+					<v-btn
+						color="#0088cc"
+						:href="href.telegramBot"
+						target="_blank"
 					>
-						<QrcodeVue
-							:value="href.telegramBot"
-							:size="260"
-							foreground="#0088cc"
-							:background="backgroundQrCode"
-						/>
-						<p class="ma-3">
-							{{ $t('account.telegramBot.connectToLinkBot') }}
-						</p>
-						<v-btn
-							color="#0088cc"
-							:href="href.telegramBot"
-							target="_blank"
-						>
-							{{ href.telegramBotName }}
-						</v-btn>
-					</v-card-text>
-				</v-card>
-			</v-container>
+						{{ href.telegramBotName }}
+					</v-btn>
+				</v-card-text>
+			</v-card>
 		</v-card-item>
 	</v-card>
 </template>
