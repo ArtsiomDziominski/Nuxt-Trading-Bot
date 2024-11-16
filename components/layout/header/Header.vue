@@ -14,6 +14,7 @@ const storeUser = userStore();
 const { isAuthenticated } = storeToRefs(storeUser);
 
 const theme = useTheme();
+
 function toggleTheme() {
 	theme.global.name.value = theme.global.name.value === themeDark ? themeLight : themeDark;
 	setCookie(keyTheme, theme.global.name.value);
@@ -30,10 +31,10 @@ function toggleTheme() {
 		</template>
 
 		<v-app-bar-title>
-			<div class="title">
+			<div class="title d-none d-md-flex">
 				{{ $t('logoName') }}
 				<div
-					class="buttons d-none d-md-flex"
+					class="buttons"
 				>
 					<header-buttons v-if="isAuthenticated" />
 				</div>
