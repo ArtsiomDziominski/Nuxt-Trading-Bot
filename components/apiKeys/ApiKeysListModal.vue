@@ -27,7 +27,7 @@ const close = () => {
 	<wrapper-modal v-model="isModalListApiKey">
 		<template #body>
 			<p class="title">
-				{{ $t('listModalTitle') }}
+				{{ $t('apiKey.listModalTitle') }}
 			</p>
 			<div
 				v-if="userApiKeys.length"
@@ -60,7 +60,7 @@ const close = () => {
 				<v-icon size="160">
 					mdi-api-off
 				</v-icon>
-				<p>{{ $t('listModalNotFound') }}</p>
+				<p>{{ $t('apiKey.listModalNotFound') }}</p>
 			</div>
 		</template>
 		<template #actions>
