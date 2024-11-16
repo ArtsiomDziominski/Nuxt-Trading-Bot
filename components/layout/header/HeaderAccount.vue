@@ -22,7 +22,6 @@ const logout = () => {
 	<div class="text-center">
 		<v-menu
 			v-model="menu"
-			:close-on-content-click="false"
 			location="bottom"
 		>
 			<template #activator="{ props }">
@@ -50,26 +49,22 @@ const logout = () => {
 						v-for="button in headerNavigation"
 						:key="button.title"
 						class=" d-flex d-md-none"
+						:to="button.to"
 					>
-						<v-btn :to="button.to">
-							{{ $t(button.title) }}
-						</v-btn>
+						{{ $t(button.title) }}
 					</v-list-item>
 					<v-list-item
 						v-for="button in accountNavigation"
 						:key="button.title"
+						:to="button.to"
 					>
-						<v-btn :to="button.to">
-							{{ $t(button.title) }}
-						</v-btn>
+						{{ $t(button.title) }}
 					</v-list-item>
-					<v-list-item>
-						<v-btn
-							color="red"
-							@click="logout"
-						>
-							{{ $t('logout') }}
-						</v-btn>
+					<v-list-item
+						class="text-red-accent-1"
+						@click="logout"
+					>
+						{{ $t('logout') }}
 					</v-list-item>
 				</v-list>
 			</v-card>
