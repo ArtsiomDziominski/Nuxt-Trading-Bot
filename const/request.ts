@@ -37,6 +37,7 @@ export const ENDPOINT = {
 			add: '/user/api',
 			delete: '/user/api',
 		},
+		password: '/user/password',
 	},
 };
 

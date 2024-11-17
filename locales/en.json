@@ -65,12 +65,16 @@
 			"title": "Profile"
 		}
 	},
+	"error": {
+		"passwordInvalid": "he password must be at least 8 characters long, with at least one uppercase letter and one digit",
+		"fieldIsEmpty": "Field is empty",
+		"passwordsDoNotMatch": "The passwords do not match"
+	},
 	"logoName": "Crypto Trading",
 	"Home": "Home",
 	"Bots": "Bots",
 	"apiKeys": "API keys",
 	"logout": "Logout",
-	"fieldIsEmpty": "Field is empty",
 	"cancel": "Cancel",
 	"confirm": "Confirm",
 	"back": "Back",
