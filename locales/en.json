@@ -62,7 +62,20 @@
 			"connectToLinkBot": "Or follow the link:"
 		},
 		"profile": {
-			"title": "Profile"
+			"title": "Profile",
+			"login": "Login",
+			"mail": "Email",
+			"apiKeysLength": "Number of API keys",
+			"subscribe": "Subscribe",
+			"notSubscribe": "You do not have a subscription"
+		},
+		"changePassword": {
+			"title": "Change Password",
+			"titleBtn": "Change Password",
+			"currentPassword": "Current Password",
+			"newPassword": "New Password",
+			"newPasswordRepeat": "Repeat New Password",
+			"change": "Change"
 		}
 	},
 	"error": {
