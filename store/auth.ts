@@ -81,12 +81,15 @@ export const authStore = defineStore('authStore', () => {
 			};
 			const response = await axios.post(BURL + ENDPOINT.auth.signupMail, body, getHeadersRequest([HEADER_PARAMETERS.content]));
 			if (response.data.success) {
+				if (response?.data?.message) storeNotification.addNotification('success', response.data.message);
 				await storeUser.saveToken(response.data.token);
 				storeWS.webSocketServer();
 				clearUserSignup();
 			}
 		}
-		catch (e) { /* empty */ }
+		catch (e) {
+			if (e?.response?.data?.message) storeNotification.addNotification('error', e.response.data.message);
+		}
 		isLoaderSignup.value = false;
 	};
 
