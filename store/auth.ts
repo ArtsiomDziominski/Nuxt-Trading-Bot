@@ -9,12 +9,14 @@ import { ruleLoginForm, rulePasswordForm } from '~/const/validation';
 import { validationStore } from '~/store/validation';
 import { encryptPassword } from '~/utils/encrypt';
 import { wsStore } from '~/store/ws';
+import { notificationStore } from '~/store/notification';
 
 export const authStore = defineStore('authStore', () => {
 	const storeUser = userStore();
 	const storeValidation = validationStore();
 	const api = apiStore();
 	const storeWS = wsStore();
+	const storeNotification = notificationStore();
 	const BURL = api.BURL;
 
 	const userLogin: Ref<AUTH.ILogin> = ref({
@@ -56,7 +58,9 @@ export const authStore = defineStore('authStore', () => {
 				clearUserLogin();
 			}
 		}
-		catch (e) { /* empty */ }
+		catch (e) {
+			if (e?.response?.data?.message) storeNotification.addNotification('error', e.response.data.message);
+		}
 		isLoaderLogin.value = false;
 	};
 

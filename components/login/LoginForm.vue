@@ -16,7 +16,6 @@ const showPassword = ref(false);
 const submit = async (): Promise<void> => {
 	if (!storeAuth.checkValidationLoginForm() && !storeAuth.checkValidationPasswordForm()) return;
 	await storeAuth.requestLogin();
-	await storeUser.requestSetUser();
 	if (isAuthenticated.value) await router.push('/bots');
 };
 
@@ -67,7 +66,7 @@ const isDisabledBtn = computed((): boolean => {
 					type="email"
 					variant="outlined"
 					name="email"
-					:error-messages="errors.mail.message"
+					:error-messages="$t(errors.mail.message)"
 					@input="inputMail"
 					@blur="blurMail"
 				/>
@@ -79,7 +78,7 @@ const isDisabledBtn = computed((): boolean => {
 					:label="$t('singIn.labelPassword')"
 					:type="showPassword ? 'text' : 'password'"
 					variant="outlined"
-					:error-messages="errors.password.message"
+					:error-messages="$t(errors.password.message)"
 					:append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
 					name="current-password"
 					@input="inputPassword"
