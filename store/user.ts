@@ -4,9 +4,12 @@ import { setCookie } from '~/utils/cookie';
 import { COOKIES_TOKEN } from '~/const/const';
 import { ENDPOINT } from '~/const/request';
 import { apiStore } from '~/store/api';
+import { encryptPassword } from '~/utils/encrypt';
+import { notificationStore } from '~/store/notification';
 
 export const userStore = defineStore('userStore', () => {
 	const api = apiStore();
+	const storeNotification = notificationStore();
 
 	const user: Ref<USER.User | null> = ref(null);
 	const userToken: Ref<string> = ref('');
@@ -38,6 +41,16 @@ export const userStore = defineStore('userStore', () => {
 		}) || [];
 	});
 
+	const changePasswordUser = async (password: { current: string; new: string; newRepeat: string }) => {
+		const body = {
+			newPassword: encryptPassword(password.new),
+			currentPassword: encryptPassword(password.current),
+		};
+		const response = await api.put(ENDPOINT.user.password, body);
+		if (response?.success) storeNotification.addNotification('success', response?.message);
+		else storeNotification.addNotification('error', response?.message);
+	};
+
 	return {
 		user,
 		userToken,
@@ -46,5 +59,6 @@ export const userStore = defineStore('userStore', () => {
 		saveToken,
 		requestSetUser,
 		deleteUserToken,
+		changePasswordUser,
 	};
 });
