@@ -41,7 +41,8 @@
 		"title": "Sign In",
 		"labelEmail": "Email address",
 		"labelPassword": "Password",
-		"toSingUpBtn": "Sing Up"
+		"toSingUpBtn": "Sign up",
+		"notAccount": "No account?"
 	},
 	"singUp": {
 		"title": "Sign Up",
@@ -81,7 +82,9 @@
 	"error": {
 		"passwordInvalid": "he password must be at least 8 characters long, with at least one uppercase letter and one digit",
 		"fieldIsEmpty": "Field is empty",
-		"passwordsDoNotMatch": "The passwords do not match"
+		"passwordsDoNotMatch": "The passwords do not match",
+		"ruleMailLength": "Email address must be between 5 and 255 characters long",
+		"ruleMail": "Please enter a valid email address"
 	},
 	"logoName": "Crypto Trading",
 	"Home": "Home",

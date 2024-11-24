@@ -11,10 +11,18 @@ const { isAuthenticated } = storeToRefs(storeUser);
 
 const router = useRouter();
 
+onUnmounted(() => storeAuth.clearUserLogin());
+
 const showPassword = ref(false);
 
+const isValidForm = computed((): boolean => {
+	const isMail = !storeAuth.checkValidationMailForm();
+	const isPassword = !storeAuth.checkValidationPasswordForm();
+	return isMail || isPassword;
+});
+
 const submit = async (): Promise<void> => {
-	if (!storeAuth.checkValidationLoginForm() && !storeAuth.checkValidationPasswordForm()) return;
+	if (isValidForm.value) return;
 	await storeAuth.requestLogin();
 	if (isAuthenticated.value) await router.push('/bots');
 };
@@ -25,7 +33,7 @@ const inputMail = async (): Promise<void> => {
 
 const blurMail = async (): Promise<void> => {
 	errors.value.mail.message = '';
-	if (userLogin.value.mail) storeAuth.checkValidationLoginForm();
+	if (userLogin.value.mail) storeAuth.checkValidationMailForm();
 };
 
 const inputPassword = async (): Promise<void> => {
@@ -85,12 +93,14 @@ const isDisabledBtn = computed((): boolean => {
 					@blur="blurPassword"
 					@click:append-inner="showPassword = !showPassword"
 				/>
-				<nuxt-link
-					class="card__signup text-caption"
-					to="/signup"
-				>
-					{{ $t('singIn.toSingUpBtn') }}
-				</nuxt-link>
+				<div class="card__signup text-caption">
+					<span>{{ $t('singIn.notAccount') }}</span>
+					<nuxt-link
+						to="/signup"
+					>
+						{{ $t('singIn.toSingUpBtn') }}
+					</nuxt-link>
+				</div>
 			</v-card-item>
 
 			<v-card-actions class="card__actions">
@@ -135,6 +145,8 @@ const isDisabledBtn = computed((): boolean => {
     &__signup {
       text-decoration: none;
       color: white;
+      display: flex;
+      gap: 4px;
     }
   }
 }

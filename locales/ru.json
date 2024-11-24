@@ -41,7 +41,8 @@
 		"title": "Вход",
 		"labelEmail": "Email address",
 		"labelPassword": "Пароль",
-		"toSingUpBtn": "Зарегистрироваться"
+		"toSingUpBtn": "Зарегистрироваться",
+		"notAccount": "Нет аккаунта?"
 	},
 	"singUp": {
 		"title": "Регистрация",
@@ -81,7 +82,10 @@
 	"error": {
 		"passwordInvalid": "Пароль должен быть минимум из 8 символов, содержать хотя бы одну заглавную букву и одну цифру",
 		"fieldIsEmpty": "Поле не заполнено",
-		"passwordsDoNotMatch": "Пароли не совпадают"
+		"passwordsDoNotMatch": "Пароли не совпадают",
+		"ruleLoginLength": "Логин должен быть длиной от 5 до 16 символов",
+		"ruleMailLength": "Адрес электронной почты должен быть длиной до 255 символов",
+		"ruleMail": "Введите действительный адрес электронной почты"
 	},
 	"logoName": "Crypto Trading",
 	"Home": "Главная",

@@ -5,7 +5,7 @@ import { ENDPOINT, HEADER_PARAMETERS } from '~/const/request';
 import { getHeadersRequest } from '~/utils/request';
 import { userStore } from '~/store/user';
 import { apiStore } from '~/store/api';
-import { ruleLoginForm, rulePasswordForm } from '~/const/validation';
+import { ruleLoginForm, ruleMailForm, ruleNewPassword, rulePasswordForm } from '~/const/validation';
 import { validationStore } from '~/store/validation';
 import { encryptPassword } from '~/utils/encrypt';
 import { wsStore } from '~/store/ws';
@@ -31,6 +31,7 @@ export const authStore = defineStore('authStore', () => {
 	});
 
 	const errors: Ref<COMMON.Errors> = ref({
+		login: { message: '' },
 		mail: { message: '' },
 		password: { message: '' },
 	});
@@ -64,14 +65,7 @@ export const authStore = defineStore('authStore', () => {
 		isLoaderLogin.value = false;
 	};
 
-	const checkValidationLoginForm = (): boolean => {
-		const validationRules = ruleLoginForm(userLogin.value.mail);
-		const { isValid, error } = storeValidation.makeCheckRules('mail', validationRules);
-		appendErrors(error);
-		return isValid;
-	};
-
-	const requestSignupMail = async (): Promise<void> => {
+	const requestSignupMail = async (): Promise<boolean> => {
 		isLoaderSignup.value = true;
 		try {
 			const passwordEncrypt = encryptPassword(userSignup.value.password);
@@ -86,16 +80,37 @@ export const authStore = defineStore('authStore', () => {
 				storeWS.webSocketServer();
 				clearUserSignup();
 			}
+
+			return response?.data?.success;
 		}
 		catch (e) {
 			if (e?.response?.data?.message) storeNotification.addNotification('error', e.response.data.message);
+			return !!e?.response?.data?.success;
 		}
 		isLoaderSignup.value = false;
 	};
 
+	const checkValidationMailForm = (): boolean => {
+		const mail = useRoute().name === 'login' ? userLogin.value.mail : userSignup.value.mail;
+		const validationRules = ruleMailForm(mail);
+		const { isValid, error } = storeValidation.makeCheckRules('mail', validationRules);
+		appendErrors(error);
+		return isValid;
+	};
+
 	const checkValidationPasswordForm = (): boolean => {
-		const validationRules = rulePasswordForm(userLogin.value.password);
+		const isLogin = useRoute().name === 'login';
+		const password = isLogin ? userLogin.value.password : userSignup.value.password;
+		const validationRules = isLogin ? rulePasswordForm(password) : ruleNewPassword(password);
+
 		const { isValid, error } = storeValidation.makeCheckRules('password', validationRules);
+		appendErrors(error);
+		return isValid;
+	};
+
+	const checkValidationLoginForm = (): boolean => {
+		const validationRules = ruleLoginForm(userSignup.value.login);
+		const { isValid, error } = storeValidation.makeCheckRules('login', validationRules);
 		appendErrors(error);
 		return isValid;
 	};
@@ -120,7 +135,10 @@ export const authStore = defineStore('authStore', () => {
 		isLoaderSignup,
 		requestLogin,
 		requestSignupMail,
-		checkValidationLoginForm,
+		checkValidationMailForm,
 		checkValidationPasswordForm,
+		checkValidationLoginForm,
+		clearUserLogin,
+		clearUserSignup,
 	};
 });

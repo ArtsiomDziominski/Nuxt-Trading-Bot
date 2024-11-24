@@ -1,8 +1,23 @@
 import v8n from 'v8n';
 
 export const ruleLoginForm = (val: string) => ({
-	validation: v8n().not.empty().testAll(val),
+	validation: v8n().not.empty().length(5, 16).testAll(val),
+	length: 'error.ruleLoginLength',
 	errors: {
+		length: 'error.ruleLoginLength',
+		empty: 'error.fieldIsEmpty',
+	},
+});
+
+export const ruleMailForm = (val: string) => ({
+	validation: v8n()
+		.not.empty()
+		.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
+		.length(5, 255)
+		.testAll(val),
+	errors: {
+		pattern: 'error.ruleMail',
+		length: 'error.ruleMailLength',
 		empty: 'error.fieldIsEmpty',
 	},
 });
