@@ -41,7 +41,7 @@ export const createBotsStore = defineStore('createBotsStore', () => {
 			const body = {
 				idApi: createBotParams.value.apiId,
 				params: {
-					symbol: createBotParams.value.symbol,
+					symbol: createBotParams.value.symbol.toUpperCase(),
 					qty: Number(createBotParams.value.amountStart),
 					price: createBotParams.value.type === BotTypes.Market ? 0 : createBotParams.value.price,
 					side: 'BUY',

@@ -23,7 +23,12 @@
 		"step": "Step (%)",
 		"decimals": "decimals",
 		"price": "Price",
-		"selectBot": "Select bot"
+		"selectBot": "Select bot",
+		"coinsAtEachOrder": "Number of coins per order",
+		"averagePrice": "Average price",
+		"nextOrderCoins": "Next order coins",
+		"totalCoins": "Total number of coins",
+		"liquidationPrice": "Liquidation price"
 	},
 	"cardBot": {
 		"marketPrice": "Market price:",
