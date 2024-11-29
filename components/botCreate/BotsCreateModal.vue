@@ -6,6 +6,7 @@ import { BotCreateTitle, BotTypes } from '~/const/bots';
 import { botsStore } from '~/store/bots';
 import { historyStore } from '~/store/historyBots';
 import { sharedStore } from '~/store/shared';
+import BotsCreateModalMetrics from '~/components/botCreate/BotsCreateModalMetrics.vue';
 
 const storeCreateBots = createBotsStore();
 const { createBotParams, errors, isModalCreateBots, isLoadingCreateBot } = storeToRefs(storeCreateBots);
@@ -66,7 +67,7 @@ const openHistoryGridBot = () => {
 					@update:model-value="errors.apiId.message = ''"
 				/>
 				<v-text-field
-					v-model="createBotParams.symbol"
+					v-model.trim="createBotParams.symbol"
 					:label="$t('createBot.symbol')"
 					placeholder="ETHUSDT"
 					variant="outlined"
@@ -87,7 +88,7 @@ const openHistoryGridBot = () => {
 				</v-tabs>
 				<div class="create-bot-fields">
 					<v-text-field
-						v-model="createBotParams.amountStart"
+						v-model.trim="createBotParams.amountStart"
 						:label="$t('createBot.qtyTokens')"
 						placeholder="1,2"
 						variant="outlined"
@@ -96,7 +97,7 @@ const openHistoryGridBot = () => {
 						@input="errors.amountStart.message = ''"
 					/>
 					<v-text-field
-						v-model="createBotParams.orders"
+						v-model.trim="createBotParams.orders"
 						:label="$t('createBot.offers')"
 						placeholder="10"
 						variant="outlined"
@@ -105,7 +106,7 @@ const openHistoryGridBot = () => {
 						@input="errors.orders.message = ''"
 					/>
 					<v-text-field
-						v-model="createBotParams.step"
+						v-model.trim="createBotParams.step"
 						:label="$t('createBot.step')"
 						placeholder="5"
 						variant="outlined"
@@ -114,7 +115,7 @@ const openHistoryGridBot = () => {
 						@input="errors.step.message = ''"
 					/>
 					<v-text-field
-						v-model="createBotParams.decimals"
+						v-model.trim="createBotParams.decimals"
 						:label="$t('createBot.decimals')"
 						placeholder="2"
 						variant="outlined"
@@ -125,7 +126,7 @@ const openHistoryGridBot = () => {
 					<v-expand-transition>
 						<v-text-field
 							v-show="createBotParams?.type === BotTypes.Limit"
-							v-model="createBotParams.price"
+							v-model.trim="createBotParams.price"
 							class="create-bot-fields__price"
 							:label="$t('createBot.price')"
 							variant="outlined"
@@ -145,14 +146,19 @@ const openHistoryGridBot = () => {
 						</v-text-field>
 					</v-expand-transition>
 				</div>
-				<v-btn
-					variant="text"
-					@click="openHistoryGridBot"
-				>
-					<v-icon>
-						mdi-history
-					</v-icon>
-				</v-btn>
+				<div class="create-bot-info">
+					<v-btn
+						variant="text"
+						@click="openHistoryGridBot"
+					>
+						<v-icon>
+							mdi-history
+						</v-icon>
+					</v-btn>
+				</div>
+				<div class="create-bot-metrics">
+					<BotsCreateModalMetrics />
+				</div>
 			</div>
 		</template>
 		<template #actions>
@@ -184,6 +190,23 @@ const openHistoryGridBot = () => {
 
     &__price {
       grid-column: 1/3;
+    }
+  }
+
+  .create-bot-metrics {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 6px 4px;
+    margin: 16px 0;
+
+    &__metric {
+      display: flex;
+      flex-direction: row;
+      gap: 6px;
+
+      &:first-child {
+        grid-area: 1/1/2/3;
+      }
     }
   }
 }

@@ -23,7 +23,12 @@
 		"step": "Шаг (%)",
 		"decimals": "decimals",
 		"price": "Цена",
-		"selectBot": "Выберите бота"
+		"selectBot": "Выберите бота",
+		"coinsAtEachOrder": "Количество монет в ордере",
+		"averagePrice": "Средняя цена",
+		"nextOrderCoins": "Последний ордер",
+		"totalCoins": "Количество монет",
+		"liquidationPrice": "Цена ликвидации"
 	},
 	"cardBot": {
 		"marketPrice": "Рыночная цена:",
