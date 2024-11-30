@@ -4,19 +4,6 @@ import { userStore } from '~/store/user';
 
 const storeUser = userStore();
 const { isAuthenticated } = storeToRefs(storeUser);
-
-const availableExchangesImg = [{ link: 'https://www.binance.com/activity/referral-entry/CPA/together-v4?hl=ru&ref=CPA_008Y5VJ98Z', img: 'binance' }];
-
-const soonExchangesImg = [
-	{ link: '', img: 'bitget' },
-	{ link: '', img: 'bybit' },
-	{ link: '', img: 'gateio' },
-	{ link: '', img: 'huobi' },
-	{ link: '', img: 'krkn-logo' },
-	{ link: '', img: 'kucoin' },
-	{ link: '', img: 'mexc' },
-	{ link: '', img: 'okx' },
-];
 </script>
 
 <template>
@@ -53,34 +40,55 @@ const soonExchangesImg = [
 			<h2>
 				{{ $t('mainPage.availableExchanges') }}
 			</h2>
-			<a
-				v-for="exchanges in availableExchangesImg"
-				:key="exchanges.link"
-				:href="exchanges.link"
-				target="_blank"
+			<div
+				class="exchanges-img"
 			>
-				<img
-					:src="`/_nuxt/assets/img/exchange/${exchanges.img}.svg`"
-					:alt="exchanges.img"
+				<a
+					href="https://www.binance.com/activity/referral-entry/CPA/together-v4?hl=ru&ref=CPA_008Y5VJ98Z"
+					target="_blank"
 				>
-			</a>
+					<img
+						src="~/assets/img/exchange/binance.svg"
+						alt="binance"
+					>
+				</a>
+			</div>
 		</div>
 		<div class="soon-exchanges exchanges">
 			<h2>
 				{{ $t('mainPage.soon') }}
 			</h2>
-			<div class="exchanges-img">
-				<a
-					v-for="exchanges in soonExchangesImg"
-					:key="exchanges.link"
-					:href="exchanges.link"
-					target="_blank"
+			<div
+				class="exchanges-img"
+			>
+				<img
+					src="~/assets/img/exchange/bitget.svg"
+					alt="bitget"
 				>
-					<img
-						:src="`/_nuxt/assets/img/exchange/${exchanges.img}.svg`"
-						:alt="exchanges.img"
-					>
-				</a>
+				<img
+					src="~/assets/img/exchange/bybit.svg"
+					alt="bybit"
+				>
+				<img
+					src="~/assets/img/exchange/gateio.svg"
+					alt="gateio"
+				>
+				<img
+					src="~/assets/img/exchange/huobi.svg"
+					alt="huobi"
+				>
+				<img
+					src="~/assets/img/exchange/krkn-logo.svg"
+					alt="krkn"
+				>
+				<img
+					src="~/assets/img/exchange/mexc.svg"
+					alt="mexc"
+				>
+				<img
+					src="~/assets/img/exchange/okx.svg"
+					alt="okx"
+				>
 			</div>
 		</div>
 	</div>
@@ -106,6 +114,8 @@ const soonExchangesImg = [
 
     @media screen and (max-width: 768px) {
       gap: 10px 0;
+      height: 100%;
+      min-height: 100%;
     }
 
     &__icon {
@@ -117,6 +127,10 @@ const soonExchangesImg = [
 
     &__title {
       grid-area: 1/2/2/3;
+      word-break: break-all;
+      @media screen and (max-width: 768px) {
+        font-size: 36px;
+      }
     }
 
     &__subtitle {
@@ -127,11 +141,18 @@ const soonExchangesImg = [
       grid-area: 3/2/4/3;
       width: 400px;
       margin-top: 10px;
+      @media screen and (max-width: 768px) {
+        grid-area: 5/2/6/3;
+        width: 100%;
+      }
     }
 
     &__login {
       grid-area: 3/1/4/1;
       margin-top: 10px;
+      @media screen and (max-width: 768px) {
+        grid-area: 4/2/5/3;
+      }
     }
   }
 
@@ -147,9 +168,13 @@ const soonExchangesImg = [
       flex-wrap: wrap;
       gap: 10px 40px;
       max-width: 1200px;
+      width: 100%;
 
       img {
         max-width: 300px;
+        @media screen and (max-width: 768px) {
+          max-width: 100px;
+        }
       }
     }
   }
