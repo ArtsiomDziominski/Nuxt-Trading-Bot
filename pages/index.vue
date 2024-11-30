@@ -40,61 +40,18 @@ const { isAuthenticated } = storeToRefs(storeUser);
 			<h2>
 				{{ $t('mainPage.availableExchanges') }}
 			</h2>
-			<div
-				class="exchanges-img"
+			<a
+				href="https://www.binance.com/activity/referral-entry/CPA/together-v4?hl=ru&ref=CPA_008Y5VJ98Z"
+				target="_blank"
 			>
-				<ClientOnly>
-					<a
-						href="https://www.binance.com/activity/referral-entry/CPA/together-v4?hl=ru&ref=CPA_008Y5VJ98Z"
-						target="_blank"
-					>
-						<img
-							src="~/assets/img/exchange/binance.svg"
-							alt="binance"
-						>
-					</a>
-				</ClientOnly>
-			</div>
+				Binance
+			</a>
 		</div>
-		<div class="soon-exchanges exchanges">
-			<h2>
-				{{ $t('mainPage.soon') }}
-			</h2>
-			<ClientOnly>
-				<div
-					class="exchanges-img"
-				>
-					<img
-						src="~/assets/img/exchange/bitget.svg"
-						alt="bitget"
-					>
-					<img
-						src="~/assets/img/exchange/bybit.svg"
-						alt="bybit"
-					>
-					<img
-						src="~/assets/img/exchange/gateio.svg"
-						alt="gateio"
-					>
-					<img
-						src="~/assets/img/exchange/huobi.svg"
-						alt="huobi"
-					>
-					<img
-						src="~/assets/img/exchange/krkn-logo.svg"
-						alt="krkn"
-					>
-					<img
-						src="~/assets/img/exchange/mexc.svg"
-						alt="mexc"
-					>
-					<img
-						src="~/assets/img/exchange/okx.svg"
-						alt="okx"
-					>
-				</div>
-			</ClientOnly>
-		</div>
+		<!--		<div class="soon-exchanges exchanges"> -->
+		<!--			<h2> -->
+		<!--				{{ $t('mainPage.soon') }} -->
+		<!--			</h2> -->
+		<!--		</div> -->
 	</div>
 </template>
 
@@ -166,20 +123,9 @@ const { isAuthenticated } = storeToRefs(storeUser);
     align-items: center;
     margin-top: 60px;
 
-    .exchanges-img {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 10px 40px;
-      max-width: 1200px;
-      width: 100%;
-
-      img {
-        max-width: 300px;
-        @media screen and (max-width: 768px) {
-          max-width: 100px;
-        }
-      }
+    a {
+      color: yellow;
+      font-size: 56px;
     }
   }
 
