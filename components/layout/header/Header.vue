@@ -27,12 +27,17 @@ function toggleTheme() {
 		class="app-bar"
 	>
 		<template #prepend>
-			<v-icon icon="mdi-finance" />
+			<a href="/">
+				<v-icon icon="mdi-finance" />
+
+			</a>
 		</template>
 
 		<v-app-bar-title>
 			<div class="title d-none d-md-flex">
-				{{ $t('logoName') }}
+				<a href="/">
+					{{ $t('logoName') }}
+				</a>
 				<div
 					class="buttons"
 				>

@@ -102,5 +102,11 @@
 	"back": "Back",
 	"close": "Close",
 	"MARKET": "Market",
-	"LIMIT": "Limit"
+	"LIMIT": "Limit",
+	"mainPage": {
+		"title": "Efficient Bots for Automated Cryptocurrency Trading",
+		"subtitle": "Cryptocurrency trading bots automate transactions, reducing risks and increasing trading efficiency. They allow traders to execute operations quickly and accurately, making bots a valuable tool for all market participants.",
+		"availableExchanges": "Available Cryptocurrency Exchanges",
+		"soon": "Coming Soon"
+	}
 }
