@@ -4,6 +4,8 @@ import { userStore } from '~/store/user';
 
 const storeUser = userStore();
 const { isAuthenticated } = storeToRefs(storeUser);
+
+const availableExchangesImg = [{ link: 'https://www.binance.com/activity/referral-entry/CPA/together-v4?hl=ru&ref=CPA_008Y5VJ98Z', img: 'binance' }];
 </script>
 
 <template>
@@ -36,22 +38,103 @@ const { isAuthenticated } = storeToRefs(storeUser);
 				{{ $t('singUp.title') }}
 			</v-btn>
 		</div>
-		<div class="available-exchanges exchanges">
-			<h2>
-				{{ $t('mainPage.availableExchanges') }}
-			</h2>
-			<a
-				href="https://www.binance.com/activity/referral-entry/CPA/together-v4?hl=ru&ref=CPA_008Y5VJ98Z"
-				target="_blank"
-			>
-				Binance
-			</a>
-		</div>
-		<!--		<div class="soon-exchanges exchanges"> -->
-		<!--			<h2> -->
-		<!--				{{ $t('mainPage.soon') }} -->
-		<!--			</h2> -->
-		<!--		</div> -->
+		<ClientOnly>
+			<div class="available-exchanges exchanges">
+				<h2>
+					{{ $t('mainPage.availableExchanges') }}
+				</h2>
+				<a
+					href="https://www.binance.com/activity/referral-entry/CPA/together-v4?hl=ru&ref=CPA_008Y5VJ98Z"
+					target="_blank"
+				>
+					<img
+						src="~/assets/img/exchanges/binance.svg"
+						alt="binance"
+					>
+				</a>
+			</div>
+		</ClientOnly>
+		<ClientOnly>
+			<div class="available-exchanges exchanges">
+				<h2>
+					{{ $t('mainPage.soon') }}
+				</h2>
+				<div class="exchanges__links">
+					<a
+						href="https://www.bitget.com/"
+						target="_blank"
+					>
+						<img
+							src="~/assets/img/exchanges/bitget.svg"
+							alt="bitget"
+						>
+					</a>
+					<a
+						href="https://www.bybit.com/"
+						target="_blank"
+					>
+						<img
+							src="~/assets/img/exchanges/bybit.svg"
+							alt="bybit"
+						>
+					</a>
+					<a
+						href="https://www.gate.io/"
+						target="_blank"
+					>
+						<img
+							src="~/assets/img/exchanges/gateio.svg"
+							alt="gateio"
+						>
+					</a>
+					<a
+						href="https://www.htx.com.cm/invite/ru-ru/1f?invite_code=bnhg3223"
+						target="_blank"
+					>
+						<img
+							src="~/assets/img/exchanges/huobi.svg"
+							alt="huobi"
+						>
+					</a>
+					<a
+						href="https://www.kraken.com"
+						target="_blank"
+					>
+						<img
+							src="~/assets/img/exchanges/krkn.svg"
+							alt="krkn"
+						>
+					</a>
+					<a
+						href="https://www.kucoin.com"
+						target="_blank"
+					>
+						<img
+							src="~/assets/img/exchanges/kucoin.svg"
+							alt="kucoin"
+						>
+					</a>
+					<a
+						href="https://www.mexc.com"
+						target="_blank"
+					>
+						<img
+							src="~/assets/img/exchanges/mexc.svg"
+							alt="mexc"
+						>
+					</a>
+					<a
+						href="https://www.okx.com"
+						target="_blank"
+					>
+						<img
+							src="~/assets/img/exchanges/okx.svg"
+							alt="okx"
+						>
+					</a>
+				</div>
+			</div>
+		</ClientOnly>
 	</div>
 </template>
 
@@ -121,11 +204,21 @@ const { isAuthenticated } = storeToRefs(storeUser);
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 60px;
+    padding: 60px;
 
-    a {
-      color: yellow;
-      font-size: 56px;
+    &__links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 60px;
+      max-width: 1200px;
+
+      img {
+        max-width: 300px;
+        @media screen and (max-width: 768px) {
+          max-width: 150px;
+        }
+      }
     }
   }
 
