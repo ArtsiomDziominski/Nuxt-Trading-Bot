@@ -12,7 +12,9 @@ export default defineNuxtRouteMiddleware((to, from) => {
 		userToken.value = getCookie(COOKIES_TOKEN) || '';
 
 		const isPageAuth = ['/', '/login', '/signup'].includes(to.path);
-		if (!isPageAuth && !isAuthenticated.value) return navigateTo('/login');
+		const isPageAll = ['/'].includes(to.path);
+		if (isPageAll) return;
+		else if (!isPageAuth && !isAuthenticated.value) return navigateTo('/login');
 		else if (isPageAuth && isAuthenticated.value) return navigateTo('/');
 	}
 });
