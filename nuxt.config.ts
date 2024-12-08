@@ -22,6 +22,7 @@ export default defineNuxtConfig({
 			API_URL: process.env.API_URL,
 			WS_URL: process.env.WS_URL,
 			SECRET_KEY_API: process.env.SECRET_KEY_API,
+			TELEGRAM_BOT: process.env.TELEGRAM_BOT,
 		},
 	},
 

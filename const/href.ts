@@ -1,4 +1,4 @@
 export const href = {
-	telegramBotName: '@anturiumTradingBot',
-	telegramBot: 'http://t.me/anturiumTradingBot',
+	telegramBotName: `@${useRuntimeConfig().public.TELEGRAM_BOT}`,
+	telegramBot: `http://t.me/${useRuntimeConfig().public.TELEGRAM_BOT}`,
 };

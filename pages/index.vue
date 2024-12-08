@@ -43,15 +43,17 @@ const availableExchangesImg = [{ link: 'https://www.binance.com/activity/referra
 				<h2>
 					{{ $t('mainPage.availableExchanges') }}
 				</h2>
-				<a
-					href="https://www.binance.com/activity/referral-entry/CPA/together-v4?hl=ru&ref=CPA_008Y5VJ98Z"
-					target="_blank"
-				>
-					<img
-						src="~/assets/img/exchanges/binance.svg"
-						alt="binance"
+				<div class="exchanges__links">
+					<a
+						href="https://www.binance.com/activity/referral-entry/CPA/together-v4?hl=ru&ref=CPA_008Y5VJ98Z"
+						target="_blank"
 					>
-				</a>
+						<img
+							src="~/assets/img/exchanges/binance.svg"
+							alt="binance"
+						>
+					</a>
+				</div>
 			</div>
 		</ClientOnly>
 		<ClientOnly>
@@ -205,6 +207,10 @@ const availableExchangesImg = [{ link: 'https://www.binance.com/activity/referra
     flex-direction: column;
     align-items: center;
     padding: 60px;
+    @media screen and (max-width: 768px) {
+      padding: 20px;
+      text-align: center;
+    }
 
     &__links {
       display: flex;
