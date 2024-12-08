@@ -208,7 +208,7 @@ const availableExchangesImg = [{ link: 'https://www.binance.com/activity/referra
     align-items: center;
     padding: 60px;
     @media screen and (max-width: 768px) {
-      padding: 20px;
+      padding: 16px;
       text-align: center;
     }
 
