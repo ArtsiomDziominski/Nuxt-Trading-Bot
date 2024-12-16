@@ -68,6 +68,12 @@ function toggleTheme() {
 					v-if="isAuthenticated"
 					class="account"
 				/>
+				<v-btn
+					v-if="!isAuthenticated"
+					to="/login"
+				>
+					{{ $t('singIn.title') }}
+				</v-btn>
 			</div>
 		</template>
 	</v-app-bar>
