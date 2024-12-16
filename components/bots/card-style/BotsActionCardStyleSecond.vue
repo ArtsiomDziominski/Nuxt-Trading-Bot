@@ -68,19 +68,19 @@ const setLastUpdate = () => {
 
 		<v-card-text>
 			<div class="price-section">
-				<span class="label">{{ $t('marketPrice') }}</span>
+				<span class="label">{{ $t('cardBot.marketPrice') }}</span>
 				<span class="value">${{ Number(position.positionRisk.markPrice).toFixed(2) }}</span>
 			</div>
 			<div class="price-section">
-				<span class="label">{{ $t('qtyTokens') }}</span>
+				<span class="label">{{ $t('cardBot.qtyTokens') }}</span>
 				<span class="value">{{ position.positionRisk.positionAmt }}</span>
 			</div>
 			<div class="price-section">
-				<span class="label">{{ $t('priceEnter') }}</span>
+				<span class="label">{{ $t('cardBot.priceEnter') }}</span>
 				<span class="value">${{ Number(position.positionRisk.entryPrice).toFixed(2) }}</span>
 			</div>
 			<div class="price-section">
-				<span class="label">{{ $t('liquidationPrice') }}</span>
+				<span class="label">{{ $t('cardBot.liquidationPrice') }}</span>
 				<span class="value">{{ Number(position.positionRisk.liquidationPrice) || 'N/A' }}</span>
 			</div>
 		</v-card-text>
