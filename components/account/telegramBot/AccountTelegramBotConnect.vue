@@ -16,7 +16,7 @@ const backgroundQrCode = computed((): string => {
 			{{ $t('account.telegramBot.connectTitle') }}
 		</v-card-title>
 		<v-card-text class="text-center d-none d-md-block">
-			{{ $t('account.telegramBot.connectDescription', { name: href.telegramBotName }) }}
+			{{ $t('account.telegramBot.connectDescription', { name: href().telegramBotName }) }}
 		</v-card-text>
 		<v-card-item>
 			<v-card
@@ -29,7 +29,7 @@ const backgroundQrCode = computed((): string => {
 				>
 					<QrcodeVue
 						class="d-none d-md-inline"
-						:value="href.telegramBot"
+						:value="href().telegramBot"
 						:size="260"
 						foreground="#0088cc"
 						:background="backgroundQrCode"
@@ -39,10 +39,10 @@ const backgroundQrCode = computed((): string => {
 					</p>
 					<v-btn
 						color="#0088cc"
-						:href="href.telegramBot"
+						:href="href().telegramBot"
 						target="_blank"
 					>
-						{{ href.telegramBotName }}
+						{{ href().telegramBotName }}
 					</v-btn>
 				</v-card-text>
 			</v-card>

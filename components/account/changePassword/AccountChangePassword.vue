@@ -2,7 +2,7 @@
 	<v-card>
 		<v-form @submit.prevent="changePassword">
 			<v-card-text class="text-center">
-				{{ $t('changePassword.title') }}
+				{{ $t('account.changePassword.title') }}
 			</v-card-text>
 			<v-card-item>
 				<div class="card-item">
