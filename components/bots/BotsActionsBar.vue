@@ -43,7 +43,12 @@ const countBotsDeactivateString = computed((): string => {
 			<v-icon color="green">
 				mdi-robot
 			</v-icon>
-			<div>{{ $t('bots.activeBots', { count: countBotsActiveString }) }}</div>
+			<div class="d-none d-md-flex">
+				{{ $t('bots.activeBots', { count: countBotsActiveString }) }}
+			</div>
+			<div class="d-flex d-md-none">
+				{{ countBotsActiveString }}
+			</div>
 		</v-card>
 
 		<v-card
@@ -53,7 +58,12 @@ const countBotsDeactivateString = computed((): string => {
 			<v-icon color="red">
 				mdi-robot-off
 			</v-icon>
-			<div>{{ $t('bots.stoppedBots', { count: countBotsDeactivateString }) }}</div>
+			<div class="d-none d-md-flex">
+				{{ $t('bots.stoppedBots', { count: countBotsDeactivateString }) }}
+			</div>
+			<div class="d-flex d-md-none">
+				{{ countBotsDeactivateString }}
+			</div>
 		</v-card>
 
 		<div class="bots-actions-bar__buttons">
@@ -65,7 +75,9 @@ const countBotsDeactivateString = computed((): string => {
 					<v-icon left>
 						mdi-plus
 					</v-icon>
-					{{ $t('bots.createNewBots') }}
+					<span class="d-none d-md-flex">
+						{{ $t('bots.createNewBots') }}
+					</span>
 				</div>
 			</v-btn>
 
@@ -77,7 +89,9 @@ const countBotsDeactivateString = computed((): string => {
 					<v-icon left>
 						mdi-key
 					</v-icon>
-					{{ $t('bots.addApiKey') }}
+					<span class="d-none d-md-flex">
+						{{ $t('bots.addApiKey') }}
+					</span>
 				</div>
 			</v-btn>
 		</div>
@@ -108,6 +122,9 @@ const countBotsDeactivateString = computed((): string => {
     gap: 10px;
     align-items: center;
     width: 280px;
+    @media screen and (max-width: 1200px) {
+      width: min-content;
+    }
   }
 
   &__button {
