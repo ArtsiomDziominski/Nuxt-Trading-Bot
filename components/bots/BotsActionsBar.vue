@@ -98,7 +98,7 @@ const countBotsDeactivateString = computed((): string => {
 
 		<api-keys-create-modal />
 		<api-keys-list-modal />
-		<bot-create-bots-create-modal />
+		<bot-create-bots-create-modal v-if="isModalCreateBots" />
 		<bot-create-bots-select-modal />
 		<HistoryGridBotCreatedModal v-if="isModalCreateBots" />
 	</div>

@@ -13,9 +13,22 @@ export const createBotsStore = defineStore('createBotsStore', () => {
 	const isModalSelectBots = ref(false);
 	const isModalCreateBots = ref(false);
 	const isLoadingCreateBot = ref(false);
-	const createBotParams = ref({
+	const createBotParams = ref<
+		{
+			apiId: null | number;
+			symbol: EXCHANGE_INFO.SymbolInfo | null;
+			amountStart: string;
+			price: string;
+			amount: string;
+			orders: string;
+			step: string;
+			decimals: string;
+			strategy: Strategy;
+			type: BotTypes;
+		}
+	>({
 		apiId: null,
-		symbol: '',
+		symbol: null,
 		amountStart: '',
 		price: '',
 		amount: '',
@@ -41,7 +54,7 @@ export const createBotsStore = defineStore('createBotsStore', () => {
 			const body = {
 				idApi: createBotParams.value.apiId,
 				params: {
-					symbol: createBotParams.value.symbol.toUpperCase(),
+					symbol: createBotParams.value.symbol?.symbol?.toUpperCase() || '',
 					qty: Number(createBotParams.value.amountStart),
 					price: createBotParams.value.type === BotTypes.Market ? 0 : createBotParams.value.price,
 					side: 'BUY',
@@ -74,7 +87,7 @@ export const createBotsStore = defineStore('createBotsStore', () => {
 		createBotParams.value = {
 			...createBotParams.value,
 			...{
-				symbol: '',
+				symbol: null,
 				amountStart: '',
 				price: '',
 				amount: '',
@@ -90,7 +103,7 @@ export const createBotsStore = defineStore('createBotsStore', () => {
 		let errorsList = {};
 		const isValidationList = [];
 		const validationRulesApi = ruleEmpty(createBotParams.value?.apiId || '');
-		const validationRulesSymbol = ruleEmpty(createBotParams.value.symbol);
+		const validationRulesSymbol = ruleEmpty(createBotParams.value.symbol?.symbol);
 		const validationRulesAmountStart = ruleEmpty(createBotParams.value.amountStart);
 		const validationRulesOrders = ruleEmpty(createBotParams.value.orders);
 		const validationRulesStep = ruleEmpty(createBotParams.value.step);
