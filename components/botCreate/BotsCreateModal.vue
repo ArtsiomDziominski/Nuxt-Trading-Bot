@@ -7,6 +7,8 @@ import { botsStore } from '~/store/bots';
 import { historyStore } from '~/store/historyBots';
 import { sharedStore } from '~/store/shared';
 import BotsCreateModalMetrics from '~/components/botCreate/BotsCreateModalMetrics.vue';
+import { useExchangeInfo } from '~/store/exchangeInfo';
+import { ExchangeInfoFilters } from '~/const/exchangeInfo';
 
 const storeCreateBots = createBotsStore();
 const { createBotParams, errors, isModalCreateBots, isLoadingCreateBot } = storeToRefs(storeCreateBots);
@@ -17,6 +19,11 @@ const storeHistory = historyStore();
 const { isModalHistoryGridBotCreated } = storeToRefs(storeHistory);
 const storeShared = sharedStore();
 const { markPriceBinance } = storeToRefs(storeShared);
+const storeExchangeInfo = useExchangeInfo();
+const { exchangeInfoSymbols } = storeToRefs(storeExchangeInfo);
+
+onMounted(() => storeExchangeInfo.loadExchangeInfo());
+onUnmounted(() => storeCreateBots.clearBotParams());
 
 const createBot = async (): Promise<void> => {
 	if (storeCreateBots.checkValidationCreateBot()) {
@@ -37,13 +44,23 @@ const titleModal = computed((): string => {
 });
 
 const priceNow = computed((): string => {
-	const price = markPriceBinance.value.find(item => item.s === createBotParams.value.symbol)?.p;
+	const price = markPriceBinance.value.find(item => item.s === createBotParams.value.symbol?.symbol)?.p;
 	return price ? Number(price).toFixed(2) : '';
 });
+
+const exchangeInfoSymbol = computed(() => exchangeInfoSymbols.value.find(symbol => symbol.symbol === createBotParams.value.symbol?.symbol));
+const exchangeInfoSymbolSize = computed(() => exchangeInfoSymbol.value?.filters.find(filter => filter.filterType === ExchangeInfoFilters.LOT_SIZE));
+const exchangeInfoSymbolOrdersLimit = computed(() => exchangeInfoSymbol.value?.filters.find(filter => filter.filterType === ExchangeInfoFilters.MAX_NUM_ORDERS)?.limit);
 
 const openHistoryGridBot = () => {
 	storeHistory.requestHistoryGridBotCreated();
 	isModalHistoryGridBotCreated.value = true;
+};
+
+const updateSymbol = (value: EXCHANGE_INFO.SymbolInfo) => {
+	errors.value.symbol.message = '';
+	createBotParams.value.decimals = String(value?.pricePrecision || value?.quantityPrecision || '');
+	createBotParams.value.price = String(priceNow.value);
 };
 </script>
 
@@ -62,18 +79,22 @@ const openHistoryGridBot = () => {
 					:items="userApiKeys"
 					maxlength="50"
 					variant="outlined"
-					:error-messages="errors.apiId.message"
+					:error-messages="$t(errors.apiId.message)"
 					@input="errors.apiId.message = ''"
 					@update:model-value="errors.apiId.message = ''"
 				/>
-				<v-text-field
-					v-model.trim="createBotParams.symbol"
+				<v-autocomplete
+					v-model="createBotParams.symbol"
 					:label="$t('createBot.symbol')"
 					placeholder="ETHUSDT"
+					:items="exchangeInfoSymbols"
+					:item-value="'symbol'"
+					:item-title="'symbol'"
+					return-object
 					variant="outlined"
-					maxlength="50"
-					:error-messages="errors.symbol.message"
+					:error-messages="$t(errors.symbol.message)"
 					@input="errors.symbol.message = ''"
+					@update:model-value="updateSymbol"
 				/>
 				<v-tabs
 					v-model="createBotParams.type"
@@ -87,34 +108,67 @@ const openHistoryGridBot = () => {
 					</v-tab>
 				</v-tabs>
 				<div class="create-bot-fields">
-					<v-text-field
-						v-model.trim="createBotParams.amountStart"
-						:label="$t('createBot.qtyTokens')"
-						placeholder="1,2"
-						variant="outlined"
-						maxlength="50"
-						:error-messages="errors.amountStart.message"
-						@input="errors.amountStart.message = ''"
-					/>
-					<v-text-field
-						v-model.trim="createBotParams.orders"
-						:label="$t('createBot.offers')"
-						placeholder="10"
-						variant="outlined"
-						maxlength="50"
-						:error-messages="errors.orders.message"
-						@input="errors.orders.message = ''"
-					/>
+					<div>
+						<v-text-field
+							v-model.trim="createBotParams.amountStart"
+							:label="$t('createBot.qtyTokens')"
+							placeholder="1,2"
+							variant="outlined"
+							maxlength="50"
+							:hide-details="!errors.amountStart.message"
+							:error-messages="$t(errors.amountStart.message)"
+							@input="errors.amountStart.message = ''"
+						/>
+						<div
+							v-if="!errors.amountStart.message"
+							class="d-flex justify-space-between mt-1"
+						>
+							<p
+								v-if="exchangeInfoSymbolSize?.minQty"
+								class="text-caption cursor-pointer"
+								@click="createBotParams.amountStart = exchangeInfoSymbolSize.minQty"
+							>
+								Мin: {{ exchangeInfoSymbolSize.minQty }} {{ exchangeInfoSymbol?.baseAsset || createBotParams.symbol }}
+							</p>
+							<p
+								v-if="exchangeInfoSymbolSize?.maxQty"
+								class="text-caption cursor-pointer"
+								@click="createBotParams.amountStart = exchangeInfoSymbolSize.maxQty"
+							>
+								Max: {{ exchangeInfoSymbolSize.maxQty }} {{ exchangeInfoSymbol?.baseAsset || createBotParams.symbol }}
+							</p>
+						</div>
+					</div>
+					<div>
+						<v-text-field
+							v-model.trim="createBotParams.orders"
+							:label="$t('createBot.offers')"
+							placeholder="10"
+							variant="outlined"
+							maxlength="50"
+							:hide-details="!errors.orders.message"
+							:error-messages="$t(errors.orders.message)"
+							@input="errors.orders.message = ''"
+						/>
+						<p
+							v-if="exchangeInfoSymbolOrdersLimit && !errors.orders.message"
+							class="text-caption cursor-pointer mt-1 ml-auto d-flex justify-end"
+							@click="createBotParams.orders = String(exchangeInfoSymbolOrdersLimit)"
+						>
+							Мax: {{ exchangeInfoSymbolOrdersLimit }}
+						</p>
+					</div>
 					<v-text-field
 						v-model.trim="createBotParams.step"
 						:label="$t('createBot.step')"
 						placeholder="5"
 						variant="outlined"
 						maxlength="50"
-						:error-messages="errors.step.message"
+						:error-messages="$t(errors.step.message)"
 						@input="errors.step.message = ''"
 					/>
 					<v-text-field
+						v-if="!createBotParams.decimals"
 						v-model.trim="createBotParams.decimals"
 						:label="$t('createBot.decimals')"
 						placeholder="2"
@@ -131,17 +185,17 @@ const openHistoryGridBot = () => {
 							:label="$t('createBot.price')"
 							variant="outlined"
 							maxlength="50"
-							:error-messages="errors.price.message"
+							:error-messages="$t(errors.price.message)"
 							@click:append-inner="setPrice"
 							@input="errors.price.message = ''"
 						>
 							<template #append-inner>
-								<v-btn
-									class="cursor-pointer"
+								<p
+									class="cursor-pointer text-no-wrap"
 									@click="setPrice"
 								>
-									{{ priceNow }} {{ createBotParams.symbol }}
-								</v-btn>
+									{{ priceNow }} {{ createBotParams.symbol?.symbol }}
+								</p>
 							</template>
 						</v-text-field>
 					</v-expand-transition>

@@ -1,3 +1,7 @@
+export const URL_BINANCE = {
+	futures: 'https://fapi.binance.com',
+};
+
 export const HEADER_PARAMETERS = {
 	content: {
 		key: 'Content-Type',
@@ -39,6 +43,10 @@ export const ENDPOINT = {
 		},
 		password: '/user/password',
 	},
+};
+
+export const ENDPOINT_BINANCE = {
+	exchangeInfo: '/fapi/v1/exchangeInfo',
 };
 
 export enum ErrorCodes {

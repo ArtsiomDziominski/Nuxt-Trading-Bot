@@ -10,7 +10,7 @@ const storeCreateBots = createBotsStore();
 const { createBotParams } = storeToRefs(storeCreateBots);
 
 const priceNow = computed((): string => {
-	const price = markPriceBinance.value.find(item => item.s === createBotParams.value.symbol)?.p;
+	const price = markPriceBinance.value.find(item => item.s === createBotParams.value.symbol?.symbol)?.p;
 	return price ? Number(price).toFixed(2) : '';
 });
 
@@ -40,11 +40,11 @@ const gridBotMetrics = computed(() => {
 });
 
 const symbolCrypto = computed(() => {
-	return createBotParams.value.symbol.replace('USDT', '').replace('USDC', '');
+	return createBotParams.value.symbol?.symbol.replace('USDT', '').replace('USDC', '');
 });
 
 const symbolFiat = computed(() => {
-	return createBotParams.value.symbol.includes('USDT') ? 'USDT' : createBotParams.value.symbol.includes('USDT') ? 'USDC' : '';
+	return createBotParams.value.symbol?.symbol.includes('USDT') ? 'USDT' : createBotParams.value.symbol?.symbol.includes('USDT') ? 'USDC' : '';
 });
 </script>
 
