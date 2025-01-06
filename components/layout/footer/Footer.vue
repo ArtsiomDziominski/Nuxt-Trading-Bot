@@ -3,15 +3,15 @@
 
 <template>
 	<v-footer class="text-center d-flex flex-column">
-		<div>
-			<v-btn
-				v-for="icon in icons"
-				:key="icon"
-				:icon="icon"
-				class="mx-4"
-				variant="text"
-			/>
-		</div>
+		<!--		<div> -->
+		<!--			<v-btn -->
+		<!--				v-for="icon in icons" -->
+		<!--				:key="icon" -->
+		<!--				:icon="icon" -->
+		<!--				class="mx-4" -->
+		<!--				variant="text" -->
+		<!--			/> -->
+		<!--		</div> -->
 
 		<v-divider />
 
