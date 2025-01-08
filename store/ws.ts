@@ -4,6 +4,14 @@ import { botsStore } from '~/store/bots';
 import { notificationStore } from '~/store/notification';
 import { sharedStore } from '~/store/shared';
 
+enum NotificationType {
+	auth = 'NOTIFICATION_AUTH',
+	bot = 'NOTIFICATION_BOT',
+	botError = 'ERROR_NOTIFICATION_BOT',
+	positionRisk = 'NOTIFICATION_POSITION_RISK',
+	positionRiskError = 'ERROR_NOTIFICATION_POSITION_RISK',
+}
+
 export const wsStore = defineStore('wsStore', () => {
 	const config = computed(() => useRuntimeConfig());
 	const WS_URL = computed(() => config.value.public.WS_URL);
@@ -48,13 +56,16 @@ export const wsStore = defineStore('wsStore', () => {
 			try {
 				const data = JSON.parse(event.data);
 				switch (data.notificationType) {
-					case 'NOTIFICATION_POSITION_RISK':
+					case NotificationType.positionRisk:
 						if (data?.data?.api?.id && data?.data?.positionsRisk?.length) {
 							storeBots.updateActiveBotsFromWS(data.data.api.id, data.data.positionsRisk);
 						}
 						break;
-					case 'NOTIFICATION_BOT':
+					case NotificationType.bot:
 						storeNotification.addNotification('success', data?.data?.message);
+						break;
+					case NotificationType.botError:
+						storeNotification.addNotification('error', data?.data?.message);
 						break;
 				}
 			}
