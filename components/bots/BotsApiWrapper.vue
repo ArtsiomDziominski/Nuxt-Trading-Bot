@@ -3,20 +3,26 @@ import { botsStore } from '~/store/bots';
 import { BotStatus } from '~/const/bots';
 import BotsActionCardStyleSecond from '~/components/bots/card-style/BotsActionCardStyleSecond.vue';
 
-defineProps({
+const { bots } = defineProps({
 	bots: {
 		type: Object as PropType<BOTS.ActiveBots>,
 		required: true,
 	},
 });
 
+const activeBots = inject<Ref<BOTS.ActiveBots[]>>('activeBots', []);
+
 const storeBots = botsStore();
 
 const loadingBot = ref<Record<string, boolean>>({});
 
-const requestTakeProfitGridBot = async (symbol: string, apiId: string) => {
+const requestTakeProfitGridBot = async (symbol: string, apiId: string, isActive: boolean) => {
 	loadingBot.value[apiId + symbol] = true;
 	await storeBots.requestTakeProfitGridBot(symbol, apiId);
+	if (!isActive) {
+		const botIndex = activeBots.value.findIndex(bot => bot.api.id === apiId);
+		if (activeBots.value?.[botIndex]?.positionsRisk) activeBots.value[botIndex].positionsRisk = activeBots.value?.[botIndex]?.positionsRisk.filter(position => position.positionRisk.symbol !== symbol);
+	}
 };
 
 const requestChangeWatchingGridBot = async (symbol: string, apiId: string, status: BotStatus) => {
@@ -41,7 +47,7 @@ const requestChangeWatchingGridBot = async (symbol: string, apiId: string, statu
 				@pause-bot="requestChangeWatchingGridBot(positionRisk.positionRisk.symbol, bots.api.id, BotStatus.Pause)"
 				@start-bot="requestChangeWatchingGridBot(positionRisk.positionRisk.symbol, bots.api.id, BotStatus.Start)"
 				@stop-bot="requestChangeWatchingGridBot(positionRisk.positionRisk.symbol, bots.api.id, BotStatus.Stop)"
-				@take-profit="requestTakeProfitGridBot(positionRisk.positionRisk.symbol, bots.api.id)"
+				@take-profit="requestTakeProfitGridBot(positionRisk.positionRisk.symbol, bots.api.id, positionRisk.positionRisk.isActive)"
 				@reset-loading="loadingBot[bots.api.id + positionRisk.positionRisk.symbol] = false"
 			/>
 		</div>

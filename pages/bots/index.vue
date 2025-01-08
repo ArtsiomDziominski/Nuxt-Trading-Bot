@@ -16,6 +16,8 @@ onMounted(async () => {
 	await storeBots.requestActiveBots();
 	loadingBots.value = false;
 });
+
+provide('activeBots', activeBots);
 </script>
 
 <template>
