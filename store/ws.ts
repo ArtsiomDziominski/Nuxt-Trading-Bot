@@ -47,7 +47,7 @@ export const wsStore = defineStore('wsStore', () => {
 		socket.value.onmessage = (event) => {
 			try {
 				const data = JSON.parse(event.data);
-				switch (data.type) {
+				switch (data.notificationType) {
 					case 'NOTIFICATION_POSITION_RISK':
 						if (data?.data?.api?.id && data?.data?.positionsRisk?.length) {
 							storeBots.updateActiveBotsFromWS(data.data.api.id, data.data.positionsRisk);
