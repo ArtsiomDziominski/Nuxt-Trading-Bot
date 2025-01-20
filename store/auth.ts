@@ -22,12 +22,14 @@ export const authStore = defineStore('authStore', () => {
 	const userLogin: Ref<AUTH.ILogin> = ref({
 		mail: '',
 		password: '',
+		captchaToken: '',
 	});
 
 	const userSignup: Ref<AUTH.ISignupMail> = ref({
 		login: '',
 		mail: '',
 		password: '',
+		captchaToken: '',
 	});
 
 	const errors: Ref<COMMON.Errors> = ref({
@@ -116,7 +118,7 @@ export const authStore = defineStore('authStore', () => {
 	};
 
 	const clearUserLogin = (): void => {
-		userLogin.value = { mail: '', password: '' };
+		userLogin.value = { mail: '', password: '', captchaToken: '' };
 	};
 
 	const clearUserSignup = (): void => {
@@ -124,6 +126,7 @@ export const authStore = defineStore('authStore', () => {
 			login: '',
 			mail: '',
 			password: '',
+			captchaToken: '',
 		};
 	};
 

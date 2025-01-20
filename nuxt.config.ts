@@ -10,11 +10,8 @@ export default defineNuxtConfig({
 		transpile: ['vuetify'],
 	},
 
-	modules: [
-		// ...
-		'@pinia/nuxt',
-		'@nuxt/eslint',
-		'@nuxtjs/i18n',
+	modules: [// ...
+		'@pinia/nuxt', '@nuxt/eslint', '@nuxtjs/i18n', '@nuxtjs/turnstile',
 	],
 
 	runtimeConfig: {
@@ -23,6 +20,7 @@ export default defineNuxtConfig({
 			WS_URL: process.env.WS_URL,
 			SECRET_KEY_API: process.env.SECRET_KEY_API,
 			TELEGRAM_BOT: process.env.TELEGRAM_BOT,
+			NUXT_TURNSTILE_SECRET_KEY: process.env.NUXT_TURNSTILE_SECRET_KEY,
 		},
 	},
 
@@ -38,6 +36,10 @@ export default defineNuxtConfig({
 
 	i18n: {
 		vueI18n: './plugins/i18n.config.ts',
+	},
+
+	turnstile: {
+		siteKey: process.env.NUXT_TURNSTILE_SECRET_KEY,
 	},
 
 	compatibilityDate: '2025-01-06',
