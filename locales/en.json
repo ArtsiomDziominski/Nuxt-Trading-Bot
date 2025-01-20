@@ -28,7 +28,8 @@
 		"averagePrice": "Average price",
 		"nextOrderCoins": "Next order coins",
 		"totalCoins": "Total number of coins",
-		"liquidationPrice": "Liquidation price"
+		"liquidationPrice": "Liquidation price",
+		"walletBalance": "Balance"
 	},
 	"cardBot": {
 		"marketPrice": "Market price:",

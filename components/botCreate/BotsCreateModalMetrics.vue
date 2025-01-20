@@ -27,6 +27,7 @@ const gridBotMetrics = computed(() => {
 	if (Object.values(body).every(Boolean)) {
 		const calculateGridBotMetrics = calculateGridBot.calculateGridBotMetrics(body);
 		return {
+			walletBalance: `${body.walletBalance} USDT`,
 			price: priceNow.value + ' ' + symbolFiat.value,
 			...calculateGridBotMetrics,
 			coinsAtEachOrder: calculateGridBotMetrics.coinsAtEachOrder.join(', '),

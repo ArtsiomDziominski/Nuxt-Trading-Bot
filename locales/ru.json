@@ -28,7 +28,8 @@
 		"averagePrice": "Средняя цена",
 		"nextOrderCoins": "Последний ордер",
 		"totalCoins": "Количество монет",
-		"liquidationPrice": "Цена ликвидации"
+		"liquidationPrice": "Цена ликвидации",
+		"walletBalance": "Баланс"
 	},
 	"cardBot": {
 		"marketPrice": "Рыночная цена:",
