@@ -46,7 +46,7 @@ const blurPassword = async (): Promise<void> => {
 };
 
 const isDisabledBtn = computed((): boolean => {
-	return !!errors.value.mail.message && !!errors.value.password.message;
+	return (!!errors.value.mail.message && !!errors.value.password.message) || !userLogin.value.captchaToken;
 });
 </script>
 
@@ -102,6 +102,11 @@ const isDisabledBtn = computed((): boolean => {
 					</nuxt-link>
 				</div>
 			</v-card-item>
+
+			<NuxtTurnstile
+				v-model="userLogin.captchaToken"
+				class="d-flex justify-center"
+			/>
 
 			<v-card-actions class="card__actions">
 				<v-btn
