@@ -96,10 +96,16 @@ const input = (name: 'login' | 'mail' | 'password') => {
 				</div>
 			</v-card-item>
 
+			<NuxtTurnstile
+				v-model="userSignup.captchaToken"
+				class="d-flex justify-center"
+			/>
+
 			<v-card-actions class="card__actions">
 				<v-btn
 					class="mt-2"
 					type="submit"
+					:disabled="!userSignup.captchaToken"
 					:loading="isLoaderSignup"
 				>
 					{{ $t('singUp.reg') }}
