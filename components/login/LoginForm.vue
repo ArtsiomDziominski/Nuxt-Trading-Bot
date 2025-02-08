@@ -24,7 +24,10 @@ const isValidForm = computed((): boolean => {
 const submit = async (): Promise<void> => {
 	if (isValidForm.value) return;
 	await storeAuth.requestLogin();
-	if (isAuthenticated.value) await router.push('/bots');
+	if (isAuthenticated.value) {
+		storeUser.requestSetUser();
+		await router.push('/bots');
+	}
 };
 
 const inputMail = async (): Promise<void> => {

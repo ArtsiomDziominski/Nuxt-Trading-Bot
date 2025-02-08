@@ -26,7 +26,10 @@ const submit = async (): Promise<void> => {
 	if (isValidForm.value) return;
 
 	if (!await storeAuth.requestSignupMail()) return;
-	if (isAuthenticated.value) await router.push('/bots');
+	if (isAuthenticated.value) {
+		storeUser.requestSetUser();
+		await router.push('/bots');
+	}
 	storeAuth.clearUserSignup();
 };
 
