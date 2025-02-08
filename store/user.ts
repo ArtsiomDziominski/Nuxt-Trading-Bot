@@ -1,4 +1,3 @@
-import type { Ref } from 'vue';
 import { defineStore } from 'pinia';
 import { setCookie } from '~/utils/cookie';
 import { COOKIES_TOKEN } from '~/const/const';
@@ -11,8 +10,8 @@ export const userStore = defineStore('userStore', () => {
 	const api = apiStore();
 	const storeNotification = notificationStore();
 
-	const user: Ref<USER.User | null> = ref(null);
-	const userToken: Ref<string> = ref('');
+	const user = ref<USER.User | null>(null);
+	const userToken = ref<string>('');
 	const isAuthenticated = computed(() => !!userToken.value);
 
 	const saveToken = async (token: string): Promise<void> => {

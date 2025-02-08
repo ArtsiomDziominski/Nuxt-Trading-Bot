@@ -9,6 +9,7 @@ export interface User {
 		type: string;
 		id: string;
 	}[];
+	tgId?: number;
 }
 
 export as namespace USER;

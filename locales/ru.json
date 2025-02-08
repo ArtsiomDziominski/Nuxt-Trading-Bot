@@ -66,7 +66,8 @@
 			"infoDescription": "Бот уведомлений в Telegram присылает уведомления о различных событиях.",
 			"connectTitle": "Подключение Telegram бота",
 			"connectDescription": "Чтобы привязать свой аккаунт к боту, отсканируйте QR-код камерой смартфона или перейдите по ссылке. Также вы можете найти нашего бота {name} в Telegram и запустить его.",
-			"connectToLinkBot": "Или перейдите по ссылке:"
+			"connectToLinkBot": "Или перейдите по ссылке:",
+			"connectedTitle": "Telegram бот подключен"
 		},
 		"profile": {
 			"title": "Профиль",
