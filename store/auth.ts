@@ -83,13 +83,14 @@ export const authStore = defineStore('authStore', () => {
 				clearUserSignup();
 			}
 
+			isLoaderSignup.value = false;
 			return response?.data?.success;
 		}
 		catch (e) {
 			if (e?.response?.data?.message) storeNotification.addNotification('error', e.response.data.message);
+			isLoaderSignup.value = false;
 			return !!e?.response?.data?.success;
 		}
-		isLoaderSignup.value = false;
 	};
 
 	const checkValidationMailForm = (): boolean => {
