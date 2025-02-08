@@ -2,21 +2,30 @@
 import QrcodeVue from 'qrcode.vue';
 import { useTheme } from 'vuetify';
 import { href } from '@/const/href';
+import { userStore } from '~/store/user';
 
 const theme = useTheme();
+const { user } = userStore();
 
 const backgroundQrCode = computed((): string => {
 	return theme.current.value.dark ? 'rgb(33, 33, 33)' : '#fff';
 });
+
+const tgId = computed(() => user?.tgId);
+const title = computed((): string => tgId.value ? 'account.telegramBot.connectedTitle' : 'account.telegramBot.connectTitle');
+const description = computed((): string => tgId.value ? '' : 'account.telegramBot.connectDescription');
 </script>
 
 <template>
 	<v-card>
-		<v-card-title class="text-center">
-			{{ $t('account.telegramBot.connectTitle') }}
+		<v-card-title
+			class="text-center"
+			:class="{ 'text-green': tgId }"
+		>
+			{{ $t(title) }}
 		</v-card-title>
 		<v-card-text class="text-center d-none d-md-block">
-			{{ $t('account.telegramBot.connectDescription', { name: href().telegramBotName }) }}
+			{{ $t(description, { name: href().telegramBotName }) }}
 		</v-card-text>
 		<v-card-item>
 			<v-card
