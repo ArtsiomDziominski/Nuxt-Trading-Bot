@@ -2,6 +2,7 @@
 import { storeToRefs } from 'pinia';
 import { authStore } from '~/store/auth';
 import { userStore } from '~/store/user';
+import TelegramLogin from '~/components/login/TelegramLogin.vue';
 
 const storeAuth = authStore();
 const { userLogin, errors, isLoaderLogin } = storeToRefs(storeAuth);
@@ -49,8 +50,13 @@ const blurPassword = async (): Promise<void> => {
 };
 
 const isDisabledBtn = computed((): boolean => {
-	return (!!errors.value.mail.message && !!errors.value.password.message) || !userLogin.value.captchaToken;
+	return false;
 });
+
+const handleTelegramAuth = async (): Promise<void> => {
+	// Здесь можно, например, отправить данные авторизации на сервер или сохранить в store
+	console.log('Данные авторизации Telegram:', userData);
+};
 </script>
 
 <template>
@@ -105,6 +111,13 @@ const isDisabledBtn = computed((): boolean => {
 					</nuxt-link>
 				</div>
 			</v-card-item>
+
+			<ClientOnly>
+				<TelegramLogin @telegram-auth="handleTelegramAuth" />
+			</ClientOnly>
+			{{
+
+      }}
 
 			<NuxtTurnstile
 				v-model="userLogin.captchaToken"
