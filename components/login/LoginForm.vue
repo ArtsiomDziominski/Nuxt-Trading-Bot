@@ -2,7 +2,6 @@
 import { storeToRefs } from 'pinia';
 import { authStore } from '~/store/auth';
 import { userStore } from '~/store/user';
-import TelegramLogin from '~/components/login/TelegramLogin.vue';
 
 const storeAuth = authStore();
 const { userLogin, errors, isLoaderLogin } = storeToRefs(storeAuth);
@@ -111,13 +110,6 @@ const handleTelegramAuth = async (): Promise<void> => {
 					</nuxt-link>
 				</div>
 			</v-card-item>
-
-			<ClientOnly>
-				<TelegramLogin @telegram-auth="handleTelegramAuth" />
-			</ClientOnly>
-			{{
-
-      }}
 
 			<NuxtTurnstile
 				v-model="userLogin.captchaToken"
