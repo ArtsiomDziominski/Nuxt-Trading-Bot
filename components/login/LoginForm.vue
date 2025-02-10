@@ -49,12 +49,12 @@ const blurPassword = async (): Promise<void> => {
 };
 
 const isDisabledBtn = computed((): boolean => {
-	return false;
+	return (!!errors.value.mail.message && !!errors.value.password.message) || !userLogin.value.captchaToken;
 });
 
 const handleTelegramAuth = async (): Promise<void> => {
 	// Здесь можно, например, отправить данные авторизации на сервер или сохранить в store
-	console.log('Данные авторизации Telegram:', userData);
+	// console.log('Данные авторизации Telegram:', userData);
 };
 </script>
 
