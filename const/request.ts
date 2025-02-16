@@ -20,6 +20,7 @@ export const HEADER_PARAMETERS = {
 export const ENDPOINT = {
 	auth: {
 		login: '/auth/login',
+		loginTelegram: '/auth/login-telegram',
 		signupMail: '/auth/registration',
 		user: '/auth/user',
 	},

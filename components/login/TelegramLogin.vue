@@ -2,9 +2,12 @@
 	<div id="telegram" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted } from 'vue';
-import { useCookie, useRuntimeConfig } from '#app';
+import { useRuntimeConfig } from '#app';
+
+const router = useRouter();
+const translation = useI18n();
 
 const props = defineProps({
 	mode: {
@@ -28,63 +31,46 @@ const props = defineProps({
 		default: true,
 	},
 	radius: {
-		default: '0',
+		default: '4',
 		type: String,
 	},
 });
 
-const emit = defineEmits(['callback', 'loaded']);
+const userLogin = inject('userLogin') as Ref;
 
-const userCookie = useCookie('tg_user', {
-	maxAge: 60 * 60 * 24,
-	secure: process.env.NODE_ENV === 'production',
-	sameSite: 'lax',
-});
+onMounted(() => loadingTG());
 
-const setCookie = (payload) => {
-	userCookie.value = btoa(JSON.stringify(payload));
-};
+const requestLoginTelegram = inject('requestLoginTelegram') as Function;
+const addNotification = inject('addNotification') as Function;
 
-function onTelegramAuth(payload) {
-	setCookie(payload);
-	// Если fetchSession() не определена, либо импортируйте её, либо удалите этот вызов
-	// fetchSession();
-	emit('callback', payload);
-}
-
-onMounted(() => {
+const loadingTG = () => {
 	if (import.meta.client) {
-		// Используем значение из пропсов telegramLogin
 		const botUsername = useRuntimeConfig().public.TELEGRAM_BOT;
-		console.log(botUsername);
 
 		const script = document.createElement('script');
 		script.async = true;
-		// Используем актуальную версию виджета, например ?15 или ?22 (убедитесь, что версия актуальна)
 		script.src = 'https://telegram.org/js/telegram-widget.js?22';
 
 		script.setAttribute('data-telegram-login', botUsername);
 		script.setAttribute('data-request-access', props.requestAccess);
 		script.setAttribute('data-size', props.size);
 
-		if (props.radius) {
-			script.setAttribute('data-radius', props.radius);
-		}
+		if (props.radius) script.setAttribute('data-radius', props.radius);
 
 		if (props.mode === 'callback') {
-			window.onTelegramAuth = onTelegramAuth;
-			// Используем правильный атрибут data-callback (без передачи аргумента)
-			script.setAttribute('data-callback', 'onTelegramAuth');
-		}
-		else {
-			script.setAttribute('data-auth-url', props.redirectUrl);
+			if (window) window.onTelegramAuth = async (payload: AUTH.ILoginTelegramBody) => {
+				if (userLogin.value.captchaToken) {
+					const isLogin = await requestLoginTelegram(payload);
+					if (isLogin) await router.push({ name: 'bots' });
+				}
+				else addNotification('info', String(translation.t('singIn.completeTheCaptcha')));
+			};
+
+			script.setAttribute('data-onauth', 'onTelegramAuth(user)');
 		}
 
 		const telegramEl = document.querySelector('#telegram');
-		if (telegramEl) {
-			telegramEl.appendChild(script);
-		}
-		emit('loaded');
+		if (telegramEl) telegramEl.appendChild(script);
 	}
-});
+};
 </script>
