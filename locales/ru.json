@@ -48,7 +48,8 @@
 		"labelEmail": "Email address",
 		"labelPassword": "Пароль",
 		"toSingUpBtn": "Зарегистрироваться",
-		"notAccount": "Нет аккаунта?"
+		"notAccount": "Нет аккаунта?",
+		"completeTheCaptcha": "Пожалуйста, пройдите капчу"
 	},
 	"singUp": {
 		"title": "Регистрация",

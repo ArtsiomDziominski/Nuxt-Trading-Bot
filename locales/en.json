@@ -48,7 +48,8 @@
 		"labelEmail": "Email address",
 		"labelPassword": "Password",
 		"toSingUpBtn": "Sign up",
-		"notAccount": "No account?"
+		"notAccount": "No account?",
+		"completeTheCaptcha": "Please complete the captcha"
 	},
 	"singUp": {
 		"title": "Sign Up",

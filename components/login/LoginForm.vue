@@ -1,61 +1,39 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia';
-import { authStore } from '~/store/auth';
-import { userStore } from '~/store/user';
-
-const storeAuth = authStore();
-const { userLogin, errors, isLoaderLogin } = storeToRefs(storeAuth);
-
-const storeUser = userStore();
-const { isAuthenticated } = storeToRefs(storeUser);
+import LoginFormExtra from '~/components/login/LoginFormExtra.vue';
+import LoginFormMail from '~/components/login/LoginFormMail.vue';
 
 const router = useRouter();
 
-onUnmounted(() => storeAuth.clearUserLogin());
+const userLogin = inject('userLogin') as Ref;
+const errors = inject('errors') as Ref;
+const isLoaderLogin = inject('isLoaderLogin') as Ref<boolean>;
+const isAuthenticated = inject('isAuthenticated') as Ref<boolean>;
+const requestLogin = inject('requestLogin') as Function;
+const requestSetUser = inject('requestSetUser') as Function;
+const checkValidationMailForm = inject('checkValidationMailForm') as Function;
+const checkValidationPasswordForm = inject('checkValidationPasswordForm') as Function;
+const clearUserLogin = inject('clearUserLogin') as Function;
 
-const showPassword = ref(false);
+onUnmounted(() => clearUserLogin());
 
 const isValidForm = computed((): boolean => {
-	const isMail = !storeAuth.checkValidationMailForm();
-	const isPassword = !storeAuth.checkValidationPasswordForm();
+	const isMail = !checkValidationMailForm();
+	const isPassword = !checkValidationPasswordForm();
 	return isMail || isPassword;
 });
 
 const submit = async (): Promise<void> => {
 	if (isValidForm.value) return;
-	await storeAuth.requestLogin();
+	await requestLogin();
 	if (isAuthenticated.value) {
-		storeUser.requestSetUser();
+		requestSetUser();
 		await router.push('/bots');
 	}
-};
-
-const inputMail = async (): Promise<void> => {
-	errors.value.mail.message = '';
-};
-
-const blurMail = async (): Promise<void> => {
-	errors.value.mail.message = '';
-	if (userLogin.value.mail) storeAuth.checkValidationMailForm();
-};
-
-const inputPassword = async (): Promise<void> => {
-	errors.value.password.message = '';
-};
-
-const blurPassword = async (): Promise<void> => {
-	errors.value.password.message = '';
-	if (userLogin.value.password) storeAuth.checkValidationPasswordForm();
 };
 
 const isDisabledBtn = computed((): boolean => {
 	return (!!errors.value.mail.message && !!errors.value.password.message) || !userLogin.value.captchaToken;
 });
-
-const handleTelegramAuth = async (): Promise<void> => {
-	// Здесь можно, например, отправить данные авторизации на сервер или сохранить в store
-	// console.log('Данные авторизации Telegram:', userData);
-};
 </script>
 
 <template>
@@ -74,41 +52,13 @@ const handleTelegramAuth = async (): Promise<void> => {
 				</p>
 			</v-card-title>
 			<v-card-item class="card__item">
-				<v-text-field
-					v-model="userLogin.mail"
-					class="card__input"
-					:label="$t('singIn.labelEmail')"
-					placeholder="johndoe@gmail.com"
-					type="email"
-					variant="outlined"
-					name="email"
-					:error-messages="$t(errors.mail.message)"
-					@input="inputMail"
-					@blur="blurMail"
-				/>
+				<login-form-extra />
 
-				<v-text-field
-					v-model="userLogin.password"
-					class="card__input"
-					hint="Enter your password to access this website"
-					:label="$t('singIn.labelPassword')"
-					:type="showPassword ? 'text' : 'password'"
-					variant="outlined"
-					:error-messages="$t(errors.password.message)"
-					:append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-					name="current-password"
-					@input="inputPassword"
-					@blur="blurPassword"
-					@click:append-inner="showPassword = !showPassword"
-				/>
-				<div class="card__signup text-caption">
-					<span>{{ $t('singIn.notAccount') }}</span>
-					<nuxt-link
-						to="/signup"
-					>
-						{{ $t('singIn.toSingUpBtn') }}
-					</nuxt-link>
+				<div class="separator">
+					<span>OR</span>
 				</div>
+
+				<login-form-mail />
 			</v-card-item>
 
 			<NuxtTurnstile
@@ -162,5 +112,25 @@ const handleTelegramAuth = async (): Promise<void> => {
       gap: 4px;
     }
   }
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.separator::before,
+.separator::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+  margin: 0 8px;
+}
+
+.separator span {
+  font-weight: 500;
+  white-space: nowrap;
 }
 </style>

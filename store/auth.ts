@@ -67,6 +67,26 @@ export const authStore = defineStore('authStore', () => {
 		isLoaderLogin.value = false;
 	};
 
+	const requestLoginTelegram = async (body: AUTH.ILoginTelegramBody): Promise<boolean> => {
+		isLoaderLogin.value = true;
+		let success = false;
+		try {
+			const response = await axios.post(BURL + ENDPOINT.auth.loginTelegram, body, getHeadersRequest([HEADER_PARAMETERS.content]));
+			if (response.data.success) {
+				await storeUser.saveToken(response.data.token);
+				await storeUser.requestSetUser();
+				storeWS.webSocketServer();
+				clearUserLogin();
+				success = response.data.success;
+			}
+		}
+		catch (e) {
+			if (e?.response?.data?.message) storeNotification.addNotification('error', e.response.data.message);
+		}
+		isLoaderLogin.value = false;
+		return success;
+	};
+
 	const requestSignupMail = async (): Promise<boolean> => {
 		isLoaderSignup.value = true;
 		try {
@@ -138,6 +158,7 @@ export const authStore = defineStore('authStore', () => {
 		isLoaderLogin,
 		isLoaderSignup,
 		requestLogin,
+		requestLoginTelegram,
 		requestSignupMail,
 		checkValidationMailForm,
 		checkValidationPasswordForm,
