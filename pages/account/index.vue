@@ -1,5 +1,11 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia';
+import { userStore } from '~/store/user';
 
+const storeUser = userStore();
+const { user } = storeToRefs(storeUser);
+provide('user', user);
+provide('requestSetUser', storeUser.requestSetUser);
 </script>
 
 <template>

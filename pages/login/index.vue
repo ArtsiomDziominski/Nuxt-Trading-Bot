@@ -23,6 +23,7 @@ provide('requestLogin', storeAuth.requestLogin);
 provide('clearUserLogin', storeAuth.clearUserLogin);
 provide('requestSetUser', storeUser.requestSetUser);
 provide('addNotification', storeNotification.addNotification);
+provide('requestLoginGoogle', storeAuth.requestLoginGoogle);
 </script>
 
 <template>

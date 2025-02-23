@@ -87,6 +87,26 @@ export const authStore = defineStore('authStore', () => {
 		return success;
 	};
 
+	const requestLoginGoogle = async (accessToken: string): Promise<boolean> => {
+		isLoaderLogin.value = true;
+		let success = false;
+		try {
+			const response = await axios.post(BURL + ENDPOINT.auth.loginGoogle, { accessToken }, getHeadersRequest([HEADER_PARAMETERS.content]));
+			if (response.data.success) {
+				await storeUser.saveToken(response.data.data.token);
+				await storeUser.requestSetUser();
+				storeWS.webSocketServer();
+				clearUserLogin();
+				success = response.data.success;
+			}
+		}
+		catch (e) {
+			if (e?.response?.data?.message) storeNotification.addNotification('error', e.response.data.message);
+		}
+		isLoaderLogin.value = false;
+		return success;
+	};
+
 	const requestSignupMail = async (): Promise<boolean> => {
 		isLoaderSignup.value = true;
 		try {
@@ -159,6 +179,7 @@ export const authStore = defineStore('authStore', () => {
 		isLoaderSignup,
 		requestLogin,
 		requestLoginTelegram,
+		requestLoginGoogle,
 		requestSignupMail,
 		checkValidationMailForm,
 		checkValidationPasswordForm,

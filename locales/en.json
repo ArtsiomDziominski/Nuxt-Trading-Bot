@@ -88,6 +88,7 @@
 		}
 	},
 	"error": {
+		"errorSingIn": "Error singIn",
 		"passwordInvalid": "he password must be at least 8 characters long, with at least one uppercase letter and one digit",
 		"fieldIsEmpty": "Field is empty",
 		"passwordsDoNotMatch": "The passwords do not match",
@@ -111,5 +112,6 @@
 		"subtitle": "Cryptocurrency trading bots automate transactions, reducing risks and increasing trading efficiency. They allow traders to execute operations quickly and accurately, making bots a valuable tool for all market participants.",
 		"availableExchanges": "Available Cryptocurrency Exchanges",
 		"soon": "Coming Soon"
-	}
+	},
+	"or": "or"
 }

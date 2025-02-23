@@ -10,6 +10,7 @@ export interface User {
 		id: string;
 	}[];
 	tgId?: number;
+	isPassword?: boolean;
 }
 
 export as namespace USER;

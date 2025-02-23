@@ -21,6 +21,7 @@ export const ENDPOINT = {
 	auth: {
 		login: '/auth/login',
 		loginTelegram: '/auth/login-telegram',
+		loginGoogle: '/auth/login-google',
 		signupMail: '/auth/registration',
 		user: '/auth/user',
 	},
