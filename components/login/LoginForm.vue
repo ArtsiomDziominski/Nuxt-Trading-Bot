@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import LoginFormExtra from '~/components/login/LoginFormExtra.vue';
 import LoginFormMail from '~/components/login/LoginFormMail.vue';
+import SignSeparator from '~/components/SignSeparator.vue';
 
 const router = useRouter();
 
@@ -52,12 +53,8 @@ const isDisabledBtn = computed((): boolean => {
 				</p>
 			</v-card-title>
 			<v-card-item class="card__item">
-				<login-form-extra />
-
-				<div class="separator">
-					<span>{{ $t('or') }}</span>
-				</div>
-
+				<login-form-extra type="signin" />
+				<sign-separator />
 				<login-form-mail />
 			</v-card-item>
 
@@ -112,25 +109,5 @@ const isDisabledBtn = computed((): boolean => {
       gap: 4px;
     }
   }
-}
-
-.separator {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin: 20px 0;
-}
-
-.separator::before,
-.separator::after {
-  content: "";
-  flex: 1;
-  border-bottom: 1px solid #ccc;
-  margin: 0 8px;
-}
-
-.separator span {
-  font-weight: 500;
-  white-space: nowrap;
 }
 </style>
