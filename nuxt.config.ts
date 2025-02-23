@@ -16,7 +16,7 @@ export default defineNuxtConfig({
 	},
 
 	modules: [// ...
-		'@pinia/nuxt', '@nuxt/eslint', '@nuxtjs/i18n', '@nuxtjs/turnstile',
+		'@pinia/nuxt', '@nuxt/eslint', '@nuxtjs/i18n', '@nuxtjs/turnstile', 'nuxt-vue3-google-signin',
 	],
 
 	runtimeConfig: {
@@ -27,6 +27,10 @@ export default defineNuxtConfig({
 			TELEGRAM_BOT: process.env.TELEGRAM_BOT,
 			NUXT_TURNSTILE_SECRET_KEY: process.env.NUXT_TURNSTILE_SECRET_KEY,
 		},
+	},
+
+	googleSignIn: {
+		clientId: process.env.GOOGLE_CLIENT_ID,
 	},
 
 	eslint: {

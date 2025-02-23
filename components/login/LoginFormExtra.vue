@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import TelegramLogin from '~/components/login/TelegramLogin.vue';
+import LoginGoogle from '~/components/login/LoginGoogle.vue';
 </script>
 
 <template>
-	<div>
-		<client-only>
+	<client-only>
+		<div class="d-flex justify-space-between align-items-center">
 			<TelegramLogin />
-		</client-only>
-	</div>
+			<LoginGoogle />
+		</div>
+	</client-only>
 </template>
 
 <style scoped lang="scss">

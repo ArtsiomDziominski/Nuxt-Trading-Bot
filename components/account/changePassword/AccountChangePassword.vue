@@ -7,6 +7,7 @@
 			<v-card-item>
 				<div class="card-item">
 					<v-text-field
+						v-if="user?.isPassword !== false"
 						v-model="changePasswordUser.current"
 						:label="$t('account.changePassword.currentPassword')"
 						variant="outlined"
@@ -53,6 +54,9 @@ import { validationStore } from '~/store/validation';
 const storeUser = userStore();
 const storeValidation = validationStore();
 
+const user = inject<USER.User | null>('user', null);
+const requestSetUser = inject('requestSetUser');
+
 const changePasswordUser = ref({
 	current: '',
 	new: '',
@@ -72,6 +76,7 @@ const errorMessages = ref({
 });
 
 const checkValidationCurrentPassword = (): boolean => {
+	if (user?.isPassword === false) return true;
 	const validationRules = ruleCurrentPassword(changePasswordUser.value.current);
 	const { isValid, error } = storeValidation.makeCheckRules('current', validationRules);
 	errorMessages.value = { ...errorMessages.value, ...error };
@@ -92,9 +97,11 @@ const checkValidationNewRepeatPassword = (): boolean => {
 	return isValid;
 };
 
-const changePassword = () => {
-	if ([checkValidationNewPassword(), checkValidationCurrentPassword(), checkValidationNewRepeatPassword()].every(Boolean))
-		storeUser.changePasswordUser(changePasswordUser.value);
+const changePassword = async () => {
+	if ([checkValidationNewPassword(), checkValidationCurrentPassword(), checkValidationNewRepeatPassword()].every(Boolean)) {
+		await storeUser.changePasswordUser(changePasswordUser.value);
+		await requestSetUser();
+	}
 };
 </script>
 

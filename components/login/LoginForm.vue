@@ -55,7 +55,7 @@ const isDisabledBtn = computed((): boolean => {
 				<login-form-extra />
 
 				<div class="separator">
-					<span>OR</span>
+					<span>{{ $t('or') }}</span>
 				</div>
 
 				<login-form-mail />
