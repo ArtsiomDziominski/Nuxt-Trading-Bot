@@ -37,7 +37,7 @@ const handleLoginError = () => {
 
 <template>
 	<GoogleSignInButton
-		auto-select="true"
+		auto-selec
 		size="medium"
 		:text="text"
 		@success="handleLoginSuccess"
