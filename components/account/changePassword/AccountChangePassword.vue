@@ -54,8 +54,8 @@ import { validationStore } from '~/store/validation';
 const storeUser = userStore();
 const storeValidation = validationStore();
 
-const user = inject<USER.User | null>('user', null);
-const requestSetUser = inject('requestSetUser');
+const user: Ref<USER.User> = inject('user') as Ref<USER.User>;
+const requestSetUser = inject('requestSetUser') as Function;
 
 const changePasswordUser = ref({
 	current: '',
@@ -76,7 +76,7 @@ const errorMessages = ref({
 });
 
 const checkValidationCurrentPassword = (): boolean => {
-	if (user?.isPassword === false) return true;
+	if (user.value?.isPassword === false) return true;
 	const validationRules = ruleCurrentPassword(changePasswordUser.value.current);
 	const { isValid, error } = storeValidation.makeCheckRules('current', validationRules);
 	errorMessages.value = { ...errorMessages.value, ...error };
