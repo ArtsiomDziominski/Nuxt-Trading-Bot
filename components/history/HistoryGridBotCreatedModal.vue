@@ -2,6 +2,7 @@
 import { storeToRefs } from 'pinia';
 import { historyStore } from '~/store/historyBots';
 import { createBotsStore } from '~/store/createBots';
+import { useExchangeInfo } from '~/store/exchangeInfo';
 
 const storeHistory = historyStore();
 const { historyCreatedGridBot, isModalHistoryGridBotCreated, isLoadingDeleteHistoryCreatedGridBot } = storeToRefs(storeHistory);
@@ -9,10 +10,15 @@ const { historyCreatedGridBot, isModalHistoryGridBotCreated, isLoadingDeleteHist
 const storeCreateBot = createBotsStore();
 const { createBotParams } = storeToRefs(storeCreateBot);
 
-const useBot = (params: BOTS.PositionParam) => {
+const storeExchangeInfo = useExchangeInfo();
+const { exchangeInfoSymbols } = storeToRefs(storeExchangeInfo);
+
+const useBot = (params: BOTS.PositionParam): void => {
+	const symbol = exchangeInfoSymbols.value.find(exchangeInfo => exchangeInfo.symbol === params.symbol);
+	if (!symbol) return;
 	createBotParams.value = {
 		...createBotParams.value,
-		symbol: params.symbol,
+		symbol,
 		price: String(params.price),
 		step: String(params.step),
 		amountStart: String(params.qty),

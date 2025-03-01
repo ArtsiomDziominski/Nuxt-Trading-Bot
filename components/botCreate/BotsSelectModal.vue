@@ -15,7 +15,6 @@ const selectBot = (strategy: Strategy): void => {
 	createBotParams.value.strategy = strategy;
 	isModalSelectBots.value = false;
 	isModalCreateBots.value = true;
-	console.log(isModalCreateBots.value);
 };
 </script>
 
