@@ -29,7 +29,8 @@
 		"nextOrderCoins": "Next order coins",
 		"totalCoins": "Total number of coins",
 		"liquidationPrice": "Liquidation price",
-		"walletBalance": "Balance"
+		"walletBalance": "Balance",
+		"botReadySoon": "The bot will be ready soon..."
 	},
 	"cardBot": {
 		"marketPrice": "Market price:",

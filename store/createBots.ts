@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { useI18n } from 'vue-i18n';
 import { ENDPOINT } from '~/const/request';
 import { apiStore } from '~/store/api';
 import { BotTypes, Strategy } from '~/const/bots';
@@ -10,6 +11,7 @@ export const createBotsStore = defineStore('createBotsStore', () => {
 	const api = apiStore();
 	const storeValidation = validationStore();
 	const storeNotification = notificationStore();
+	const translation = useI18n();
 	const isModalSelectBots = ref(false);
 	const isModalCreateBots = ref(false);
 	const isLoadingCreateBot = ref(false);
@@ -67,7 +69,8 @@ export const createBotsStore = defineStore('createBotsStore', () => {
 			};
 
 			const response = await api.post(ENDPOINT.bots.gritBot.create, body);
-			if (response?.success) storeNotification.addNotification('success', response?.message || 'Бот создан');
+			if (response?.success)
+				storeNotification.addNotification('success', response?.message || translation.t('createBot.botReadySoon'));
 
 			isLoadingCreateBot.value = false;
 			return !!response?.success;
