@@ -17,7 +17,6 @@ const storeUser = userStore();
 const { userToken, isAuthenticated } = storeToRefs(storeUser);
 const storeWS = wsStore();
 const theme = useTheme();
-const { setLocale } = useI18n();
 
 const isLoading = ref(false);
 
@@ -37,7 +36,6 @@ await useAsyncData('app', (app) => {
 	});
 
 	userToken.value = cookieObject?.['token'];
-	setLocale(cookieObject?.['i18n_redirected']);
 	theme.global.name.value = cookieObject?.[keyTheme] || 'dark';
 
 	return Promise.allSettled([

@@ -8,12 +8,13 @@ for (const path in modules) {
 
 function getLocaleCode(): string {
 	if (!import.meta.client) return 'en';
-	const localStorageLocal = getCookie('i18n_redirected');
+	const localStorageLocal = getCookie('i18n');
 	return localStorageLocal || navigator.language.split('-')?.[0] || 'en';
 }
 
 export default defineI18nConfig(() => ({
+	fallbackLocale: 'en',
 	locale: getLocaleCode(),
-	legacy: false,
 	messages: messages,
+	lazy: true,
 }));
