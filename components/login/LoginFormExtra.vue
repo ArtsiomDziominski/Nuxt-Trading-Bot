@@ -12,7 +12,7 @@ defineProps({
 
 <template>
 	<client-only>
-		<div class="d-flex justify-space-between align-items-center">
+		<div class="d-flex justify-space-between align-items-center flex-wrap">
 			<TelegramLogin />
 			<LoginGoogle :type="type" />
 		</div>
