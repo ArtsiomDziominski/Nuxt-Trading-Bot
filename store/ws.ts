@@ -5,6 +5,7 @@ import { notificationStore } from '~/store/notification';
 import { sharedStore } from '~/store/shared';
 
 enum NotificationType {
+	connection = 'CONNECTION',
 	auth = 'NOTIFICATION_AUTH',
 	bot = 'NOTIFICATION_BOT',
 	botError = 'ERROR_NOTIFICATION_BOT',
@@ -47,15 +48,12 @@ export const wsStore = defineStore('wsStore', () => {
 
 		socket.value.onopen = () => {
 			reconnectAttempts.value = 0;
-			if (socket.value) socket.value.send(JSON.stringify({
-				authorization: userToken.value,
-			}));
 		};
 
 		socket.value.onmessage = (event) => {
 			try {
 				const data = JSON.parse(event.data);
-				switch (data.notificationType) {
+				switch (data?.notificationType || data?.type) {
 					case NotificationType.positionRisk:
 						if (data?.data?.api?.id && data?.data?.positionsRisk?.length) {
 							storeBots.updateActiveBotsFromWS(data.data.api.id, data.data.positionsRisk);
@@ -66,6 +64,12 @@ export const wsStore = defineStore('wsStore', () => {
 						break;
 					case NotificationType.botError:
 						storeNotification.addNotification('error', data?.data?.message);
+						break;
+					case NotificationType.connection:
+						console.log(socket.value);
+						if (socket.value) socket.value.send(JSON.stringify({
+							authorization: userToken.value,
+						}));
 						break;
 				}
 			}
