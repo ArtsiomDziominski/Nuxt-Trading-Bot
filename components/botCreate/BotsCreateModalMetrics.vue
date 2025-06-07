@@ -9,6 +9,8 @@ const { markPriceBinance } = storeToRefs(storeShared);
 const storeCreateBots = createBotsStore();
 const { createBotParams } = storeToRefs(storeCreateBots);
 
+const balance = ref(1000);
+
 const priceNow = computed((): string => {
 	const price = markPriceBinance.value.find(item => item.s === createBotParams.value.symbol?.symbol)?.p;
 	return price ? Number(price).toFixed(2) : '';
@@ -18,7 +20,7 @@ const gridBotMetrics = computed(() => {
 	const body = {
 		entryPrice: Number(priceNow.value),
 		startCoins: Number(createBotParams.value.amountStart),
-		walletBalance: 1000,
+		walletBalance: balance.value,
 		stepPercent: Number(createBotParams.value.step),
 		numberOfOrders: Number(createBotParams.value.orders),
 		decimals: Number(createBotParams.value.decimals),
@@ -27,14 +29,13 @@ const gridBotMetrics = computed(() => {
 	if (Object.values(body).every(Boolean)) {
 		const calculateGridBotMetrics = calculateGridBot.calculateGridBotMetrics(body);
 		return {
-			walletBalance: `${body.walletBalance} USDT`,
 			price: priceNow.value + ' ' + symbolFiat.value,
 			...calculateGridBotMetrics,
 			coinsAtEachOrder: calculateGridBotMetrics.coinsAtEachOrder.join(', '),
 			averagePrice: '~' + calculateGridBotMetrics.averagePrice + ' ' + symbolFiat.value,
 			nextOrderCoins: calculateGridBotMetrics.nextOrderCoins + ' ' + symbolCrypto.value,
 			totalCoins: calculateGridBotMetrics.totalCoins + ' ' + symbolCrypto.value,
-			liquidationPrice: '~' + calculateGridBotMetrics.liquidationPrice + ' ' + symbolFiat.value,
+			liquidationPrice: (Number(calculateGridBotMetrics?.liquidationPrice) > 0 ? `~${calculateGridBotMetrics.liquidationPrice} ${symbolFiat.value}` : '-'),
 		};
 	}
 	return undefined;
@@ -54,6 +55,7 @@ const symbolFiat = computed(() => {
 		<v-expansion-panel>
 			<v-expansion-panel-title>{{ $t(`createBot.liquidationPrice`) }}: {{ gridBotMetrics?.liquidationPrice }}</v-expansion-panel-title>
 			<v-expansion-panel-text>
+				<BotCreateBotsCreateModalMetricsBalance v-model="balance" />
 				<div
 					v-for="(metric, key) in gridBotMetrics"
 					:key="key"
