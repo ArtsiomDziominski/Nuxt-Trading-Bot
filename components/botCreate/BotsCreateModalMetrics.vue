@@ -35,7 +35,7 @@ const gridBotMetrics = computed(() => {
 			averagePrice: '~' + calculateGridBotMetrics.averagePrice + ' ' + symbolFiat.value,
 			nextOrderCoins: calculateGridBotMetrics.nextOrderCoins + ' ' + symbolCrypto.value,
 			totalCoins: calculateGridBotMetrics.totalCoins + ' ' + symbolCrypto.value,
-			liquidationPrice: (Number(calculateGridBotMetrics?.liquidationPrice) > 0 ? `~${calculateGridBotMetrics.liquidationPrice} ${symbolFiat.value}` : '-'),
+			liquidationPrice: (Number(calculateGridBotMetrics?.liquidationPrice) > 0 ? `~${calculateGridBotMetrics.liquidationPrice} ${symbolFiat.value}` : '0 USDT'),
 		};
 	}
 	return undefined;
