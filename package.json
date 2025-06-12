@@ -10,27 +10,26 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/eslint": "0.3.13",
-    "@nuxt/scripts": "0.9.5",
-    "@nuxtjs/i18n": "8.5.5",
-    "@nuxtjs/turnstile": "0.9.11",
-    "@pinia/nuxt": "0.4.11",
-    "@types/crypto-js": "4.2.2",
-    "eslint": "8.57.0",
+    "@nuxt/eslint": "^0.3.13",
+    "@nuxt/scripts": "^0.9.5",
+    "@nuxtjs/i18n": "^8.5.5",
+    "@nuxtjs/turnstile": "^0.9.11",
+    "@pinia/nuxt": "^0.4.11",
+    "@types/crypto-js": "^4.2.2",
+    "eslint": "^8.57.0",
     "nuxt": "3.16.0",
-    "pinia": "2.1.6",
-    "sass": "1.51.0"
+    "pinia": "^2.1.6",
+    "sass": "^1.89.2"
   },
   "dependencies": {
-    "@mdi/font": "7.2.96",
+    "@mdi/font": "^7.2.96",
     "axios": "1.8.2",
-    "crypto-js": "4.2.0",
-    "nuxt-vue3-google-signin": "0.0.11",
-    "qrcode.vue": "3.6.0",
-    "sass": "1.56.1",
-    "v8n": "1.5.1",
-    "vue": "3.5.13",
-    "vue-qr": "4.0.9",
-    "vuetify": "3.7.6"
+    "crypto-js": "^4.2.0",
+    "nuxt-vue3-google-signin": "^0.0.11",
+    "qrcode.vue": "^3.6.0",
+    "v8n": "^1.5.1",
+    "vue": "^3.5.13",
+    "vue-qr": "^4.0.9",
+    "vuetify": "^3.7.6"
   }
 }
