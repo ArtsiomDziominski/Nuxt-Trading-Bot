@@ -16,7 +16,7 @@ export default defineNuxtConfig({
 	},
 
 	modules: [// ...
-		'@pinia/nuxt', '@nuxt/eslint', '@nuxtjs/turnstile', 'nuxt-vue3-google-signin',
+		'@pinia/nuxt', '@nuxt/eslint', '@nuxtjs/i18n', '@nuxtjs/turnstile', 'nuxt-vue3-google-signin',
 	],
 
 	runtimeConfig: {
@@ -41,6 +41,24 @@ export default defineNuxtConfig({
 				// ...
 			},
 		},
+	},
+
+	i18n: {
+		strategy: 'no_prefix',
+		locales: [
+			{
+				code: 'en',
+				file: 'en.json',
+				name: 'English',
+			},
+			{
+				code: 'ru',
+				file: 'ru.json',
+				name: 'Russia',
+			},
+		],
+		langDir: 'locales/',
+		defaultLocale: 'ru',
 	},
 
 	turnstile: {
