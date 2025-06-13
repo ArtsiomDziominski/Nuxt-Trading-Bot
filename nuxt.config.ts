@@ -44,7 +44,21 @@ export default defineNuxtConfig({
 	},
 
 	i18n: {
-		vueI18n: './plugins/i18n.config.ts',
+		strategy: 'no_prefix',
+		locales: [
+			{
+				code: 'en',
+				file: 'en.json',
+				name: 'English',
+			},
+			{
+				code: 'ru',
+				file: 'ru.json',
+				name: 'Russia',
+			},
+		],
+		langDir: 'locales/',
+		defaultLocale: 'ru',
 	},
 
 	turnstile: {
