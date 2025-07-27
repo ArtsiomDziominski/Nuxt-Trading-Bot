@@ -30,6 +30,11 @@ export const wsStore = defineStore('wsStore', () => {
 	const socketMarkPrice = ref<WebSocket | null>(null);
 
 	function webSocketServer() {
+		if (!process.client || !WS_URL.value) {
+			console.warn('WebSocket не может быть инициализирован на сервере или отсутствует WS_URL');
+			return;
+		}
+
 		socket.value = new WebSocket(WS_URL.value);
 
 		const reconnect = () => {
@@ -102,28 +107,30 @@ export const wsStore = defineStore('wsStore', () => {
 	};
 
 	const webSocketMarkPrice = () => {
-		const WS_URL = 'wss://fstream.binance.com/ws/!markPrice@arr';
-		socketMarkPrice.value = new WebSocket(WS_URL);
-		const reconnectAttempts = { value: 0 };
-		const maxReconnectAttempts = 20;
+		if (!process.client) {
+			console.warn('WebSocket MarkPrice не может быть инициализирован на сервере');
+			return;
+		}
+
+		const wsUrl = 'wss://fstream.binance.com/ws/!markPrice@arr';
+		socketMarkPrice.value = new WebSocket(wsUrl);
 
 		const reconnect = () => {
 			if (reconnectAttempts.value < maxReconnectAttempts) {
 				reconnectAttempts.value++;
 				const reconnectTimeout = Math.min(1000 * Math.pow(2, reconnectAttempts.value), 30000);
 				setTimeout(() => {
-					console.log(`Попытка переподключения (${reconnectAttempts.value})...`);
+					console.log(`Попытка переподключения MarkPrice (${reconnectAttempts.value})...`);
 					webSocketMarkPrice();
 				}, reconnectTimeout);
 			}
 			else {
-				console.log('Не удалось подключиться к WebSocket после нескольких попыток');
+				console.log('Не удалось подключиться к WebSocket MarkPrice после нескольких попыток');
 			}
 		};
 
 		socketMarkPrice.value.onopen = () => {
 			reconnectAttempts.value = 0;
-			console.log('Подключено к WebSocket Binance Futures');
 		};
 
 		socketMarkPrice.value.onmessage = (event) => {
@@ -131,18 +138,17 @@ export const wsStore = defineStore('wsStore', () => {
 				markPriceBinance.value = JSON.parse(event.data);
 			}
 			catch (e) {
-				markPriceBinance.value = [];
-				console.error('Ошибка при обработке сообщения WebSocket:', e);
+				console.error('Ошибка при обработке сообщения WebSocket MarkPrice:', e);
 			}
 		};
 
 		socketMarkPrice.value.onclose = () => {
-			console.log('WebSocket закрыт, попытка переподключения...');
+			console.log('WebSocket MarkPrice закрыт, попытка переподключения...');
 			if (socketMarkPrice.value) reconnect();
 		};
 
 		socketMarkPrice.value.onerror = (error) => {
-			console.error('Произошла ошибка WebSocket:', error);
+			console.error('Произошла ошибка WebSocket MarkPrice:', error);
 			if (socketMarkPrice.value) socketMarkPrice.value.close();
 		};
 	};
@@ -153,13 +159,16 @@ export const wsStore = defineStore('wsStore', () => {
 			socketMarkPrice.value = null;
 		}
 		else {
-			console.log('Нет активного WebSocket соединения для отключения');
+			console.log('Нет активного WebSocket MarkPrice соединения для отключения');
 		}
 	};
 
 	return {
+		socket,
+		socketMarkPrice,
 		webSocketServer,
-		webSocketMarkPrice,
 		webSocketServerDisconnect,
+		webSocketMarkPrice,
+		webSocketMarkPriceDisconnect,
 	};
 });

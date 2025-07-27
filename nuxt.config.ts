@@ -5,6 +5,16 @@ export default defineNuxtConfig({
 	// 	host: '0.0.0.0',
 	// },
 
+	nitro: {
+		preset: 'vercel',
+	},
+	
+	ssr: true,
+	
+	experimental: {
+		payloadExtraction: false,
+	},
+
 	css: [
 		'vuetify/lib/styles/main.sass',
 		'@mdi/font/css/materialdesignicons.min.css',
