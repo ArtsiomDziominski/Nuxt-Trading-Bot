@@ -21,9 +21,11 @@ const theme = useTheme();
 const isLoading = ref(false);
 
 onMounted(() => {
-	storeWS.webSocketMarkPrice();
-	theme.global.name.value = getCookie(keyTheme) || 'dark';
-	isAuthenticated.value && storeWS.webSocketServer();
+	if (process.client) {
+		storeWS.webSocketMarkPrice();
+		theme.global.name.value = getCookie(keyTheme) || 'dark';
+		isAuthenticated.value && storeWS.webSocketServer();
+	}
 });
 
 await useAsyncData('app', (app) => {

@@ -1,5 +1,8 @@
 export function getCookie(name: string): string | null {
 	if (!process.client) return null;
+	
+	if (typeof document === 'undefined') return null;
+	
 	const nameEQ = name + '=';
 	const ca = document.cookie.split(';');
 	for (let i = 0; i < ca.length; i++) {
@@ -11,6 +14,10 @@ export function getCookie(name: string): string | null {
 }
 
 export function setCookie(name: string, value: string, days: number = 100000000000000) {
+	if (!process.client) return;
+	
+	if (typeof document === 'undefined') return;
+	
 	let expires = '';
 	if (days) {
 		const date = new Date();
