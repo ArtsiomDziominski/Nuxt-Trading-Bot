@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@mdi/font": "^7.2.96",
-    "axios": "1.7.9",
+    "axios": "~1.10.0",
     "crypto-js": "^4.2.0",
     "nuxt-vue3-google-signin": "^0.0.11",
     "qrcode.vue": "^3.6.0",
