@@ -23,7 +23,13 @@ const isLoading = ref(false);
 onMounted(() => {
 	if (process.client) {
 		storeWS.webSocketMarkPrice();
-		theme.global.name.value = getCookie(keyTheme) || 'dark';
+		// Безопасное получение темы
+		try {
+			const savedTheme = localStorage.getItem(keyTheme);
+			theme.global.name.value = savedTheme || 'dark';
+		} catch (e) {
+			theme.global.name.value = 'dark';
+		}
 		isAuthenticated.value && storeWS.webSocketServer();
 	}
 });

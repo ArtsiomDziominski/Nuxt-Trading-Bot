@@ -31,16 +31,16 @@ export default defineNuxtConfig({
 
 	runtimeConfig: {
 		public: {
-			API_URL: process.env.API_URL,
-			WS_URL: process.env.WS_URL,
-			SECRET_KEY_API: process.env.SECRET_KEY_API,
-			TELEGRAM_BOT: process.env.TELEGRAM_BOT,
-			NUXT_TURNSTILE_SECRET_KEY: process.env.NUXT_TURNSTILE_SECRET_KEY,
+			API_URL: process.env.API_URL || '',
+			WS_URL: process.env.WS_URL || '',
+			SECRET_KEY_API: process.env.SECRET_KEY_API || '',
+			TELEGRAM_BOT: process.env.TELEGRAM_BOT || '',
+			NUXT_TURNSTILE_SECRET_KEY: process.env.NUXT_TURNSTILE_SECRET_KEY || '',
 		},
 	},
 
 	googleSignIn: {
-		clientId: process.env.GOOGLE_CLIENT_ID,
+		clientId: process.env.GOOGLE_CLIENT_ID || '',
 	},
 
 	eslint: {
@@ -72,7 +72,7 @@ export default defineNuxtConfig({
 	},
 
 	turnstile: {
-		siteKey: process.env.NUXT_TURNSTILE_SECRET_KEY,
+		siteKey: process.env.NUXT_TURNSTILE_SECRET_KEY || '',
 	},
 
 	compatibilityDate: '2025-01-06',
