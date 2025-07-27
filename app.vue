@@ -12,6 +12,7 @@ import { useTheme } from 'vuetify';
 import { userStore } from '~/store/user';
 import { wsStore } from '~/store/ws';
 import { keyTheme } from '~/const/theme';
+import { getCookie } from '~/utils/cookie';
 
 const storeUser = userStore();
 const { userToken, isAuthenticated } = storeToRefs(storeUser);
