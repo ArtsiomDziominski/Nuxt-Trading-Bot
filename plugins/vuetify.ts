@@ -19,7 +19,12 @@ const dark: ThemeDefinition = {
 };
 
 export default defineNuxtPlugin((nuxt) => {
-	const defaultTheme = process.client ? localStorage.getItem('theme') || themeLight : themeLight;
+	// Безопасное получение темы с проверкой на клиент
+	let defaultTheme = themeLight;
+	if (process.client && typeof localStorage !== 'undefined') {
+		defaultTheme = localStorage.getItem('theme') || themeLight;
+	}
+	
 	const vuetify = createVuetify({
 		ssr: true,
 		components,
