@@ -7,12 +7,23 @@ export default defineNuxtConfig({
 
 	nitro: {
 		preset: 'vercel',
+		errorHandler: '~/server/errorHandler.ts',
 	},
-	
+
 	ssr: true,
-	
+
 	experimental: {
 		payloadExtraction: false,
+	},
+
+	app: {
+		head: {
+			title: 'Trading Bot',
+			meta: [
+				{ charset: 'utf-8' },
+				{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
+			],
+		},
 	},
 
 	css: [
