@@ -32,9 +32,11 @@ NODE_ENV=production
 ## Настройки Vercel
 
 1. **Framework Preset**: Nuxt.js
-2. **Build Command**: `npm run build`
-3. **Output Directory**: `.output`
-4. **Install Command**: `npm install`
+2. **Build Command**: `npm run build` (автоматически)
+3. **Output Directory**: `.output` (автоматически)
+4. **Install Command**: `npm install` (автоматически)
+
+**Важно**: Не создавайте файл `vercel.json` для Nuxt 3 - это может вызвать конфликты. Nuxt автоматически настраивается для Vercel.
 
 ## Возможные дополнительные проблемы
 
