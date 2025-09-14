@@ -57,7 +57,12 @@ const setLastUpdate = () => {
 			<h2>{{ position.positionRisk.symbol }}</h2>
 			<v-chip
 				class="profit-chip"
-				:color="Number(position.positionRisk.unRealizedProfit) < 0 ? 'red' : 'green'"
+				:class="{
+					'profit-chip-negative': Number(position.positionRisk.unRealizedProfit) < 0,
+					'profit-chip-zero': Number(position.positionRisk.unRealizedProfit) === 0,
+					'profit-chip-positive': Number(position.positionRisk.unRealizedProfit) > 0,
+				}"
+				:color="Number(position.positionRisk.unRealizedProfit) < 0 ? 'red' : Number(position.positionRisk.unRealizedProfit) === 0 ? 'grey' : 'green'"
 				outlined
 			>
 				{{ Number(position.positionRisk.unRealizedProfit).toFixed(2) }}$
