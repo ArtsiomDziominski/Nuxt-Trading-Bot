@@ -8,6 +8,7 @@ export const apiStore = defineStore('apiStore', () => {
 	const storeUser = userStore();
 	const config = computed(() => useRuntimeConfig());
 	const BURL = computed(() => config.value.public.API_URL);
+	const router = useRouter();
 
 	const get = async (endpoint: string, query: string = ''): Promise<any> => {
 		try {
@@ -15,14 +16,11 @@ export const apiStore = defineStore('apiStore', () => {
 			if (response?.data?.success) return response.data;
 			return response.data;
 		}
-		catch (e: any) {
+		catch (e) {
 			const error = e?.response?.data?.error;
 			if (error?.errorCode === ErrorCodes.notAuth || error?.errorCode === ErrorCodes.notAdmin) {
 				storeUser.deleteUserToken();
-				if (process.client) {
-					const router = useRouter();
-					await router.push('/login');
-				}
+				await router.push('/login');
 			}
 			return e?.response?.data;
 		}
@@ -34,14 +32,11 @@ export const apiStore = defineStore('apiStore', () => {
 			if (response?.data?.success) return response.data;
 			return response.data;
 		}
-		catch (e: any) {
+		catch (e) {
 			const error = e?.response?.data?.error;
 			if (error?.errorCode === ErrorCodes.notAuth || error?.errorCode === ErrorCodes.notAdmin) {
 				storeUser.deleteUserToken();
-				if (process.client) {
-					const router = useRouter();
-					await router.push('/login');
-				}
+				await router.push('/login');
 			}
 			return e?.response?.data;
 		}
@@ -53,14 +48,11 @@ export const apiStore = defineStore('apiStore', () => {
 			if (response?.data?.success) return response.data;
 			return response.data;
 		}
-		catch (e: any) {
+		catch (e) {
 			const error = e?.response?.data?.error;
 			if (error?.errorCode === ErrorCodes.notAuth || error?.errorCode === ErrorCodes.notAdmin) {
 				storeUser.deleteUserToken();
-				if (process.client) {
-					const router = useRouter();
-					await router.push('/login');
-				}
+				await router.push('/login');
 			}
 			return e?.response?.data;
 		}
@@ -74,7 +66,7 @@ export const apiStore = defineStore('apiStore', () => {
 			});
 			return response.data;
 		}
-		catch (e: any) {
+		catch (e) {
 			console.log(e);
 		}
 	};
