@@ -1,17 +1,19 @@
 <template>
-  <div class="error-page">
-    <h1>{{ error.statusCode }}</h1>
-    <p>{{ error.message || 'Что-то пошло не так' }}</p>
-    <button @click="handleError">На главную</button>
-  </div>
+	<div class="error-page">
+		<h1>{{ error.statusCode }}</h1>
+		<p>{{ error.message || 'Что-то пошло не так' }}</p>
+		<button @click="handleError">
+			На главную
+		</button>
+	</div>
 </template>
 
 <script setup>
-const error = useError()
+const error = useError();
 
 const handleError = () => {
-  clearError({ redirect: '/' })
-}
+	clearError({ redirect: '/' });
+};
 </script>
 
 <style scoped>
@@ -33,4 +35,4 @@ button {
   border-radius: 4px;
   cursor: pointer;
 }
-</style> 
+</style>

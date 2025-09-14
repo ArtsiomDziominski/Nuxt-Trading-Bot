@@ -64,8 +64,8 @@ const requestChangeWatchingGridBot = async (symbol: string, apiId: string, statu
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 20px;
-    margin: 40px 0 20px 0;
+    gap: 16px;
+    margin: 0;
     white-space: nowrap;
   }
 }

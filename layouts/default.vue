@@ -5,28 +5,30 @@
 <template>
 	<v-app>
 		<div class="app">
-			<LayoutHeader class="header" />
+			<LayoutHeader />
 			<main class="page">
 				<slot />
 			</main>
-			<LayoutFooter class="footer" />
+			<LayoutFooter />
 		</div>
 	</v-app>
 </template>
 
 <style scoped lang="scss">
 .app {
-  max-width: 1920px;
-  align-self: center;
   display: flex;
   flex-direction: column;
-  margin: 64px 30px 0 30px;
   width: 100%;
-  padding: 0 20px;
+  min-height: 100vh;
 
   .page {
-    margin: 50px 0 50px 0;
-    min-height: calc(100vh - 280px);
+    flex: 1;
+    width: 100%;
+    padding-top: 80px; // Account for fixed header
+
+    @media screen and (max-width: 768px) {
+      padding-top: 70px;
+    }
   }
 }
 </style>

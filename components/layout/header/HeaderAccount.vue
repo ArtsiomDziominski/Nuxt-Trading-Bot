@@ -73,5 +73,11 @@ const logout = () => {
 </template>
 
 <style scoped lang="scss">
+.v-menu .v-overlay__content {
+  backdrop-filter: blur(25px) !important;
+}
 
+.v-card {
+  backdrop-filter: blur(25px) !important;
+}
 </style>

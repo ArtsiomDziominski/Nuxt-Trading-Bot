@@ -112,7 +112,91 @@
 		"title": "Efficient Bots for Automated Cryptocurrency Trading",
 		"subtitle": "Cryptocurrency trading bots automate transactions, reducing risks and increasing trading efficiency. They allow traders to execute operations quickly and accurately, making bots a valuable tool for all market participants.",
 		"availableExchanges": "Available Cryptocurrency Exchanges",
-		"soon": "Coming Soon"
+		"soon": "Coming Soon",
+		"hero": {
+			"title": "Automate Cryptocurrency Trading",
+			"subtitle": "Smart trading bots work 24/7, analyzing the market and making profitable trades for you",
+			"startButton": "Start Trading",
+			"learnMoreButton": "Learn More"
+		},
+		"about": {
+			"title": "About Our Bot",
+			"subtitle": "Why Choose Us",
+			"features": {
+				"automation": {
+					"title": "Full Automation",
+					"description": "The bot works without your participation, making trades based on algorithms"
+				},
+				"riskManagement": {
+					"title": "Risk Management",
+					"description": "Built-in mechanisms for loss protection and profit optimization"
+				},
+				"analytics": {
+					"title": "Real-time Analytics",
+					"description": "Detailed statistics and reports on bot performance"
+				},
+				"support": {
+					"title": "24/7 Support",
+					"description": "Round-the-clock technical support and consultations"
+				}
+			}
+		},
+		"howItWorks": {
+			"title": "How It Works",
+			"subtitle": "Just 3 simple steps to start trading",
+			"steps": {
+				"connect": {
+					"title": "Connect Exchange",
+					"description": "Add API keys from your cryptocurrency exchange"
+				},
+				"configure": {
+					"title": "Configure Strategy",
+					"description": "Choose trading pair and trading parameters"
+				},
+				"launch": {
+					"title": "Launch Bot",
+					"description": "Activate the bot and start earning profit"
+				}
+			}
+		},
+		"pricing": {
+			"title": "Pricing Plans",
+			"subtitle": "Choose the plan that suits your needs",
+			"plans": {
+				"basic": {
+					"name": "Basic",
+					"price": "Free",
+					"features": [
+						"1 trading bot",
+						"Basic analytics",
+						"Email support",
+						"Up to 3 API keys"
+					]
+				},
+				"pro": {
+					"name": "Pro",
+					"price": "$29/month",
+					"features": [
+						"5 trading bots",
+						"Advanced analytics",
+						"Priority support",
+						"Up to 10 API keys",
+						"Telegram notifications"
+					]
+				},
+				"premium": {
+					"name": "Premium",
+					"price": "$99/month",
+					"features": [
+						"Unlimited bots",
+						"Professional analytics",
+						"Personal manager",
+						"Unlimited API keys",
+						"Custom strategies"
+					]
+				}
+			}
+		}
 	},
 	"or": "or"
 }

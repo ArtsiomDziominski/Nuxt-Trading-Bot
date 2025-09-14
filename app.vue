@@ -28,7 +28,8 @@ onMounted(() => {
 		try {
 			const savedTheme = localStorage.getItem(keyTheme);
 			theme.global.name.value = savedTheme || 'dark';
-		} catch (e) {
+		}
+		catch (e) {
 			theme.global.name.value = 'dark';
 		}
 		isAuthenticated.value && storeWS.webSocketServer();
