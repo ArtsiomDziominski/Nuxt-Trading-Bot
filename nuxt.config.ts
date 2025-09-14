@@ -42,8 +42,8 @@ export default defineNuxtConfig({
 
 	runtimeConfig: {
 		public: {
-			API_URL: process.env.API_URL || 'https://api.botinex.ru',
-			WS_URL: process.env.WS_URL || 'wss://api.botinex.ru',
+			API_URL: process.env.API_URL || '',
+			WS_URL: process.env.WS_URL || '',
 			SECRET_KEY_API: process.env.SECRET_KEY_API || '',
 			TELEGRAM_BOT: process.env.TELEGRAM_BOT || '',
 			NUXT_TURNSTILE_SECRET_KEY: process.env.NUXT_TURNSTILE_SECRET_KEY || '',
