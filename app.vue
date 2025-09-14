@@ -36,17 +36,22 @@ onMounted(() => {
 	}
 });
 
-await useAsyncData('app', (app) => {
-	const cookie = app?.ssrContext?.event.node.req.headers?.cookie || '';
-	const cookieArray = cookie.split(';');
-	const cookieObject: Record<string, string> = {};
-	cookieArray.forEach((c) => {
-		const cookArray = c.split('=');
-		cookieObject[cookArray[0].trim()] = cookArray[1];
-	});
+await useAsyncData('app', () => {
+	if (process.server) {
+		const event = useRequestEvent();
+		const cookie = event?.node?.req?.headers?.cookie || '';
+		const cookieArray = cookie.split(';');
+		const cookieObject: Record<string, string> = {};
+		cookieArray.forEach((c) => {
+			const cookArray = c.split('=');
+			if (cookArray.length >= 2) {
+				cookieObject[cookArray[0].trim()] = cookArray[1];
+			}
+		});
 
-	userToken.value = cookieObject?.['token'];
-	theme.global.name.value = cookieObject?.[keyTheme] || 'dark';
+		userToken.value = cookieObject?.['token'] || '';
+		theme.global.name.value = cookieObject?.[keyTheme] || 'dark';
+	}
 
 	return Promise.allSettled([
 		isAuthenticated.value && storeUser.requestSetUser(),

@@ -24,19 +24,22 @@ export const userStore = defineStore('userStore', () => {
 			const response = await api.get(ENDPOINT.auth.user);
 			if (response?.success) user.value = response?.data || null;
 		}
-		catch (e) {
-			if ((e as unknown)?.response?.data) deleteUserToken();
+		catch (e: any) {
+			if (e?.response?.data) deleteUserToken();
 		}
 	};
 
 	const deleteUserToken = (): void => {
-		document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+		if (process.client) {
+			document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+		}
 		userToken.value = '';
 	};
 
 	const userApiKeys = computed(() => {
-		return user.value?.apiKeys.map((item) => {
+		return user.value?.apiKeys.map((item: any) => {
 			if (item?._id) return { ...item, id: item._id.toString() };
+			return item;
 		}) || [];
 	});
 
