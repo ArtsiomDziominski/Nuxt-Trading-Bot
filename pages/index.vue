@@ -197,6 +197,16 @@ const aboutFeatures = [
 							</v-icon>
 							Управление ботами
 						</v-btn>
+						<v-btn
+							class="hero-btn secondary"
+							size="large"
+							to="/clicker-game"
+						>
+							<v-icon start>
+								mdi-gamepad-variant
+							</v-icon>
+							Игра-кликер
+						</v-btn>
 					</div>
 				</div>
 				<div class="hero-visual">
