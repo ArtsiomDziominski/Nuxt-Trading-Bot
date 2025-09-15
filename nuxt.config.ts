@@ -77,12 +77,10 @@ export default defineNuxtConfig({
 			SECRET_KEY_API: process.env.SECRET_KEY_API || '',
 			TELEGRAM_BOT: process.env.TELEGRAM_BOT || '',
 			NUXT_TURNSTILE_SECRET_KEY: process.env.NUXT_TURNSTILE_SECRET_KEY || '',
-			// ✅ теперь clientId доступен и на клиенте, и на сервере
 			googleClientId: process.env.GOOGLE_CLIENT_ID || '',
 		},
 	},
 
-	// ✅ модуль Google Sign-In берёт clientId отсюда
 	...(process.env.GOOGLE_CLIENT_ID && {
 		googleSignIn: {
 			clientId: process.env.GOOGLE_CLIENT_ID,
