@@ -71,7 +71,7 @@ provide('requestLoginGoogle', storeAuth.requestLoginGoogle);
 <style scoped lang="scss">
 .login-page {
   position: relative;
-  min-height: 100vh;
+  min-height: calc(100vh - 81px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -106,7 +106,7 @@ provide('requestLoginGoogle', storeAuth.requestLoginGoogle);
     position: relative;
     z-index: 2;
     width: 100%;
-    max-width: 500px;
+    max-width: 1000px;
     padding: 0 20px;
   }
 
@@ -114,7 +114,7 @@ provide('requestLoginGoogle', storeAuth.requestLoginGoogle);
     background: var(--surface-color);
     border: 1px solid var(--border-color);
     border-radius: 24px;
-    padding: 60px 40px;
+    padding: 20px;
     backdrop-filter: blur(20px);
     box-shadow: var(--shadow-card);
 

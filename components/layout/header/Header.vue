@@ -24,7 +24,7 @@ function toggleTheme() {
 	setCookie(keyTheme, newTheme);
 
 	// Переключаем CSS переменные
-	if (process.client) {
+	if (import.meta.client) {
 		if (newTheme === themeLight) {
 			document.documentElement.setAttribute('data-theme', 'light');
 		}
@@ -52,7 +52,7 @@ const scrollToSection = (sectionId: string) => {
 
 // Инициализация темы при загрузке
 onMounted(() => {
-	if (process.client) {
+	if (import.meta.client) {
 		const currentTheme = theme.global.name.value;
 		if (currentTheme === themeLight) {
 			document.documentElement.setAttribute('data-theme', 'light');
@@ -87,33 +87,33 @@ onMounted(() => {
 					v-else
 					class="main-navigation"
 				>
-					<a
-						href="#about"
+					<nuxt-link
+						to="/#about"
 						class="nav-link"
 						@click.prevent="scrollToSection('about')"
-					>О боте</a>
-					<a
-						href="#how-it-works"
+					>О боте</nuxt-link>
+					<nuxt-link
+						to="/#how-it-works"
 						class="nav-link"
 						@click.prevent="scrollToSection('how-it-works')"
-					>Как работает</a>
-					<a
-						href="#pricing"
+					>Как работает</nuxt-link>
+					<nuxt-link
+            to="/#pricing"
 						class="nav-link"
 						@click.prevent="scrollToSection('pricing')"
-					>Тарифы</a>
-					<a
-						href="#exchanges"
+					>Тарифы</nuxt-link>
+					<nuxt-link
+						to="/#exchanges"
 						class="nav-link"
 						@click.prevent="scrollToSection('exchanges')"
-					>Биржи</a>
+					>Биржи</nuxt-link>
 				</div>
 			</nav>
 
 			<!-- Market Price Ticker -->
-			<div class="market-ticker d-none d-lg-flex">
-				<HeaderMarketPrice />
-			</div>
+			<!--			<div class="market-ticker d-none d-lg-flex"> -->
+			<!--				<HeaderMarketPrice /> -->
+			<!--			</div> -->
 
 			<!-- Actions Section -->
 			<div class="actions-section">
@@ -389,8 +389,8 @@ onMounted(() => {
       gap: 12px;
 
       .login-btn {
-        border-color: rgba(255, 255, 255, 0.3);
-        color: rgba(255, 255, 255, 0.9);
+        border-color: var(--border-color);
+        color: var(--primary-color);
         border-radius: 8px;
         font-weight: 500;
         transition: all 0.3s ease;
