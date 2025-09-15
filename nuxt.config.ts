@@ -14,6 +14,9 @@ export default defineNuxtConfig({
 			options: {
 				target: 'es2020'
 			}
+		},
+		rollupConfig: {
+			external: []
 		}
 	},
 
@@ -25,10 +28,13 @@ export default defineNuxtConfig({
 
 	vite: {
 		optimizeDeps: {
-			include: ['unhead']
+			include: ['unhead', 'unhead/server']
 		},
 		ssr: {
 			noExternal: ['unhead']
+		},
+		define: {
+			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
 		}
 	},
 
@@ -49,7 +55,7 @@ export default defineNuxtConfig({
 	],
 
 	build: {
-		transpile: ['vuetify'],
+		transpile: ['vuetify', 'unhead'],
 	},
 
 	modules: [// ...
@@ -103,4 +109,10 @@ export default defineNuxtConfig({
 	},
 
 	compatibilityDate: '2025-01-06',
+
+	// Дополнительные настройки для решения проблемы с unhead
+	alias: {
+		'unhead/server': 'unhead'
+	},
+
 });

@@ -27,6 +27,7 @@
     "nuxt-vue3-google-signin": "^0.0.11",
     "qrcode.vue": "^3.6.0",
     "sass": "^1.56.1",
+    "unhead": "^1.11.9",
     "v8n": "^1.5.1",
     "vue": "^3.5.13",
     "vue-qr": "^4.0.9",
