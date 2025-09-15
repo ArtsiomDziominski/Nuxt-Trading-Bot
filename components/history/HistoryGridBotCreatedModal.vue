@@ -102,10 +102,21 @@ const useBot = (params: BOTS.PositionParam): void => {
 
 <style scoped lang="scss">
 .bot-info-container {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   min-height: 300px;
+  width: 100%;
+
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
 
   &__not-found {
     display: flex;
@@ -115,6 +126,7 @@ const useBot = (params: BOTS.PositionParam): void => {
     flex-direction: column;
     gap: 20px;
     margin-bottom: 16px;
+    grid-column: 1 / -1;
   }
 }
 
@@ -123,6 +135,7 @@ const useBot = (params: BOTS.PositionParam): void => {
   border: 1px solid white;
   border-radius: 8px;
   padding: 16px;
+  width: 100%;
 
   &:hover {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
