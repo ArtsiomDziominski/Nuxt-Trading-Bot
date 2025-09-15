@@ -98,9 +98,8 @@ onMounted(() => {
 						@click.prevent="scrollToSection('how-it-works')"
 					>Как работает</nuxt-link>
 					<nuxt-link
-            to="/#pricing"
+						to="/pricing"
 						class="nav-link"
-						@click.prevent="scrollToSection('pricing')"
 					>Тарифы</nuxt-link>
 					<nuxt-link
 						to="/#exchanges"
@@ -189,11 +188,11 @@ onMounted(() => {
 						class="mobile-nav-link"
 						@click.prevent="scrollToSection('how-it-works'); closeMobileMenu()"
 					>Как работает</a>
-					<a
-						href="#pricing"
+					<nuxt-link
+						to="/pricing"
 						class="mobile-nav-link"
-						@click.prevent="scrollToSection('pricing'); closeMobileMenu()"
-					>Тарифы</a>
+						@click="closeMobileMenu()"
+					>Тарифы</nuxt-link>
 					<a
 						href="#exchanges"
 						class="mobile-nav-link"
