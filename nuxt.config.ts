@@ -8,12 +8,28 @@ export default defineNuxtConfig({
 	nitro: {
 		preset: 'vercel',
 		errorHandler: '~/server/errorHandler.ts',
+		minify: true,
+		sourceMap: false,
+		esbuild: {
+			options: {
+				target: 'es2020'
+			}
+		}
 	},
 
 	ssr: true,
 
 	experimental: {
 		payloadExtraction: false,
+	},
+
+	vite: {
+		optimizeDeps: {
+			include: ['unhead']
+		},
+		ssr: {
+			noExternal: ['unhead']
+		}
 	},
 
 	app: {

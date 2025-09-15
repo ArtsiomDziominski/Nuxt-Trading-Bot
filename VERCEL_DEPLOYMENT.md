@@ -15,6 +15,10 @@
 ### 3. Типизация
 - ✅ Исправлены ошибки типизации в store файлах
 
+### 4. Unhead package export error
+- ✅ Исправлена ошибка `ERR_PACKAGE_PATH_NOT_EXPORTED` для пакета unhead
+- ✅ Добавлена конфигурация Vite для правильной обработки unhead
+
 ## Переменные окружения для Vercel
 
 Убедитесь, что в настройках Vercel установлены следующие переменные окружения:
@@ -47,19 +51,39 @@ NODE_ENV=production
 3. **API доступность**: Проверьте, что API сервер доступен по указанному URL
 4. **WebSocket соединения**: Убедитесь, что WebSocket сервер работает
 
-## Дополнительные настройки
+## Решение проблемы с unhead
 
-Если проблема сохраняется, попробуйте:
+Если возникает ошибка `ERR_PACKAGE_PATH_NOT_EXPORTED` для пакета unhead, в `nuxt.config.ts` уже добавлена следующая конфигурация:
 
-1. Добавить в `nuxt.config.ts`:
 ```typescript
 nitro: {
   preset: 'vercel',
   errorHandler: '~/server/errorHandler.ts',
   minify: true,
   sourceMap: false,
+  esbuild: {
+    options: {
+      target: 'es2020'
+    }
+  }
+},
+
+vite: {
+  optimizeDeps: {
+    include: ['unhead']
+  },
+  ssr: {
+    noExternal: ['unhead']
+  }
 }
 ```
 
-2. Убедиться, что все зависимости совместимы с Node.js 18+
-3. Проверить, что нет проблем с CORS на API сервере
+**Важно**: Для Nuxt 3 не нужен файл `vercel.json` - Nuxt автоматически настраивается для Vercel.
+
+## Дополнительные настройки
+
+Если проблема сохраняется, попробуйте:
+
+1. Убедиться, что все зависимости совместимы с Node.js 18+
+2. Проверить, что нет проблем с CORS на API сервере
+3. Очистить кэш Vercel и пересобрать проект
