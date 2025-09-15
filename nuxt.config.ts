@@ -1,4 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
+// Type declaration for process.env
+declare const process: {
+	env: Record<string, string | undefined>;
+};
+
 export default defineNuxtConfig({
 	// devServer: {
 	// 	port: 80,
@@ -60,7 +66,8 @@ export default defineNuxtConfig({
 		'@nuxt/eslint',
 		'@nuxtjs/i18n',
 		'@nuxtjs/turnstile',
-		'nuxt-vue3-google-signin',
+		// Only include Google Sign-In module if clientId is available
+		...(process.env.GOOGLE_CLIENT_ID ? ['nuxt-vue3-google-signin'] : []),
 	],
 
 	runtimeConfig: {
@@ -71,14 +78,16 @@ export default defineNuxtConfig({
 			TELEGRAM_BOT: process.env.TELEGRAM_BOT || '',
 			NUXT_TURNSTILE_SECRET_KEY: process.env.NUXT_TURNSTILE_SECRET_KEY || '',
 			// ✅ теперь clientId доступен и на клиенте, и на сервере
-			googleClientId: process.env.NUXT_PUBLIC_GOOGLE_CLIENT_ID || '',
+			googleClientId: process.env.GOOGLE_CLIENT_ID || '',
 		},
 	},
 
 	// ✅ модуль Google Sign-In берёт clientId отсюда
-	googleSignIn: {
-		clientId: process.env.NUXT_PUBLIC_GOOGLE_CLIENT_ID || '',
-	},
+	...(process.env.GOOGLE_CLIENT_ID && {
+		googleSignIn: {
+			clientId: process.env.GOOGLE_CLIENT_ID,
+		},
+	}),
 
 	eslint: {
 		config: {
