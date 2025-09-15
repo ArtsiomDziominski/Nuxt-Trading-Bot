@@ -114,6 +114,10 @@ provide('checkValidationPasswordForm', storeAuth.checkValidationPasswordForm);
     text-align: center;
     margin-bottom: 40px;
 
+    @media screen and (max-width: 1200px) {
+      display: none;
+    }
+
     .signup-logo {
       display: flex;
       align-items: center;

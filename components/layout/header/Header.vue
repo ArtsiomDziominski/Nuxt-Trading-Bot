@@ -169,16 +169,6 @@ onMounted(() => {
 						{{ $t('singUp.title') }}
 					</v-btn>
 				</div>
-
-				<!-- Mobile Menu Button -->
-				<v-btn
-					class="mobile-menu-btn d-md-none"
-					icon=""
-					variant="text"
-					@click="toggleMobileMenu"
-				>
-					<v-icon>mdi-menu</v-icon>
-				</v-btn>
 			</div>
 		</div>
 
@@ -311,6 +301,10 @@ onMounted(() => {
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+
+        @media screen and (max-width: 1200px) {
+          display: none;
+        }
       }
     }
   }

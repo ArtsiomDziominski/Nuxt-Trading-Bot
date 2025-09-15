@@ -127,6 +127,10 @@ provide('requestLoginGoogle', storeAuth.requestLoginGoogle);
     text-align: center;
     margin-bottom: 40px;
 
+    @media screen and (max-width: 1200px) {
+      display: none;
+    }
+
     .login-logo {
       display: flex;
       align-items: center;
