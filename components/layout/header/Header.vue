@@ -106,6 +106,10 @@ onMounted(() => {
 						class="nav-link"
 						@click.prevent="scrollToSection('exchanges')"
 					>Биржи</nuxt-link>
+					<nuxt-link
+						to="/games/clicker"
+						class="nav-link"
+					>Игра</nuxt-link>
 				</div>
 			</nav>
 
@@ -198,6 +202,11 @@ onMounted(() => {
 						class="mobile-nav-link"
 						@click.prevent="scrollToSection('exchanges'); closeMobileMenu()"
 					>Биржи</a>
+					<nuxt-link
+						to="/games/clicker"
+						class="mobile-nav-link"
+						@click="closeMobileMenu()"
+					>Игра</nuxt-link>
 				</nav>
 				<div class="mobile-actions">
 					<!-- Mobile Theme Toggle -->
