@@ -2,8 +2,32 @@
 import { storeToRefs } from 'pinia';
 import { userStore } from '~/store/user';
 
+// Import exchange logos
+import binanceLogo from '@/assets/img/exchanges/binance.svg';
+import bitgetLogo from '@/assets/img/exchanges/bitget.svg';
+import bybitLogo from '@/assets/img/exchanges/bybit.svg';
+import gateioLogo from '@/assets/img/exchanges/gateio.svg';
+import huobiLogo from '@/assets/img/exchanges/huobi.svg';
+import krknLogo from '@/assets/img/exchanges/krkn.svg';
+import kucoinLogo from '@/assets/img/exchanges/kucoin.svg';
+import mexcLogo from '@/assets/img/exchanges/mexc.svg';
+import okxLogo from '@/assets/img/exchanges/okx.svg';
+
 const storeUser = userStore();
 const { isAuthenticated } = storeToRefs(storeUser);
+
+// Exchange logos mapping
+const exchangeLogos = {
+	binance: binanceLogo,
+	bitget: bitgetLogo,
+	bybit: bybitLogo,
+	gateio: gateioLogo,
+	huobi: huobiLogo,
+	krkn: krknLogo,
+	kucoin: kucoinLogo,
+	mexc: mexcLogo,
+	okx: okxLogo,
+};
 
 // Intersection Observer for scroll animations
 onMounted(() => {
@@ -362,7 +386,7 @@ const aboutFeatures = [
 								class="exchange-link"
 							>
 								<img
-									src="~/assets/img/exchanges/binance.svg"
+									:src="exchangeLogos.binance"
 									alt="Binance"
 									class="exchange-logo"
 								>
@@ -379,14 +403,14 @@ const aboutFeatures = [
 						<div class="exchange-links">
 							<a
 								v-for="(exchange, index) in [
-									{ name: 'Bitget', url: 'https://www.bitget.com/', logo: 'bitget.svg' },
-									{ name: 'Bybit', url: 'https://www.bybit.com/', logo: 'bybit.svg' },
-									{ name: 'Gate.io', url: 'https://www.gate.io/', logo: 'gateio.svg' },
-									{ name: 'Huobi', url: 'https://www.htx.com.cm/invite/ru-ru/1f?invite_code=bnhg3223', logo: 'huobi.svg' },
-									{ name: 'Kraken', url: 'https://www.kraken.com', logo: 'krkn.svg' },
-									{ name: 'KuCoin', url: 'https://www.kucoin.com', logo: 'kucoin.svg' },
-									{ name: 'MEXC', url: 'https://www.mexc.com', logo: 'mexc.svg' },
-									{ name: 'OKX', url: 'https://www.okx.com', logo: 'okx.svg' },
+									{ name: 'Bybit', url: 'https://www.bybit.com/', logoKey: 'bybit' },
+									{ name: 'OKX', url: 'https://www.okx.com', logoKey: 'okx' },
+									{ name: 'Bitget', url: 'https://www.bitget.com/', logoKey: 'bitget' },
+									{ name: 'Gate.io', url: 'https://www.gate.io/', logoKey: 'gateio' },
+									{ name: 'Huobi', url: 'https://www.htx.com.cm/invite/ru-ru/1f?invite_code=bnhg3223', logoKey: 'huobi' },
+									{ name: 'Kraken', url: 'https://www.kraken.com', logoKey: 'krkn' },
+									{ name: 'KuCoin', url: 'https://www.kucoin.com', logoKey: 'kucoin' },
+									{ name: 'MEXC', url: 'https://www.mexc.com', logoKey: 'mexc' },
 								]"
 								:key="exchange.name"
 								:href="exchange.url"
@@ -395,7 +419,7 @@ const aboutFeatures = [
 								:style="{ 'animation-delay': `${0.3 + index * 0.05}s` }"
 							>
 								<img
-									:src="`~/assets/img/exchanges/${exchange.logo}`"
+									:src="exchangeLogos[exchange.logoKey]"
 									:alt="exchange.name"
 									class="exchange-logo"
 								>
