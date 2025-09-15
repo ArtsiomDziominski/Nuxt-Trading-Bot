@@ -66,7 +66,6 @@ export default defineNuxtConfig({
 		'@nuxt/eslint',
 		'@nuxtjs/i18n',
 		'@nuxtjs/turnstile',
-		// Only include Google Sign-In module if clientId is available
 		...(process.env.GOOGLE_CLIENT_ID ? ['nuxt-vue3-google-signin'] : []),
 	],
 
