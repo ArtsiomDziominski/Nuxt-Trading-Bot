@@ -12,12 +12,12 @@ export default defineNuxtConfig({
 		sourceMap: false,
 		esbuild: {
 			options: {
-				target: 'es2020'
-			}
+				target: 'es2020',
+			},
 		},
 		rollupConfig: {
-			external: []
-		}
+			external: [],
+		},
 	},
 
 	ssr: true,
@@ -28,11 +28,11 @@ export default defineNuxtConfig({
 
 	vite: {
 		optimizeDeps: {
-			include: ['unhead', '@unhead/vue', '@unhead/dom']
+			include: ['unhead', '@unhead/vue', '@unhead/dom'],
 		},
 		ssr: {
-			noExternal: ['unhead', '@unhead/vue', '@unhead/dom']
-		}
+			noExternal: ['unhead', '@unhead/vue', '@unhead/dom'],
+		},
 	},
 
 	app: {
@@ -55,8 +55,12 @@ export default defineNuxtConfig({
 		transpile: ['vuetify'],
 	},
 
-	modules: [// ...
-		'@pinia/nuxt', '@nuxt/eslint', '@nuxtjs/i18n', '@nuxtjs/turnstile', 'nuxt-vue3-google-signin',
+	modules: [
+		'@pinia/nuxt',
+		'@nuxt/eslint',
+		'@nuxtjs/i18n',
+		'@nuxtjs/turnstile',
+		'nuxt-vue3-google-signin',
 	],
 
 	runtimeConfig: {
@@ -66,11 +70,14 @@ export default defineNuxtConfig({
 			SECRET_KEY_API: process.env.SECRET_KEY_API || '',
 			TELEGRAM_BOT: process.env.TELEGRAM_BOT || '',
 			NUXT_TURNSTILE_SECRET_KEY: process.env.NUXT_TURNSTILE_SECRET_KEY || '',
+			// ✅ теперь clientId доступен и на клиенте, и на сервере
+			googleClientId: process.env.NUXT_PUBLIC_GOOGLE_CLIENT_ID || '',
 		},
 	},
 
+	// ✅ модуль Google Sign-In берёт clientId отсюда
 	googleSignIn: {
-		clientId: process.env.GOOGLE_CLIENT_ID || '',
+		clientId: process.env.NUXT_PUBLIC_GOOGLE_CLIENT_ID || '',
 	},
 
 	eslint: {
