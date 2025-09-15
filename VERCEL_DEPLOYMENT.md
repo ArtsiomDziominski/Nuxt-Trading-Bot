@@ -65,39 +65,16 @@ nitro: {
     options: {
       target: 'es2020'
     }
-  },
-  rollupConfig: {
-    external: []
   }
 },
 
 vite: {
   optimizeDeps: {
-    include: ['unhead', 'unhead/server']
+    include: ['unhead']
   },
   ssr: {
     noExternal: ['unhead']
-  },
-  define: {
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
   }
-},
-
-// Дополнительные настройки для решения проблемы с unhead
-alias: {
-  'unhead/server': 'unhead'
-},
-
-// Принудительная настройка для Vercel
-build: {
-  transpile: ['vuetify', 'unhead'],
-}
-```
-
-Также добавьте в `package.json` явную зависимость:
-```json
-"dependencies": {
-  "unhead": "^1.11.9"
 }
 ```
 

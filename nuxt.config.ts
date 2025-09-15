@@ -28,13 +28,10 @@ export default defineNuxtConfig({
 
 	vite: {
 		optimizeDeps: {
-			include: ['unhead', 'unhead/server']
+			include: ['unhead', '@unhead/vue', '@unhead/dom']
 		},
 		ssr: {
-			noExternal: ['unhead']
-		},
-		define: {
-			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
+			noExternal: ['unhead', '@unhead/vue', '@unhead/dom']
 		}
 	},
 
@@ -55,7 +52,7 @@ export default defineNuxtConfig({
 	],
 
 	build: {
-		transpile: ['vuetify', 'unhead'],
+		transpile: ['vuetify'],
 	},
 
 	modules: [// ...
@@ -109,10 +106,4 @@ export default defineNuxtConfig({
 	},
 
 	compatibilityDate: '2025-01-06',
-
-	// Дополнительные настройки для решения проблемы с unhead
-	alias: {
-		'unhead/server': 'unhead'
-	},
-
 });
