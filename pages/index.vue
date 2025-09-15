@@ -327,6 +327,7 @@ const aboutFeatures = [
 							:variant="plan.popular ? 'flat' : 'outlined'"
 							block
 							size="large"
+							:to="plan.id === 'basic' ? '/signup' : '/pricing'"
 						>
 							{{ plan.id === 'basic' ? 'Начать бесплатно' : 'Выбрать план' }}
 						</v-btn>

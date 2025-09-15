@@ -1,202 +1,282 @@
 {
-	"bots": {
-		"activeBots": "Active {count}",
-		"stoppedBots": "Stopped {count}",
-		"createNewBots": "Create new bot",
-		"addApiKey": "Add API key"
-	},
-	"apiKey": {
-		"title": "Add API key",
-		"name": "Name",
-		"public": "Public key",
-		"secret": "Secret key",
-		"cryptocurrencyExchanges": "Cryptocurrency exchanges",
-		"vieKey": "View API keys",
-		"listModalTitle": "List of API keys",
-		"listModalNotFound": "API keys not found"
-	},
-	"createBot": {
-		"apiKey": "API key",
-		"symbol": "Pair",
-		"qtyTokens": "Number of tokens",
-		"offers": "Orders",
-		"step": "Step (%)",
-		"decimals": "decimals",
-		"price": "Price",
-		"selectBot": "Select bot",
-		"coinsAtEachOrder": "Number of coins per order",
-		"averagePrice": "Average price",
-		"nextOrderCoins": "Next order coins",
-		"totalCoins": "Total number of coins",
-		"liquidationPrice": "Liquidation price",
-		"walletBalance": "Balance",
-		"botReadySoon": "The bot will be ready soon..."
-	},
-	"cardBot": {
-		"marketPrice": "Market price:",
-		"qtyTokens": "Number of coins:",
-		"priceEnter": "Entry price:",
-		"liquidationPrice": "Liquidation price:",
-		"stop": "Stop",
-		"start": "Start",
-		"take": "Collect",
-		"closeBot": "Close bot",
-		"historyNotFound": "History not found",
-		"historyTitle": "Previously created bots"
-	},
-	"singIn": {
-		"title": "Sign In",
-		"labelEmail": "Email address",
-		"labelPassword": "Password",
-		"toSingUpBtn": "Sign up",
-		"notAccount": "No account?",
-		"completeTheCaptcha": "Please complete the captcha"
-	},
-	"singUp": {
-		"title": "Sign Up",
-		"labelLogin": "Login",
-		"labelEmail": "Email address",
-		"labelPassword": "Password",
-		"alreadyRegistered": "Already registered?",
-		"enter": "Sign In",
-		"reg": "Register"
-	},
-	"account": {
-		"telegramBot": {
-			"title": "Telegram Bot",
-			"infoTitle": "Telegram Notification Bot",
-			"infoDescription": "The notification bot in Telegram sends alerts about various events.",
-			"connectTitle": "Connect Telegram Bot",
-			"connectDescription": "To link your account to the bot, scan the QR code with your smartphone camera or follow the link. You can also find our bot {name} on Telegram and start it.",
-			"connectToLinkBot": "Or follow the link:",
-			"connectedTitle": "Telegram bot is connected"
-		},
-		"profile": {
-			"title": "Profile",
-			"login": "Login",
-			"mail": "Email",
-			"apiKeysLength": "Number of API keys",
-			"subscribe": "Subscribe",
-			"notSubscribe": "You do not have a subscription"
-		},
-		"changePassword": {
-			"title": "Change Password",
-			"titleBtn": "Change Password",
-			"currentPassword": "Current Password",
-			"newPassword": "New Password",
-			"newPasswordRepeat": "Repeat New Password",
-			"change": "Change"
-		}
-	},
-	"error": {
-		"errorSingIn": "Error singIn",
-		"passwordInvalid": "he password must be at least 8 characters long, with at least one uppercase letter and one digit",
-		"fieldIsEmpty": "Field is empty",
-		"passwordsDoNotMatch": "The passwords do not match",
-		"ruleLoginLength": "Login must be between 5 and 16 characters long",
-		"ruleMailLength": "Email address must be up to 255 characters long",
-		"ruleMail": "Please enter a valid email address"
-	},
-	"logoName": "Crypto Trading",
-	"Home": "Home",
-	"Bots": "Bots",
-	"apiKeys": "API keys",
-	"logout": "Logout",
-	"cancel": "Cancel",
-	"confirm": "Confirm",
-	"back": "Back",
-	"close": "Close",
-	"MARKET": "Market",
-	"LIMIT": "Limit",
-	"mainPage": {
-		"title": "Efficient Bots for Automated Cryptocurrency Trading",
-		"subtitle": "Cryptocurrency trading bots automate transactions, reducing risks and increasing trading efficiency. They allow traders to execute operations quickly and accurately, making bots a valuable tool for all market participants.",
-		"availableExchanges": "Available Cryptocurrency Exchanges",
-		"soon": "Coming Soon",
-		"hero": {
-			"title": "Automate Cryptocurrency Trading",
-			"subtitle": "Smart trading bots work 24/7, analyzing the market and making profitable trades for you",
-			"startButton": "Start Trading",
-			"learnMoreButton": "Learn More"
-		},
-		"about": {
-			"title": "About Our Bot",
-			"subtitle": "Why Choose Us",
-			"features": {
-				"automation": {
-					"title": "Full Automation",
-					"description": "The bot works without your participation, making trades based on algorithms"
-				},
-				"riskManagement": {
-					"title": "Risk Management",
-					"description": "Built-in mechanisms for loss protection and profit optimization"
-				},
-				"analytics": {
-					"title": "Real-time Analytics",
-					"description": "Detailed statistics and reports on bot performance"
-				},
-				"support": {
-					"title": "24/7 Support",
-					"description": "Round-the-clock technical support and consultations"
-				}
-			}
-		},
-		"howItWorks": {
-			"title": "How It Works",
-			"subtitle": "Just 3 simple steps to start trading",
-			"steps": {
-				"connect": {
-					"title": "Connect Exchange",
-					"description": "Add API keys from your cryptocurrency exchange"
-				},
-				"configure": {
-					"title": "Configure Strategy",
-					"description": "Choose trading pair and trading parameters"
-				},
-				"launch": {
-					"title": "Launch Bot",
-					"description": "Activate the bot and start earning profit"
-				}
-			}
-		},
-		"pricing": {
-			"title": "Pricing Plans",
-			"subtitle": "Choose the plan that suits your needs",
-			"plans": {
-				"basic": {
-					"name": "Basic",
-					"price": "Free",
-					"features": [
-						"1 trading bot",
-						"Basic analytics",
-						"Email support",
-						"Up to 3 API keys"
-					]
-				},
-				"pro": {
-					"name": "Pro",
-					"price": "$29/month",
-					"features": [
-						"5 trading bots",
-						"Advanced analytics",
-						"Priority support",
-						"Up to 10 API keys",
-						"Telegram notifications"
-					]
-				},
-				"premium": {
-					"name": "Premium",
-					"price": "$99/month",
-					"features": [
-						"Unlimited bots",
-						"Professional analytics",
-						"Personal manager",
-						"Unlimited API keys",
-						"Custom strategies"
-					]
-				}
-			}
-		}
-	},
-	"or": "or"
+  "bots": {
+    "activeBots": "Active {count}",
+    "stoppedBots": "Stopped {count}",
+    "createNewBots": "Create new bot",
+    "addApiKey": "Add API key"
+  },
+  "apiKey": {
+    "title": "Add API key",
+    "name": "Name",
+    "public": "Public key",
+    "secret": "Secret key",
+    "cryptocurrencyExchanges": "Cryptocurrency exchanges",
+    "vieKey": "View API keys",
+    "listModalTitle": "List of API keys",
+    "listModalNotFound": "API keys not found"
+  },
+  "createBot": {
+    "apiKey": "API key",
+    "symbol": "Pair",
+    "qtyTokens": "Number of tokens",
+    "offers": "Orders",
+    "step": "Step (%)",
+    "decimals": "decimals",
+    "price": "Price",
+    "selectBot": "Select bot",
+    "coinsAtEachOrder": "Number of coins per order",
+    "averagePrice": "Average price",
+    "nextOrderCoins": "Next order coins",
+    "totalCoins": "Total number of coins",
+    "liquidationPrice": "Liquidation price",
+    "walletBalance": "Balance",
+    "botReadySoon": "The bot will be ready soon..."
+  },
+  "cardBot": {
+    "marketPrice": "Market price:",
+    "qtyTokens": "Number of coins:",
+    "priceEnter": "Entry price:",
+    "liquidationPrice": "Liquidation price:",
+    "stop": "Stop",
+    "start": "Start",
+    "take": "Collect",
+    "closeBot": "Close bot",
+    "historyNotFound": "History not found",
+    "historyTitle": "Previously created bots"
+  },
+  "singIn": {
+    "title": "Sign In",
+    "labelEmail": "Email address",
+    "labelPassword": "Password",
+    "toSingUpBtn": "Sign up",
+    "notAccount": "No account?",
+    "completeTheCaptcha": "Please complete the captcha"
+  },
+  "singUp": {
+    "title": "Sign Up",
+    "labelLogin": "Login",
+    "labelEmail": "Email address",
+    "labelPassword": "Password",
+    "alreadyRegistered": "Already registered?",
+    "enter": "Sign In",
+    "reg": "Register"
+  },
+  "account": {
+    "telegramBot": {
+      "title": "Telegram Bot",
+      "infoTitle": "Telegram Notification Bot",
+      "infoDescription": "The notification bot in Telegram sends alerts about various events.",
+      "connectTitle": "Connect Telegram Bot",
+      "connectDescription": "To link your account to the bot, scan the QR code with your smartphone camera or follow the link. You can also find our bot {name} on Telegram and start it.",
+      "connectToLinkBot": "Or follow the link:",
+      "connectedTitle": "Telegram bot is connected"
+    },
+    "profile": {
+      "title": "Profile",
+      "login": "Login",
+      "mail": "Email",
+      "apiKeysLength": "Number of API keys",
+      "subscribe": "Subscribe",
+      "notSubscribe": "You do not have a subscription"
+    },
+    "changePassword": {
+      "title": "Change Password",
+      "titleBtn": "Change Password",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "newPasswordRepeat": "Repeat New Password",
+      "change": "Change"
+    }
+  },
+  "error": {
+    "errorSingIn": "Error singIn",
+    "passwordInvalid": "he password must be at least 8 characters long, with at least one uppercase letter and one digit",
+    "fieldIsEmpty": "Field is empty",
+    "passwordsDoNotMatch": "The passwords do not match",
+    "ruleLoginLength": "Login must be between 5 and 16 characters long",
+    "ruleMailLength": "Email address must be up to 255 characters long",
+    "ruleMail": "Please enter a valid email address"
+  },
+  "logoName": "Crypto Trading",
+  "Home": "Home",
+  "Bots": "Bots",
+  "apiKeys": "API keys",
+  "logout": "Logout",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "back": "Back",
+  "close": "Close",
+  "MARKET": "Market",
+  "LIMIT": "Limit",
+  "mainPage": {
+    "title": "Efficient Bots for Automated Cryptocurrency Trading",
+    "subtitle": "Cryptocurrency trading bots automate transactions, reducing risks and increasing trading efficiency. They allow traders to execute operations quickly and accurately, making bots a valuable tool for all market participants.",
+    "availableExchanges": "Available Cryptocurrency Exchanges",
+    "soon": "Coming Soon",
+    "hero": {
+      "title": "Automate Cryptocurrency Trading",
+      "subtitle": "Smart trading bots work 24/7, analyzing the market and making profitable trades for you",
+      "startButton": "Start Trading",
+      "learnMoreButton": "Learn More"
+    },
+    "about": {
+      "title": "About Our Bot",
+      "subtitle": "Why Choose Us",
+      "features": {
+        "automation": {
+          "title": "Full Automation",
+          "description": "The bot works without your participation, making trades based on algorithms"
+        },
+        "riskManagement": {
+          "title": "Risk Management",
+          "description": "Built-in mechanisms for loss protection and profit optimization"
+        },
+        "analytics": {
+          "title": "Real-time Analytics",
+          "description": "Detailed statistics and reports on bot performance"
+        },
+        "support": {
+          "title": "24/7 Support",
+          "description": "Round-the-clock technical support and consultations"
+        }
+      }
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "Just 3 simple steps to start trading",
+      "steps": {
+        "connect": {
+          "title": "Connect Exchange",
+          "description": "Add API keys from your cryptocurrency exchange"
+        },
+        "configure": {
+          "title": "Configure Strategy",
+          "description": "Choose trading pair and trading parameters"
+        },
+        "launch": {
+          "title": "Launch Bot",
+          "description": "Activate the bot and start earning profit"
+        }
+      }
+    },
+    "pricing": {
+      "title": "Pricing Plans",
+      "subtitle": "Choose the plan that suits your needs",
+      "plans": {
+        "basic": {
+          "name": "Basic",
+          "price": "Free",
+          "features": [
+            "1 trading bot",
+            "Basic analytics",
+            "Email support",
+            "Up to 3 API keys"
+          ]
+        },
+        "pro": {
+          "name": "Pro",
+          "price": "$29/month",
+          "features": [
+            "5 trading bots",
+            "Advanced analytics",
+            "Priority support",
+            "Up to 10 API keys",
+            "Telegram notifications"
+          ]
+        },
+        "premium": {
+          "name": "Premium",
+          "price": "$99/month",
+          "features": [
+            "Unlimited bots",
+            "Professional analytics",
+            "Personal manager",
+            "Unlimited API keys",
+            "Custom strategies"
+          ]
+        }
+      }
+    }
+  },
+  "or": "or",
+  "pricingPage": {
+    "hero": {
+      "title": "Pricing Plans",
+      "subtitle": "Choose the right plan to automate your cryptocurrency trading",
+      "badges": {
+        "secure": "Secure",
+        "fastStart": "Quick Start",
+        "support": "24/7 Support"
+      }
+    },
+    "benefits": {
+      "title": "Why Choose Us",
+      "subtitle": "We provide the best tools for automated cryptocurrency trading",
+      "items": {
+        "security": {
+          "title": "Security",
+          "description": "Your API keys are encrypted and stored securely. We never have access to your funds."
+        },
+        "speed": {
+          "title": "High Speed",
+          "description": "Fast order execution with less than 50ms delay. Our servers are located near exchanges."
+        },
+        "profitability": {
+          "title": "Profitability",
+          "description": "Average return of our users is 15-25% per month with proper setup."
+        },
+        "support": {
+          "title": "24/7 Support",
+          "description": "Round-the-clock technical support in Russian and English."
+        },
+        "updates": {
+          "title": "Constant Updates",
+          "description": "Regular algorithm updates and new trading strategies."
+        },
+        "community": {
+          "title": "Community",
+          "description": "Access to a private community of traders with experience and strategy sharing."
+        }
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Answers to the most popular questions about our pricing plans",
+      "items": {
+        "cancel": {
+          "question": "Can I cancel my subscription at any time?",
+          "answer": "Yes, you can cancel your subscription at any time without penalties. Access to features will remain until the end of the paid period."
+        },
+        "payment": {
+          "question": "What payment methods do you accept?",
+          "answer": "We accept Visa, MasterCard, PayPal cards, as well as cryptocurrencies: Bitcoin, Ethereum, USDT."
+        },
+        "trial": {
+          "question": "Is there a trial period?",
+          "answer": "Yes, the basic plan is completely free. For paid plans, a 7-day trial period is available."
+        },
+        "change": {
+          "question": "Can I change my plan while using it?",
+          "answer": "Yes, you can upgrade to a higher plan at any time. The difference will be credited proportionally."
+        },
+        "profit": {
+          "question": "Do you guarantee profit?",
+          "answer": "We cannot guarantee profit, as cryptocurrency trading involves risks. But our algorithms are optimized to minimize risks."
+        },
+        "start": {
+          "question": "How quickly can I start trading?",
+          "answer": "After registration and adding API keys, you can start trading in just 5 minutes."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to start trading?",
+      "subtitle": "Join thousands of traders who have already automated their trading",
+      "buttons": {
+        "startFree": "Start Free",
+        "manageBots": "Manage Bots",
+        "learnMore": "Learn More"
+      }
+    }
+  }
 }
