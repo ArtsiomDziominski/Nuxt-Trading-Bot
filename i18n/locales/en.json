@@ -1,4 +1,27 @@
 {
+  "seo": {
+    "home": {
+      "title": "Best Cryptocurrency Trading Bots | 24/7 Automated Trading",
+      "description": "Professional trading bots for cryptocurrency trading automation. Safe, fast, profitable. Support for Binance, Bybit, OKX and other exchanges. Start earning today!",
+      "keywords": "trading bots, cryptocurrency, trading automation, bitcoin, ethereum, binance, bybit, okx, trading, crypto trading, trading strategies, API trading, trading robots, crypto bots"
+    },
+    "organization": {
+      "name": "Crypto Trading Bot",
+      "description": "Company providing professional trading bots for cryptocurrencies"
+    },
+    "website": {
+      "name": "Crypto Trading Bot",
+      "description": "Professional trading bots for cryptocurrency trading automation"
+    },
+    "product": {
+      "name": "Crypto Trading Bot",
+      "description": "Automated cryptocurrency trading system"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Answers to popular questions about our trading bots"
+    }
+  },
   "bots": {
     "activeBots": "Active {count}",
     "stoppedBots": "Stopped {count}",

@@ -22,6 +22,8 @@
   },
   "dependencies": {
     "@mdi/font": "^7.2.96",
+    "@nuxtjs/robots": "^5.5.1",
+    "@nuxtjs/sitemap": "^7.4.3",
     "axios": "~1.10.0",
     "crypto-js": "^4.2.0",
     "nuxt-vue3-google-signin": "^0.0.11",

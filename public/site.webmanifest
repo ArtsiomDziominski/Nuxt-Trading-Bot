@@ -1,0 +1,27 @@
+{
+  "name": "Crypto Trading Bot",
+  "short_name": "CryptoBot",
+  "description": "Профессиональные торговые боты для автоматизации торговли криптовалютами",
+  "start_url": "https://botinex.ru/",
+  "display": "standalone",
+  "background_color": "#0f0f23",
+  "theme_color": "#00d4ff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "business", "productivity"],
+  "lang": "ru",
+  "dir": "ltr"
+}

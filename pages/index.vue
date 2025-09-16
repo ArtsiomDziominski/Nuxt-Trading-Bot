@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { userStore } from '~/store/user';
+import { generateSEOTags, getBaseUrl, getSEOTranslations } from '~/utils/seo';
 
 // Import exchange logos
 import binanceLogo from '@/assets/img/exchanges/binance.svg';
@@ -12,9 +13,29 @@ import krknLogo from '@/assets/img/exchanges/krkn.svg';
 import kucoinLogo from '@/assets/img/exchanges/kucoin.svg';
 import mexcLogo from '@/assets/img/exchanges/mexc.svg';
 import okxLogo from '@/assets/img/exchanges/okx.svg';
+import StructuredData from '~/components/seo/StructuredData.vue';
 
 const storeUser = userStore();
 const { isAuthenticated } = storeToRefs(storeUser);
+
+// SEO данные с поддержкой многоязычности
+const { locale, t } = useI18n();
+
+const seoData = computed(() => {
+	const translations = getSEOTranslations(t);
+
+	return {
+		title: translations.home.title,
+		description: translations.home.description,
+		keywords: translations.home.keywords,
+		url: getBaseUrl(),
+		type: 'website' as const,
+		locale: locale.value,
+	};
+});
+
+// Устанавливаем SEO теги
+useHead(() => generateSEOTags(seoData.value));
 
 // Exchange logos mapping
 const exchangeLogos = {
@@ -147,6 +168,11 @@ const aboutFeatures = [
 
 <template>
 	<div class="home-page">
+		<!-- Structured Data -->
+		<StructuredData type="website" />
+		<StructuredData type="organization" />
+		<StructuredData type="product" />
+
 		<!-- Hero Section -->
 		<section
 			id="hero"
@@ -394,12 +420,15 @@ const aboutFeatures = [
 							<a
 								href="https://www.binance.com/activity/referral-entry/CPA/together-v4?hl=ru&ref=CPA_008Y5VJ98Z"
 								target="_blank"
+								rel="noopener noreferrer"
 								class="exchange-link"
 							>
 								<img
 									:src="exchangeLogos.binance"
-									alt="Binance"
+									alt="Binance - Криптовалютная биржа"
 									class="exchange-logo"
+									width="60"
+									height="60"
 								>
 							</a>
 						</div>
@@ -426,13 +455,16 @@ const aboutFeatures = [
 								:key="exchange.name"
 								:href="exchange.url"
 								target="_blank"
+								rel="noopener noreferrer"
 								class="exchange-link coming-soon animate-on-scroll"
 								:style="{ 'animation-delay': `${0.3 + index * 0.05}s` }"
 							>
 								<img
 									:src="exchangeLogos[exchange.logoKey]"
-									:alt="exchange.name"
+									:alt="`${exchange.name} - Криптовалютная биржа`"
 									class="exchange-logo"
+									width="60"
+									height="60"
 								>
 								<div class="coming-soon-overlay">Скоро</div>
 							</a>
