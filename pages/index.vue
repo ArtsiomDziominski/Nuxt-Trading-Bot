@@ -546,7 +546,7 @@ const aboutFeatures = [
       }
 
       .hero-btn {
-        padding: 16px 32px;
+        padding: 0 32px;
         font-size: 1.1rem;
         font-weight: 600;
         border-radius: 12px;
