@@ -140,15 +140,16 @@ export const useClickerGameStore = defineStore('clickerGame', () => {
 				achievements: achievements.value,
 				unlockedRewards: unlockedRewards.value,
 			};
-			
+
 			// TODO: Заменить на реальный API endpoint
 			// const response = await $fetch('/api/clicker-game/save', {
 			//   method: 'POST',
 			//   body: gameData
 			// });
-			
+
 			console.log('Game data ready for backend:', gameData);
-		} catch (error) {
+		}
+		catch (error) {
 			console.error('Error saving game data:', error);
 		}
 	};
@@ -157,7 +158,7 @@ export const useClickerGameStore = defineStore('clickerGame', () => {
 		try {
 			// TODO: Заменить на реальный API endpoint
 			// const data = await $fetch('/api/clicker-game/load');
-			
+
 			// Пока используем пустые значения для демонстрации
 			const data = {
 				score: 0,
@@ -171,7 +172,7 @@ export const useClickerGameStore = defineStore('clickerGame', () => {
 				achievements: [],
 				unlockedRewards: [],
 			};
-			
+
 			score.value = data.score || 0;
 			clicks.value = data.clicks || 0;
 			level.value = data.level || 1;
@@ -182,11 +183,12 @@ export const useClickerGameStore = defineStore('clickerGame', () => {
 			multiplierCost.value = data.multiplierCost || 50;
 			achievements.value = data.achievements || [];
 			unlockedRewards.value = data.unlockedRewards || [];
-			
+
 			if (autoClickerLevel.value > 0) {
 				startAutoClicker();
 			}
-		} catch (error) {
+		}
+		catch (error) {
 			console.error('Error loading game data:', error);
 		}
 	};
@@ -214,10 +216,11 @@ export const useClickerGameStore = defineStore('clickerGame', () => {
 			//   method: 'POST',
 			//   body: { rewardType }
 			// });
-			
+
 			console.log('Claiming reward:', rewardType);
 			// return response;
-		} catch (error) {
+		}
+		catch (error) {
 			console.error('Error claiming reward:', error);
 			throw error;
 		}

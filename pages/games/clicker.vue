@@ -11,6 +11,10 @@ import RewardsPanel from '~/components/games/clicker/RewardsPanel.vue';
 import RewardModal from '~/components/games/clicker/RewardModal.vue';
 import GameNotification from '~/components/games/clicker/GameNotification.vue';
 
+definePageMeta({
+	middleware: 'auth',
+});
+
 const storeUser = userStore();
 const { isAuthenticated } = storeToRefs(storeUser);
 

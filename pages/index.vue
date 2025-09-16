@@ -198,9 +198,10 @@ const aboutFeatures = [
 							Управление ботами
 						</v-btn>
 						<v-btn
+							v-if="isAuthenticated"
 							class="hero-btn secondary"
 							size="large"
-							to="/clicker-game"
+							to="/games/clicker"
 						>
 							<v-icon start>
 								mdi-gamepad-variant
@@ -481,12 +482,11 @@ const aboutFeatures = [
       position: absolute;
       width: 100%;
       height: 100%;
-      background-image:
-        radial-gradient(2px 2px at 20px 30px, #00d4ff, transparent),
-        radial-gradient(2px 2px at 40px 70px, #00d4ff, transparent),
-        radial-gradient(1px 1px at 90px 40px, #00d4ff, transparent),
-        radial-gradient(1px 1px at 130px 80px, #00d4ff, transparent),
-        radial-gradient(2px 2px at 160px 30px, #00d4ff, transparent);
+      background-image: radial-gradient(2px 2px at 20px 30px, #00d4ff, transparent),
+      radial-gradient(2px 2px at 40px 70px, #00d4ff, transparent),
+      radial-gradient(1px 1px at 90px 40px, #00d4ff, transparent),
+      radial-gradient(1px 1px at 130px 80px, #00d4ff, transparent),
+      radial-gradient(2px 2px at 160px 30px, #00d4ff, transparent);
       background-repeat: repeat;
       background-size: 200px 100px;
       animation: float 20s ease-in-out infinite;
@@ -557,9 +557,9 @@ const aboutFeatures = [
           color: white;
           box-shadow: 0 8px 32px rgba(0, 212, 255, 0.3);
 
-        &:hover {
-          /* Removed glow effect */
-        }
+          &:hover {
+            /* Removed glow effect */
+          }
         }
 
         &.secondary {
@@ -567,10 +567,10 @@ const aboutFeatures = [
           border: 2px solid #00d4ff;
           color: #00d4ff;
 
-        &:hover {
-          background: #00d4ff;
-          color: white;
-        }
+          &:hover {
+            background: #00d4ff;
+            color: white;
+          }
         }
       }
     }
@@ -850,8 +850,8 @@ const aboutFeatures = [
         margin-bottom: 30px;
 
         .feature-item {
-    display: flex;
-    align-items: center;
+          display: flex;
+          align-items: center;
           gap: 12px;
           padding: 12px 0;
           color: var(--text-secondary);
@@ -903,13 +903,13 @@ const aboutFeatures = [
         font-weight: 600;
         margin-bottom: 30px;
         color: white;
-      text-align: center;
-    }
+        text-align: center;
+      }
 
       .exchange-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 20px;
 
         .exchange-link {
@@ -974,19 +974,35 @@ const aboutFeatures = [
 
 // Animations
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 @keyframes drawLine {
-  0% { width: 0; opacity: 0; }
-  50% { opacity: 1; }
-  100% { width: 100%; opacity: 0; }
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    width: 100%;
+    opacity: 0;
+  }
 }
 
 @keyframes fadeInUp {
@@ -1044,7 +1060,7 @@ const aboutFeatures = [
 }
 
 // Responsive Design
-        @media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .hero-section {
     .hero-content {
       padding: 0 16px;
