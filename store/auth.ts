@@ -1,6 +1,6 @@
 import type { Ref } from 'vue';
 import { defineStore } from 'pinia';
-import axios from 'axios';
+import axios, { type AxiosError } from 'axios';
 import { ENDPOINT, HEADER_PARAMETERS } from '~/const/request';
 import { getHeadersRequest } from '~/utils/request';
 import { userStore } from '~/store/user';
@@ -68,8 +68,9 @@ export const authStore = defineStore('authStore', () => {
 			}
 			return false;
 		}
-		catch (e: any) {
-			if (e?.response?.data?.message) storeNotification.addNotification('error', e.response.data.message);
+		catch (e: unknown) {
+			const error = e as AxiosError<{ message: string }>;
+			if (error?.response?.data?.message) storeNotification.addNotification('error', error.response.data.message);
 			return false;
 		}
 		finally {
@@ -90,8 +91,9 @@ export const authStore = defineStore('authStore', () => {
 				success = response.data.success;
 			}
 		}
-		catch (e: any) {
-			if (e?.response?.data?.message) storeNotification.addNotification('error', e.response.data.message);
+		catch (e: unknown) {
+			const error = e as AxiosError<{ message: string }>;
+			if (error?.response?.data?.message) storeNotification.addNotification('error', error.response.data.message);
 		}
 		isLoaderLogin.value = false;
 		return success;
@@ -110,8 +112,9 @@ export const authStore = defineStore('authStore', () => {
 				success = response.data.success;
 			}
 		}
-		catch (e: any) {
-			if (e?.response?.data?.message) storeNotification.addNotification('error', e.response.data.message);
+		catch (e: unknown) {
+			const error = e as AxiosError<{ message: string }>;
+			if (error?.response?.data?.message) storeNotification.addNotification('error', error.response.data.message);
 		}
 		isLoaderLogin.value = false;
 		return success;
@@ -137,8 +140,9 @@ export const authStore = defineStore('authStore', () => {
 			}
 			return false;
 		}
-		catch (e: any) {
-			if (e?.response?.data?.message) storeNotification.addNotification('error', e.response.data.message);
+		catch (e: unknown) {
+			const error = e as AxiosError<{ message: string }>;
+			if (error?.response?.data?.message) storeNotification.addNotification('error', error.response.data.message);
 			return false;
 		}
 		finally {
@@ -205,8 +209,9 @@ export const authStore = defineStore('authStore', () => {
 
 			return true;
 		}
-		catch (e: any) {
-			if (e?.response?.data?.message) storeNotification.addNotification('error', e.response.data.message);
+		catch (e: unknown) {
+			const error = e as AxiosError<{ message: string }>;
+			if (error?.response?.data?.message) storeNotification.addNotification('error', error.response.data.message);
 			return false;
 		}
 	};
