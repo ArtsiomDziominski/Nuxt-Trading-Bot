@@ -32,6 +32,10 @@ export const authStore = defineStore('authStore', () => {
 		captchaToken: '',
 	});
 
+	const captchaToken: Ref<string> = ref('');
+
+	const pendingAuthData: Ref<{ token: string; userData?: any } | null> = ref(null);
+
 	const errors: Ref<COMMON.Errors> = ref({
 		login: { message: '' },
 		mail: { message: '' },
@@ -45,7 +49,7 @@ export const authStore = defineStore('authStore', () => {
 		errors.value = { ...errors.value, ...error };
 	};
 
-	const requestLogin = async (): Promise<void> => {
+	const requestLogin = async (): Promise<boolean> => {
 		isLoaderLogin.value = true;
 		try {
 			const passwordEncrypt = encryptPassword(userLogin.value.password);
@@ -55,16 +59,22 @@ export const authStore = defineStore('authStore', () => {
 			};
 			const response = await axios.post(BURL + ENDPOINT.auth.login, body, getHeadersRequest([HEADER_PARAMETERS.content]));
 			if (response.data.success) {
-				await storeUser.saveToken(response.data.token);
-				await storeUser.requestSetUser();
-				storeWS.webSocketServer();
+				pendingAuthData.value = {
+					token: response.data.token,
+					userData: response.data.userData,
+				};
 				clearUserLogin();
+				return true;
 			}
+			return false;
 		}
-		catch (e) {
+		catch (e: any) {
 			if (e?.response?.data?.message) storeNotification.addNotification('error', e.response.data.message);
+			return false;
 		}
-		isLoaderLogin.value = false;
+		finally {
+			isLoaderLogin.value = false;
+		}
 	};
 
 	const requestLoginTelegram = async (body: AUTH.ILoginTelegramBody): Promise<boolean> => {
@@ -80,7 +90,7 @@ export const authStore = defineStore('authStore', () => {
 				success = response.data.success;
 			}
 		}
-		catch (e) {
+		catch (e: any) {
 			if (e?.response?.data?.message) storeNotification.addNotification('error', e.response.data.message);
 		}
 		isLoaderLogin.value = false;
@@ -100,7 +110,7 @@ export const authStore = defineStore('authStore', () => {
 				success = response.data.success;
 			}
 		}
-		catch (e) {
+		catch (e: any) {
 			if (e?.response?.data?.message) storeNotification.addNotification('error', e.response.data.message);
 		}
 		isLoaderLogin.value = false;
@@ -118,18 +128,21 @@ export const authStore = defineStore('authStore', () => {
 			const response = await axios.post(BURL + ENDPOINT.auth.signupMail, body, getHeadersRequest([HEADER_PARAMETERS.content]));
 			if (response.data.success) {
 				if (response?.data?.message) storeNotification.addNotification('success', response.data.message);
-				await storeUser.saveToken(response.data.token);
-				storeWS.webSocketServer();
+				pendingAuthData.value = {
+					token: response.data.token,
+					userData: response.data.userData,
+				};
 				clearUserSignup();
+				return true;
 			}
-
-			isLoaderSignup.value = false;
-			return response?.data?.success;
+			return false;
 		}
-		catch (e) {
+		catch (e: any) {
 			if (e?.response?.data?.message) storeNotification.addNotification('error', e.response.data.message);
+			return false;
+		}
+		finally {
 			isLoaderSignup.value = false;
-			return !!e?.response?.data?.success;
 		}
 	};
 
@@ -171,9 +184,38 @@ export const authStore = defineStore('authStore', () => {
 		};
 	};
 
+	const clearCaptchaToken = (): void => {
+		captchaToken.value = '';
+	};
+
+	const clearPendingAuthData = (): void => {
+		pendingAuthData.value = null;
+	};
+
+	const confirmCaptcha = async (): Promise<boolean> => {
+		if (!captchaToken.value || !pendingAuthData.value) return false;
+
+		try {
+			await storeUser.saveToken(pendingAuthData.value.token);
+			await storeUser.requestSetUser();
+			storeWS.webSocketServer();
+
+			pendingAuthData.value = null;
+			captchaToken.value = '';
+
+			return true;
+		}
+		catch (e: any) {
+			if (e?.response?.data?.message) storeNotification.addNotification('error', e.response.data.message);
+			return false;
+		}
+	};
+
 	return {
 		userLogin,
 		userSignup,
+		captchaToken,
+		pendingAuthData,
 		errors,
 		isLoaderLogin,
 		isLoaderSignup,
@@ -181,10 +223,13 @@ export const authStore = defineStore('authStore', () => {
 		requestLoginTelegram,
 		requestLoginGoogle,
 		requestSignupMail,
+		confirmCaptcha,
 		checkValidationMailForm,
 		checkValidationPasswordForm,
 		checkValidationLoginForm,
 		clearUserLogin,
 		clearUserSignup,
+		clearCaptchaToken,
+		clearPendingAuthData,
 	};
 });

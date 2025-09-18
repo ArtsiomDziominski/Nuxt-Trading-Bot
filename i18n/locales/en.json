@@ -84,6 +84,11 @@
     "enter": "Sign In",
     "reg": "Register"
   },
+  "captcha": {
+    "title": "Security Verification",
+    "description": "To complete the login, please confirm that you are not a robot",
+    "confirm": "Confirm"
+  },
   "account": {
     "telegramBot": {
       "title": "Telegram Bot",

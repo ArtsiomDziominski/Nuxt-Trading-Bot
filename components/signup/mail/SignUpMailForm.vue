@@ -27,11 +27,10 @@ const isValidForm = computed((): boolean => {
 
 const submit = async (): Promise<void> => {
 	if (isValidForm.value) return;
-
-	if (!await storeAuth.requestSignupMail()) return;
-	if (isAuthenticated.value) {
-		storeUser.requestSetUser();
-		await router.push('/bots');
+	const success = await storeAuth.requestSignupMail();
+	if (success) {
+		// Модальное окно капчи автоматически откроется, так как есть pendingAuthData
+		// requestSetUser будет вызван после подтверждения капчи
 	}
 	storeAuth.clearUserSignup();
 };
@@ -58,16 +57,11 @@ const submit = async (): Promise<void> => {
 				<sing-up-mail />
 			</v-card-item>
 
-			<NuxtTurnstile
-				v-model="userSignup.captchaToken"
-				class="d-flex justify-center"
-			/>
-
 			<v-card-actions class="card__actions">
 				<v-btn
 					class="mt-2"
 					type="submit"
-					:disabled="!userSignup.captchaToken"
+					:disabled="isValidForm"
 					:loading="isLoaderSignup"
 				>
 					{{ $t('singUp.reg') }}
