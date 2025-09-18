@@ -26,7 +26,10 @@
     "activeBots": "Активные {count}",
     "stoppedBots": "Приостановленные {count}",
     "createNewBots": "Создать нового бота",
-    "addApiKey": "Добавить API ключ"
+    "addApiKey": "Добавить API ключ",
+    "emptyTitle": "Нет активных ботов",
+    "emptyDescription": "Создайте своего первого торгового бота и начните автоматизированную торговлю",
+    "createBot": "Создать бота"
   },
   "apiKey": {
     "title": "Добавить Api ключ",
