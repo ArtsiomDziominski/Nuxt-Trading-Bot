@@ -3,14 +3,9 @@ import LoginFormExtra from '~/components/login/LoginFormExtra.vue';
 import LoginFormMail from '~/components/login/LoginFormMail.vue';
 import SignSeparator from '~/components/SignSeparator.vue';
 
-const router = useRouter();
-
-const userLogin = inject('userLogin') as Ref;
 const errors = inject('errors') as Ref;
 const isLoaderLogin = inject('isLoaderLogin') as Ref<boolean>;
-const isAuthenticated = inject('isAuthenticated') as Ref<boolean>;
 const requestLogin = inject('requestLogin') as Function;
-const requestSetUser = inject('requestSetUser') as Function;
 const checkValidationMailForm = inject('checkValidationMailForm') as Function;
 const checkValidationPasswordForm = inject('checkValidationPasswordForm') as Function;
 const clearUserLogin = inject('clearUserLogin') as Function;
@@ -25,15 +20,16 @@ const isValidForm = computed((): boolean => {
 
 const submit = async (): Promise<void> => {
 	if (isValidForm.value) return;
-	await requestLogin();
-	if (isAuthenticated.value) {
-		requestSetUser();
-		await router.push('/bots');
+
+	const success = await requestLogin();
+	if (success) {
+		// Модальное окно капчи автоматически откроется, так как есть pendingAuthData
+		// requestSetUser будет вызван после подтверждения капчи
 	}
 };
 
 const isDisabledBtn = computed((): boolean => {
-	return (!!errors.value.mail.message && !!errors.value.password.message) || !userLogin.value.captchaToken;
+	return (!!errors.value.mail.message && !!errors.value.password.message);
 });
 </script>
 
@@ -57,11 +53,6 @@ const isDisabledBtn = computed((): boolean => {
 				<sign-separator />
 				<login-form-mail />
 			</v-card-item>
-
-			<NuxtTurnstile
-				v-model="userLogin.captchaToken"
-				class="d-flex justify-center"
-			/>
 
 			<v-card-actions class="card__actions">
 				<v-btn

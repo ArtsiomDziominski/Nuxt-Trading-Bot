@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import CaptchaModal from '~/components/auth/CaptchaModal.vue';
 </script>
 
 <template>
@@ -10,6 +10,9 @@
 				<slot />
 			</main>
 			<LayoutFooter />
+			<ClientOnly>
+				<CaptchaModal />
+			</ClientOnly>
 		</div>
 	</v-app>
 </template>

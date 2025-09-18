@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { botsStore } from '~/store/bots';
+import { createBotsStore } from '~/store/createBots';
 
 definePageMeta({
 	middleware: 'auth',
@@ -8,6 +9,9 @@ definePageMeta({
 
 const storeBots = botsStore();
 const { activeBots } = storeToRefs(storeBots);
+
+const storeCreateBots = createBotsStore();
+const { isModalSelectBots } = storeToRefs(storeCreateBots);
 
 const loadingBots = ref(true);
 
@@ -18,6 +22,10 @@ onMounted(async () => {
 });
 
 provide('activeBots', activeBots);
+
+const openSelectModal = (): void => {
+	isModalSelectBots.value = true;
+};
 </script>
 
 <template>
@@ -63,7 +71,7 @@ provide('activeBots', activeBots);
 								class="create-bot-btn"
 								color="primary"
 								size="large"
-								to="/bots/create"
+								@click="openSelectModal"
 							>
 								<v-icon start>
 									mdi-plus
