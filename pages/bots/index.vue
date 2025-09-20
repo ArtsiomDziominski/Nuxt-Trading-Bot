@@ -62,10 +62,10 @@ const openSelectModal = (): void => {
 								<div class="icon-glow" />
 							</div>
 							<h2 class="empty-title">
-								Нет активных ботов
+								{{ $t('bots.emptyTitle') }}
 							</h2>
 							<p class="empty-description">
-								Создайте своего первого торгового бота и начните автоматизированную торговлю
+								{{ $t('bots.emptyDescription') }}
 							</p>
 							<v-btn
 								class="create-bot-btn"
@@ -76,7 +76,7 @@ const openSelectModal = (): void => {
 								<v-icon start>
 									mdi-plus
 								</v-icon>
-								Создать бота
+								{{ $t('bots.createBot') }}
 							</v-btn>
 						</div>
 					</div>

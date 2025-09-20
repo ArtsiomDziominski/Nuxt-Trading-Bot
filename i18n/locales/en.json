@@ -26,7 +26,10 @@
     "activeBots": "Active {count}",
     "stoppedBots": "Stopped {count}",
     "createNewBots": "Create new bot",
-    "addApiKey": "Add API key"
+    "addApiKey": "Add API key",
+    "emptyTitle": "No active bots",
+    "emptyDescription": "Create your first trading bot and start automated trading",
+    "createBot": "Create bot"
   },
   "apiKey": {
     "title": "Add API key",
