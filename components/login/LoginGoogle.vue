@@ -36,12 +36,7 @@ const text = computed(() => props.type === 'signin' ? 'signin_with' : 'signup_wi
 
 const handleLoginSuccess = async (response: any): Promise<void> => {
 	const { credential } = response;
-	if (!userLogin.value.captchaToken) {
-		addNotification('info', String(translation.t('singIn.completeTheCaptcha')));
-		return;
-	}
-	const isLogin = await requestLoginGoogle(credential);
-	if (isLogin) await router.push({ name: 'bots' });
+	await requestLoginGoogle(credential);
 };
 
 const handleLoginError = () => {

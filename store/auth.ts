@@ -105,9 +105,11 @@ export const authStore = defineStore('authStore', () => {
 		try {
 			const response = await axios.post(BURL + ENDPOINT.auth.loginGoogle, { accessToken }, getHeadersRequest([HEADER_PARAMETERS.content]));
 			if (response.data.success) {
-				await storeUser.saveToken(response.data.data.token);
-				await storeUser.requestSetUser();
-				storeWS.webSocketServer();
+				// Устанавливаем pendingAuthData для показа капчи, как в обычном логине
+				pendingAuthData.value = {
+					token: response.data.data.token,
+					userData: response.data.data.userData,
+				};
 				clearUserLogin();
 				success = response.data.success;
 			}
