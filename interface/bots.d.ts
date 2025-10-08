@@ -18,6 +18,7 @@ export interface PositionRisk {
 	updateTime: number;
 	isActive: boolean;
 	isProcessingOrders: false;
+	pendingOrdersCount: number;
 }
 
 export interface PositionParam {
@@ -36,6 +37,32 @@ export interface PositionParam {
 export interface ActiveBotsPositionRisk {
 	positionRisk: PositionRisk;
 	positionParam: PositionParam;
+	pendingOrders: {
+		orderId: number;
+		symbol: string;
+		status: string;
+		clientOrderId: string;
+		price: string;
+		avgPrice: string;
+		origQty: string;
+		executedQty: string;
+		cumQuote: string;
+		timeInForce: string;
+		type: string;
+		reduceOnly: boolean;
+		closePosition: boolean;
+		side: string;
+		positionSide: string;
+		stopPrice: string;
+		workingType: string;
+		priceProtect: boolean;
+		origType: string;
+		priceMatch: string;
+		selfTradePreventionMode: string;
+		goodTillDate: number;
+		time: number;
+		updateTime: number;
+	}[];
 }
 
 export as namespace BOTS;

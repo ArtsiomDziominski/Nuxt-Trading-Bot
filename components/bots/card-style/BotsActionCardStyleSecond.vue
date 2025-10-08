@@ -15,7 +15,7 @@ const emit = defineEmits(['takeProfit', 'pauseBot', 'startBot', 'stopBot', 'rese
 const isActiveChangeAnimation = ref<boolean>(false);
 const dateLastUpdate = ref<number>(Date.now());
 const lastUpdate = ref<number>(0);
-const intervaLastUpdate = ref<NodeJS.Timeout | null>(null);
+const intervaLastUpdate = ref<ReturnType<typeof setInterval> | null>(null);
 
 onMounted(() => (setLastUpdate()));
 
@@ -88,6 +88,10 @@ const setLastUpdate = () => {
 				<span class="label">{{ $t('cardBot.liquidationPrice') }}</span>
 				<span class="value">{{ Number(position.positionRisk.liquidationPrice) || 'N/A' }}</span>
 			</div>
+			<BotsPendingOrdersTooltip
+				:pending-orders="position.pendingOrders"
+				:pending-orders-count="Number(position.positionRisk.pendingOrdersCount)"
+			/>
 		</v-card-text>
 
 		<v-divider />

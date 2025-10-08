@@ -168,7 +168,6 @@ const updateSymbol = (value: EXCHANGE_INFO.SymbolInfo) => {
 						@input="errors.step.message = ''"
 					/>
 					<v-text-field
-						v-if="!createBotParams.decimals"
 						v-model.trim="createBotParams.decimals"
 						:label="$t('createBot.decimals')"
 						placeholder="2"
