@@ -66,6 +66,36 @@ const countBotsDeactivateString = computed((): string => {
 			</div>
 		</v-card>
 
+		<v-card
+			class="pa-3 bots-actions-bar__card"
+			outlined
+		>
+			<v-icon color="blue">
+				mdi-chart-line
+			</v-icon>
+			<div class="d-none d-md-flex">
+				Фьючерсы
+			</div>
+			<div class="d-flex d-md-none">
+				F
+			</div>
+		</v-card>
+
+		<v-card
+			class="pa-3 bots-actions-bar__card"
+			outlined
+		>
+			<v-icon color="green">
+				mdi-cash
+			</v-icon>
+			<div class="d-none d-md-flex">
+				Спот
+			</div>
+			<div class="d-flex d-md-none">
+				S
+			</div>
+		</v-card>
+
 		<div class="bots-actions-bar__buttons">
 			<v-btn
 				color="primary"
@@ -107,7 +137,7 @@ const countBotsDeactivateString = computed((): string => {
 <style scoped lang="scss">
 .bots-actions-bar {
   display: grid;
-  grid-template-columns: min-content min-content 1fr;
+  grid-template-columns: min-content min-content min-content min-content 1fr;
   gap: 20px;
 
   @media screen and (max-width: 1200px) {

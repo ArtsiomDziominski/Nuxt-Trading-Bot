@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { ENDPOINT } from '~/const/request';
 import { apiStore } from '~/store/api';
-import { BotTypes, Strategy } from '~/const/bots';
+import { BotTypes, BotMarketType, Strategy } from '~/const/bots';
 import { ruleEmpty } from '~/const/validation';
 import { validationStore } from '~/store/validation';
 import { notificationStore } from '~/store/notification';
@@ -27,6 +27,7 @@ export const createBotsStore = defineStore('createBotsStore', () => {
 			decimals: string;
 			strategy: Strategy;
 			type: BotTypes;
+			marketType: BotMarketType;
 		}
 	>({
 		apiId: null,
@@ -39,6 +40,7 @@ export const createBotsStore = defineStore('createBotsStore', () => {
 		decimals: '',
 		strategy: Strategy.DEFAULT,
 		type: BotTypes.Market,
+		marketType: BotMarketType.Spot,
 	});
 	const errors = ref({
 		apiId: { message: '' },
@@ -68,7 +70,12 @@ export const createBotsStore = defineStore('createBotsStore', () => {
 				},
 			};
 
-			const response = await api.post(ENDPOINT.bots.gritBot.create, body);
+			// Выбираем endpoint в зависимости от типа рынка
+			const endpoint = createBotParams.value.marketType === BotMarketType.Spot
+				? ENDPOINT.bots.gritBot.spot.create
+				: ENDPOINT.bots.gritBot.create;
+
+			const response = await api.post(endpoint, body);
 			if (response?.success)
 				storeNotification.addNotification('success', response?.message || translation.t('createBot.botReadySoon'));
 
@@ -98,6 +105,7 @@ export const createBotsStore = defineStore('createBotsStore', () => {
 				step: '',
 				decimals: '',
 				strategy: Strategy.DEFAULT,
+				marketType: BotMarketType.Futures,
 			},
 		};
 	};

@@ -8,6 +8,11 @@ export enum BotTypes {
 	Market = 'MARKET',
 }
 
+export enum BotMarketType {
+	Futures = 'FUTURES',
+	Spot = 'SPOT',
+}
+
 export const BotCreateTitle = {
 	[Strategy.DEFAULT]: 'Сеточный бот',
 	[Strategy.MARTINGALE]: 'Сеточный бот "Мартингейл"',

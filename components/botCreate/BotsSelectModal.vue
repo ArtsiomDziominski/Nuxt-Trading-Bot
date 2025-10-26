@@ -1,14 +1,20 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { createBotsStore } from '~/store/createBots';
-import { BotCreateTitle, Strategy } from '~/const/bots';
+import { BotCreateTitle, Strategy, BotMarketType } from '~/const/bots';
 
 const storeCreateBots = createBotsStore();
 const { isModalSelectBots, isModalCreateBots, createBotParams } = storeToRefs(storeCreateBots);
 
+const { t } = useI18n();
+
 const botsStrategy = [
 	{ name: BotCreateTitle[Strategy.DEFAULT], strategy: Strategy.DEFAULT },
-	{ name: BotCreateTitle[Strategy.MARTINGALE], strategy: Strategy.MARTINGALE, info: 'Стратегия Мартингейл удваивает ставку после каждого проигрыша, чтобы при победе вернуть потери и получить прибыль. Однако она рискованна из-за возможности значительных убытков при длительной серии проигрышей' },
+	{
+		name: BotCreateTitle[Strategy.MARTINGALE],
+		strategy: Strategy.MARTINGALE,
+		info: t('createBot.strategies.martingale.description'),
+	},
 ];
 
 const selectBot = (strategy: Strategy): void => {
@@ -16,6 +22,15 @@ const selectBot = (strategy: Strategy): void => {
 	isModalSelectBots.value = false;
 	isModalCreateBots.value = true;
 };
+
+const selectMarketType = (marketType: BotMarketType): void => {
+	createBotParams.value.marketType = marketType;
+};
+
+const marketTypes = [
+	{ name: t('createBot.marketTypes.spot.name'), type: BotMarketType.Spot, description: t('createBot.marketTypes.spot.description') },
+	{ name: t('createBot.marketTypes.futures.name'), type: BotMarketType.Futures, description: t('createBot.marketTypes.futures.description') },
+];
 </script>
 
 <template>
@@ -23,30 +38,67 @@ const selectBot = (strategy: Strategy): void => {
 		<template #body>
 			<div class="bots-select-body">
 				<p class="title">
-					{{ $t('createBot.selectBot') }}
+					{{ $t('createBot.selectMarketType') }}
 				</p>
-				<v-btn
-					v-for="bot in botsStrategy"
-					:key="bot.name + bot.strategy"
-					size="x-large"
-					@click="selectBot(bot.strategy)"
+
+				<div class="market-type-selection">
+					<v-btn
+						v-for="market in marketTypes"
+						:key="market.type"
+						:class="createBotParams.marketType === market.type ? 'primary' : 'default'"
+						size="large"
+						@click="selectMarketType(market.type)"
+					>
+						<div class="btn">
+							<v-icon>
+								{{ market.type === BotMarketType.Futures ? 'mdi-chart-line' : 'mdi-cash' }}
+							</v-icon>
+							<div class="btn-content">
+								<p class="btn-title">
+									{{ market.name }}
+									<v-icon
+										v-if="market.description"
+										v-tooltip:top="market.description"
+										max-width="100px"
+									>
+										mdi-information-outline
+									</v-icon>
+								</p>
+							</div>
+						</div>
+					</v-btn>
+				</div>
+
+				<div
+					v-if="createBotParams.marketType"
+					class="strategy-selection"
 				>
-					<div class="btn">
-						<v-icon>
-							mdi-robot-excited-outline
-						</v-icon>
-						<p>
-							{{ bot.name }}
-						</p>
-						<v-icon
-							v-if="bot.info"
-							v-tooltip:top="bot.info"
-							max-width="100px"
-						>
-							mdi-information-outline
-						</v-icon>
-					</div>
-				</v-btn>
+					<p class="title">
+						{{ $t('createBot.selectBot') }}
+					</p>
+					<v-btn
+						v-for="bot in botsStrategy"
+						:key="bot.name + bot.strategy"
+						size="x-large"
+						@click="selectBot(bot.strategy)"
+					>
+						<div class="btn">
+							<v-icon>
+								mdi-robot-excited-outline
+							</v-icon>
+							<p>
+								{{ bot.name }}
+							</p>
+							<v-icon
+								v-if="bot.info"
+								v-tooltip:top="bot.info"
+								max-width="100px"
+							>
+								mdi-information-outline
+							</v-icon>
+						</div>
+					</v-btn>
+				</div>
 			</div>
 		</template>
 		<template #actions>
@@ -61,19 +113,61 @@ const selectBot = (strategy: Strategy): void => {
 .bots-select-body {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
   margin-bottom: 30px;
 
   .title {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    font-weight: 600;
   }
 
-  .btn {
-    width: max-content;
+  .market-type-selection .default {
+    --shadow-primary: 0 4px 20px rgba(0, 212, 255, 0.03);
+  }
+
+  .market-type-selection .primary {
+    color: #4caf50;
+  }
+
+  .market-type-selection {
     display: flex;
     flex-direction: row;
-    align-items: center;
     gap: 20px;
+    flex-wrap: wrap;
+
+    .btn {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 15px;
+
+      .btn-content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+
+        .btn-title {
+          font-weight: 600;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .strategy-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .btn {
+      width: max-content;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 20px;
+    }
   }
 }
 </style>

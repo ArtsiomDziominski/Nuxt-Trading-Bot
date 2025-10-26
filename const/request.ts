@@ -31,6 +31,11 @@ export const ENDPOINT = {
 			create: '/gridBot/create',
 			takeProfit: '/gridBot/takeProfit',
 			watching: '/gridBot/watching',
+			spot: {
+				get: '/gridBot/spot/activeBots',
+				create: '/gridBot/spot/create',
+				watching: '/gridBot/spot/watching',
+			},
 		},
 	},
 	history: {
