@@ -42,6 +42,7 @@
     "listModalNotFound": "API keys not found"
   },
   "createBot": {
+    "selectMarketType": "Select market type",
     "apiKey": "API key",
     "symbol": "Pair",
     "qtyTokens": "Number of tokens",
@@ -56,7 +57,22 @@
     "totalCoins": "Total number of coins",
     "liquidationPrice": "Liquidation price",
     "walletBalance": "Balance",
-    "botReadySoon": "The bot will be ready soon..."
+    "botReadySoon": "The bot will be ready soon...",
+    "marketTypes": {
+      "spot": {
+        "name": "Spot",
+        "description": "Trading without leverage"
+      },
+      "futures": {
+        "name": "Futures",
+        "description": "Trading with leverage"
+      }
+    },
+    "strategies": {
+      "martingale": {
+        "description": "The Martingale strategy doubles the bet after each loss to recover losses and make a profit when winning. However, it is risky due to the possibility of significant losses during a long losing streak"
+      }
+    }
   },
   "cardBot": {
     "marketPrice": "Market price:",

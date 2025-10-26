@@ -2,7 +2,7 @@
 import { storeToRefs } from 'pinia';
 import { createBotsStore } from '~/store/createBots';
 import { userStore } from '~/store/user';
-import { BotCreateTitle, BotTypes } from '~/const/bots';
+import { BotCreateTitle, BotTypes, BotMarketType } from '~/const/bots';
 import { botsStore } from '~/store/bots';
 import { historyStore } from '~/store/historyBots';
 import { sharedStore } from '~/store/shared';
@@ -40,7 +40,9 @@ const setPrice = () => {
 };
 
 const titleModal = computed((): string => {
-	return BotCreateTitle?.[createBotParams.value?.strategy] || '';
+	const strategyTitle = BotCreateTitle?.[createBotParams.value?.strategy] || '';
+	const marketType = createBotParams.value?.marketType === BotMarketType.Spot ? ' (Спот)' : ' (Фьючерсы)';
+	return strategyTitle + marketType;
 });
 
 const priceNow = computed((): string => {

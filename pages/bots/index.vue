@@ -8,7 +8,7 @@ definePageMeta({
 });
 
 const storeBots = botsStore();
-const { activeBots } = storeToRefs(storeBots);
+const { activeBots, activeSpotBots } = storeToRefs(storeBots);
 
 const storeCreateBots = createBotsStore();
 const { isModalSelectBots } = storeToRefs(storeCreateBots);
@@ -22,6 +22,7 @@ onMounted(async () => {
 });
 
 provide('activeBots', activeBots);
+provide('activeSpotBots', activeSpotBots);
 
 const openSelectModal = (): void => {
 	isModalSelectBots.value = true;
@@ -39,10 +40,19 @@ const openSelectModal = (): void => {
 						v-if="loadingBots"
 						class="loading-container"
 					/>
-					<template v-else-if="activeBots && activeBots.length">
+					<template v-else-if="(activeBots && activeBots.length) || (activeSpotBots && activeSpotBots.length)">
+						<!-- Futures Bots -->
 						<bots-api-wrapper
 							v-for="bot in activeBots"
-							:key="bot.api.id"
+							:key="'futures-' + bot.api.id"
+							:bots="bot"
+							class="bot-card"
+						/>
+
+						<!-- Spot Bots -->
+						<bots-spot-api-wrapper
+							v-for="bot in activeSpotBots"
+							:key="'spot-' + bot.api.id"
 							:bots="bot"
 							class="bot-card"
 						/>
