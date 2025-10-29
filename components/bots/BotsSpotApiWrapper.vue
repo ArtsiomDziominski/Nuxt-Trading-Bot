@@ -27,7 +27,10 @@ const requestChangeWatchingSpotBot = async (symbol: string, apiId: string, statu
 	<div class="api-wrapper spot-bot">
 		<div class="title">
 			<p>{{ bots.api.name }}</p>
-			<v-chip color="green" size="small">
+			<v-chip
+				color="green"
+				size="small"
+			>
 				Спот
 			</v-chip>
 			<v-divider />

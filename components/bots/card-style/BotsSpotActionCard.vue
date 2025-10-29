@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { BotStatus } from '~/const/bots';
-
 const { position, loading } = defineProps({
 	position: {
 		type: Object as PropType<BOTS.SpotActiveBotsPositionRisk>,
@@ -19,12 +17,10 @@ const emit = defineEmits<{
 	resetLoading: [];
 }>();
 
+const { t } = useI18n();
+
 const formatNumber = (value: string | number): string => {
 	return Number(value).toFixed(2);
-};
-
-const formatPercentage = (value: string | number): string => {
-	return `${Number(value).toFixed(2)}%`;
 };
 </script>
 
@@ -33,11 +29,11 @@ const formatPercentage = (value: string | number): string => {
 		<v-card-title class="bot-card__title">
 			<div class="title-content">
 				<span class="symbol">{{ position.positionRisk.symbol }}</span>
-				<v-chip 
+				<v-chip
 					:color="position.positionRisk.isActive ? 'green' : 'red'"
 					size="small"
 				>
-					{{ position.positionRisk.isActive ? 'Активен' : 'Остановлен' }}
+					{{ position.positionRisk.isActive ? t('spotCard.active') : t('spotCard.stopped') }}
 				</v-chip>
 			</div>
 		</v-card-title>
@@ -45,33 +41,28 @@ const formatPercentage = (value: string | number): string => {
 		<v-card-text class="bot-card__content">
 			<div class="metrics-grid">
 				<div class="metric">
-					<span class="metric-label">Базовая валюта:</span>
-					<span class="metric-value">{{ position.positionRisk.baseAsset }}</span>
+					<span class="metric-label">{{ t('spotCard.marketPrice') }}</span>
+					<span class="metric-value">{{ formatNumber(position.positionRisk.avgPrice) }} {{ position.positionRisk.quoteAsset }}</span>
 				</div>
 				<div class="metric">
-					<span class="metric-label">Котируемая валюта:</span>
-					<span class="metric-value">{{ position.positionRisk.quoteAsset }}</span>
+					<span class="metric-label">{{ t('spotCard.amount') }}</span>
+					<span class="metric-value">{{ formatNumber(position.positionRisk.baseAssetBalance) }} {{ position.positionRisk.baseAsset }}</span>
 				</div>
 				<div class="metric">
-					<span class="metric-label">Баланс {{ position.positionRisk.baseAsset }}:</span>
-					<span class="metric-value">{{ formatNumber(position.positionRisk.baseAssetBalance) }}</span>
+					<span class="metric-label">{{ t('spotCard.entryPrice') }}</span>
+					<span class="metric-value">{{ formatNumber(position.positionRisk.avgPrice) }} {{ position.positionRisk.quoteAsset }}</span>
 				</div>
 				<div class="metric">
-					<span class="metric-label">Баланс {{ position.positionRisk.quoteAsset }}:</span>
-					<span class="metric-value">{{ formatNumber(position.positionRisk.quoteAssetBalance) }}</span>
-				</div>
-				<div class="metric">
-					<span class="metric-label">Средняя цена:</span>
-					<span class="metric-value">{{ formatNumber(position.positionRisk.avgPrice) }}</span>
-				</div>
-				<div class="metric">
-					<span class="metric-label">Нереализованная прибыль:</span>
-					<span class="metric-value" :class="{ 'profit-positive': Number(position.positionRisk.unRealizedProfit) > 0, 'profit-negative': Number(position.positionRisk.unRealizedProfit) < 0 }">
-						{{ formatNumber(position.positionRisk.unRealizedProfit) }}
+					<span class="metric-label">{{ t('spotCard.unrealizedProfit') }}</span>
+					<span
+						class="metric-value"
+						:class="{ 'profit-positive': Number(position.positionRisk.unRealizedProfit) > 0, 'profit-negative': Number(position.positionRisk.unRealizedProfit) < 0 }"
+					>
+						{{ formatNumber(position.positionRisk.unRealizedProfit) }} {{ position.positionRisk.quoteAsset }}
 					</span>
 				</div>
 				<div class="metric">
-					<span class="metric-label">Ожидающие ордера:</span>
+					<span class="metric-label">{{ t('spotCard.pendingOrders') }}</span>
 					<span class="metric-value">{{ position.positionRisk.pendingOrdersCount }}</span>
 				</div>
 			</div>
@@ -84,8 +75,10 @@ const formatPercentage = (value: string | number): string => {
 				:loading="loading"
 				@click="emit('pauseBot')"
 			>
-				<v-icon start>mdi-pause</v-icon>
-				Пауза
+				<v-icon start>
+					mdi-pause
+				</v-icon>
+				{{ t('spotCard.pause') }}
 			</v-btn>
 			<v-btn
 				v-else
@@ -93,17 +86,21 @@ const formatPercentage = (value: string | number): string => {
 				:loading="loading"
 				@click="emit('startBot')"
 			>
-				<v-icon start>mdi-play</v-icon>
-				Запуск
+				<v-icon start>
+					mdi-play
+				</v-icon>
+				{{ t('spotCard.start') }}
 			</v-btn>
-			
+
 			<v-btn
 				color="red"
 				:loading="loading"
 				@click="emit('stopBot')"
 			>
-				<v-icon start>mdi-stop</v-icon>
-				Остановить
+				<v-icon start>
+					mdi-stop
+				</v-icon>
+				{{ t('spotCard.stop') }}
 			</v-btn>
 		</v-card-actions>
 	</v-card>
@@ -147,7 +144,7 @@ const formatPercentage = (value: string | number): string => {
 
 				.metric-value {
 					font-weight: 600;
-					
+
 					&.profit-positive {
 						color: #4caf50;
 					}
@@ -167,5 +164,3 @@ const formatPercentage = (value: string | number): string => {
 	}
 }
 </style>
-
-

@@ -110,6 +110,18 @@
     "historyNotFound": "История не найдена",
     "historyTitle": "Ранее созданные боты"
   },
+  "spotCard": {
+    "active": "Активен",
+    "stopped": "Остановлен",
+    "marketPrice": "Рыночная цена:",
+    "amount": "Количество:",
+    "entryPrice": "Цена входа:",
+    "unrealizedProfit": "Нереализованная прибыль:",
+    "pendingOrders": "Ожидающие ордера:",
+    "pause": "Пауза",
+    "start": "Запуск",
+    "stop": "Остановить"
+  },
   "singIn": {
     "title": "Вход",
     "labelEmail": "Email address",

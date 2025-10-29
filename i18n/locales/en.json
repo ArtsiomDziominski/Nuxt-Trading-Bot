@@ -76,7 +76,7 @@
   },
   "cardBot": {
     "marketPrice": "Market price:",
-    "qtyTokens": "Number of coins:",
+    "qtyTokens": "Amount:",
     "priceEnter": "Entry price:",
     "liquidationPrice": "Liquidation price:",
     "pendingOrders": "Open orders",
@@ -109,6 +109,18 @@
     "closeBot": "Close bot",
     "historyNotFound": "History not found",
     "historyTitle": "Previously created bots"
+  },
+  "spotCard": {
+    "active": "Active",
+    "stopped": "Stopped",
+    "marketPrice": "Market price:",
+    "amount": "Amount:",
+    "entryPrice": "Entry price:",
+    "unrealizedProfit": "Unrealized profit:",
+    "pendingOrders": "Pending orders:",
+    "pause": "Pause",
+    "start": "Start",
+    "stop": "Stop"
   },
   "singIn": {
     "title": "Sign In",
