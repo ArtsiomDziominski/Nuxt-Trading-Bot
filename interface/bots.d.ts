@@ -68,10 +68,10 @@ export interface ActiveBotsPositionRisk {
 // Spot Bot Interfaces
 export interface SpotPositionRisk {
 	symbol: string;
-	baseAsset: string;
-	quoteAsset: string;
-	baseAssetBalance: string;
-	quoteAssetBalance: string;
+	markPrice: string;
+	positionPercent: string;
+	positionAmt: string;
+	entryPrice: string;
 	avgPrice: string;
 	unRealizedProfit: string;
 	updateTime: number;

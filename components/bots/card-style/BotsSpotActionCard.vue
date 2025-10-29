@@ -69,7 +69,7 @@ const formatNumber = (value: string | number): string => {
 				:color="Number(position.positionRisk.unRealizedProfit) < 0 ? 'red' : Number(position.positionRisk.unRealizedProfit) === 0 ? 'grey' : 'green'"
 				outlined
 			>
-				{{ Number(position.positionRisk.unRealizedProfit).toFixed(2) }}
+				{{ Number(position.positionRisk.unRealizedProfit).toFixed(2) }} ({{ Number(position.positionRisk.positionPercent).toFixed(2) }}%)
 			</v-chip>
 		</div>
 
@@ -86,7 +86,7 @@ const formatNumber = (value: string | number): string => {
 			</div>
 			<div class="price-section">
 				<span class="label">{{ t('spotCard.entryPrice') }}</span>
-				<span class="value">{{ formatNumber(position.positionRisk.entryPrice) }} {{ position.positionRisk.quoteAsset }}</span>
+				<span class="value">{{ formatNumber(position.positionRisk.entryPrice) }}</span>
 			</div>
 			<div class="price-section">
 				<span class="label">{{ t('spotCard.pendingOrders') }}</span>
