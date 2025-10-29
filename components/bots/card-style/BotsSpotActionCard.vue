@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { position, loading } = defineProps({
+const props = defineProps({
 	position: {
 		type: Object as PropType<BOTS.SpotActiveBotsPositionRisk>,
 		required: true,
@@ -10,14 +10,34 @@ const { position, loading } = defineProps({
 	},
 });
 
-const emit = defineEmits<{
-	pauseBot: [];
-	startBot: [];
-	stopBot: [];
-	resetLoading: [];
-}>();
+const emit = defineEmits(['takeProfit', 'pauseBot', 'startBot', 'stopBot', 'resetLoading']);
 
 const { t } = useI18n();
+
+const isActiveChangeAnimation = ref<boolean>(false);
+const dateLastUpdate = ref<number>(Date.now());
+const lastUpdate = ref<number>(0);
+const intervaLastUpdate = ref<ReturnType<typeof setInterval> | null>(null);
+
+onMounted(() => (setLastUpdate()));
+
+watch(
+	() => props.position.positionRisk.unRealizedProfit,
+	() => {
+		setLastUpdate();
+
+		if (props.loading) emit('resetLoading');
+		isActiveChangeAnimation.value = true;
+		setTimeout(() => (isActiveChangeAnimation.value = false), 300);
+	},
+);
+
+const setLastUpdate = () => {
+	dateLastUpdate.value = Date.now();
+	lastUpdate.value = 0;
+	if (intervaLastUpdate.value) clearInterval(intervaLastUpdate.value);
+	intervaLastUpdate.value = setInterval(() => (lastUpdate.value = Math.round((Date.now() - dateLastUpdate.value) / 1000)), 1000);
+};
 
 const formatNumber = (value: string | number): string => {
 	return Number(value).toFixed(2);
@@ -25,142 +45,162 @@ const formatNumber = (value: string | number): string => {
 </script>
 
 <template>
-	<v-card class="bot-card spot-card">
-		<v-card-title class="bot-card__title">
-			<div class="title-content">
-				<span class="symbol">{{ position.positionRisk.symbol }}</span>
-				<v-chip
-					:color="position.positionRisk.isActive ? 'green' : 'red'"
-					size="small"
-				>
-					{{ position.positionRisk.isActive ? t('spotCard.active') : t('spotCard.stopped') }}
-				</v-chip>
-			</div>
-		</v-card-title>
+	<v-card
+		class="compact-card"
+		:class="{ change: isActiveChangeAnimation }"
+		elevation="10"
+	>
+		<p class="last-update">
+			{{ lastUpdate }} s
+		</p>
+		<LoaderBox
+			v-if="loading"
+			class="loading"
+		/>
+		<div class="card-header">
+			<h2>{{ position.positionRisk.symbol }}</h2>
+			<v-chip
+				class="profit-chip"
+				:class="{
+					'profit-chip-negative': Number(position.positionRisk.unRealizedProfit) < 0,
+					'profit-chip-zero': Number(position.positionRisk.unRealizedProfit) === 0,
+					'profit-chip-positive': Number(position.positionRisk.unRealizedProfit) > 0,
+				}"
+				:color="Number(position.positionRisk.unRealizedProfit) < 0 ? 'red' : Number(position.positionRisk.unRealizedProfit) === 0 ? 'grey' : 'green'"
+				outlined
+			>
+				{{ Number(position.positionRisk.unRealizedProfit).toFixed(2) }}
+			</v-chip>
+		</div>
 
-		<v-card-text class="bot-card__content">
-			<div class="metrics-grid">
-				<div class="metric">
-					<span class="metric-label">{{ t('spotCard.marketPrice') }}</span>
-					<span class="metric-value">{{ formatNumber(position.positionRisk.avgPrice) }} {{ position.positionRisk.quoteAsset }}</span>
-				</div>
-				<div class="metric">
-					<span class="metric-label">{{ t('spotCard.amount') }}</span>
-					<span class="metric-value">{{ formatNumber(position.positionRisk.baseAssetBalance) }} {{ position.positionRisk.baseAsset }}</span>
-				</div>
-				<div class="metric">
-					<span class="metric-label">{{ t('spotCard.entryPrice') }}</span>
-					<span class="metric-value">{{ formatNumber(position.positionRisk.avgPrice) }} {{ position.positionRisk.quoteAsset }}</span>
-				</div>
-				<div class="metric">
-					<span class="metric-label">{{ t('spotCard.unrealizedProfit') }}</span>
-					<span
-						class="metric-value"
-						:class="{ 'profit-positive': Number(position.positionRisk.unRealizedProfit) > 0, 'profit-negative': Number(position.positionRisk.unRealizedProfit) < 0 }"
-					>
-						{{ formatNumber(position.positionRisk.unRealizedProfit) }} {{ position.positionRisk.quoteAsset }}
-					</span>
-				</div>
-				<div class="metric">
-					<span class="metric-label">{{ t('spotCard.pendingOrders') }}</span>
-					<span class="metric-value">{{ position.positionRisk.pendingOrdersCount }}</span>
-				</div>
+		<v-divider />
+
+		<v-card-text>
+			<div class="price-section">
+				<span class="label">{{ t('spotCard.marketPrice') }}</span>
+				<span class="value">{{ formatNumber(position.positionRisk.markPrice) }}</span>
+			</div>
+			<div class="price-section">
+				<span class="label">{{ t('spotCard.amount') }}</span>
+				<span class="value">{{ formatNumber(position.positionRisk.positionAmt) }} {{ position.positionRisk.symbol }}</span>
+			</div>
+			<div class="price-section">
+				<span class="label">{{ t('spotCard.entryPrice') }}</span>
+				<span class="value">{{ formatNumber(position.positionRisk.entryPrice) }} {{ position.positionRisk.quoteAsset }}</span>
+			</div>
+			<div class="price-section">
+				<span class="label">{{ t('spotCard.pendingOrders') }}</span>
+				<span class="value">{{ position.positionRisk.pendingOrdersCount }}</span>
 			</div>
 		</v-card-text>
 
-		<v-card-actions class="bot-card__actions">
+		<v-divider />
+
+		<v-card-actions class="card-actions">
 			<v-btn
 				v-if="position.positionRisk.isActive"
-				color="orange"
-				:loading="loading"
-				@click="emit('pauseBot')"
+				color="red"
+				outlined
+				@click="$emit('pauseBot')"
 			>
-				<v-icon start>
-					mdi-pause
-				</v-icon>
 				{{ t('spotCard.pause') }}
 			</v-btn>
 			<v-btn
 				v-else
-				color="green"
-				:loading="loading"
-				@click="emit('startBot')"
+				color="primary"
+				outlined
+				@click="$emit('startBot')"
 			>
-				<v-icon start>
-					mdi-play
-				</v-icon>
 				{{ t('spotCard.start') }}
+			</v-btn>
+			<v-btn
+				color="green"
+				outlined
+				@click="$emit('takeProfit')"
+			>
+				{{ t('cardBot.take') }}
 			</v-btn>
 
 			<v-btn
-				color="red"
-				:loading="loading"
-				@click="emit('stopBot')"
+				color="warning card-actions__close"
+				outlined
+				@click="$emit('stopBot')"
 			>
-				<v-icon start>
-					mdi-stop
-				</v-icon>
-				{{ t('spotCard.stop') }}
+				{{ t('cardBot.closeBot') }}
 			</v-btn>
 		</v-card-actions>
 	</v-card>
 </template>
 
 <style scoped lang="scss">
-.bot-card {
-	&.spot-card {
-		border-left: 4px solid #4caf50;
-	}
+.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
 
-	&__title {
-		.title-content {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			width: 100%;
+.compact-card {
+  position: relative;
+  background-color: var(--card-second-background);
+  border-radius: 10px;
+  color: rgba(var(--v-theme-on-surface), var(--v-high-emphasis-opacity));
+  padding: 16px;
+  max-width: 320px;
+  border-left: 4px solid #4caf50;
+}
 
-			.symbol {
-				font-weight: 600;
-				font-size: 1.1em;
-			}
-		}
-	}
+.last-update {
+  position: absolute;
+  bottom: 4px;
+  right: 10px;
+  font-size: 14px;
+  color: grey;
+}
 
-	&__content {
-		.metrics-grid {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 12px;
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
 
-			.metric {
-				display: flex;
-				flex-direction: column;
-				gap: 4px;
+.profit-chip {
+  font-weight: bold;
+}
 
-				.metric-label {
-					font-size: 0.9em;
-					color: rgba(0, 0, 0, 0.6);
-				}
+.price-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
 
-				.metric-value {
-					font-weight: 600;
+.label {
+  color: rgba(var(--v-theme-on-surface), var(--v-high-emphasis-opacity));
+  opacity: 0.6;
+}
 
-					&.profit-positive {
-						color: #4caf50;
-					}
+.value {
+  color: rgba(var(--v-theme-on-surface), var(--v-high-emphasis-opacity));
+}
 
-					&.profit-negative {
-						color: #f44336;
-					}
-				}
-			}
-		}
-	}
+.card-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, min-content);
+  margin-top: 10px;
 
-	&__actions {
-		display: flex;
-		gap: 8px;
-		justify-content: flex-end;
-	}
+  &__close {
+    grid-area: 2/1/3/3;
+  }
+}
+
+.v-btn {
+  font-size: 14px;
+  padding: 8px 16px;
+}
+
+.change {
+  opacity: 0.6;
 }
 </style>
